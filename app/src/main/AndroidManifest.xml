@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mo.rsiapp">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,6 +22,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Adds the Alarm Broadcast receiver to manage background tasks such as fetching RSI data and sending notifications -->
+        <receiver android:process=":remote" android:name=".backgroundtasks.Alarm"></receiver>
+
+        <!-- This makes the AlarmManager start when the phone boots up-->
+        <receiver android:name=".backgroundtasks.AutoStart">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+            </intent-filter>
+        </receiver>
+        <!--<service
+            android:name=".ServiceTest"
+            android:enabled="true"
+            android:process=":your_service" >
+        </service>-->
     </application>
 
 </manifest>
