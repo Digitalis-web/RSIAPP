@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mo.rsiapp">
 
-    <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -16,27 +16,39 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <!-- Adds the Alarm Broadcast receiver to manage background tasks such as fetching RSI data and sending notifications -->
+        <receiver
+            android:name=".backgroundtasks.Alarm"
+            android:process=":remote" />
+
+        <!-- This makes the AlarmManager start when the phone boots up -->
+        <receiver android:name=".backgroundtasks.AutoStart">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <!--
+        <service
+            android:name=".ServiceTest"
+            android:enabled="true"
+            android:process=":your_service" >
+        </service>
+        -->
+        <activity
+            android:name=".NavActivity"
+            android:label="@string/title_activity_nav"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
-        <!-- Adds the Alarm Broadcast receiver to manage background tasks such as fetching RSI data and sending notifications -->
-        <receiver android:process=":remote" android:name=".backgroundtasks.Alarm"></receiver>
 
-        <!-- This makes the AlarmManager start when the phone boots up-->
-        <receiver android:name=".backgroundtasks.AutoStart">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
-            </intent-filter>
-        </receiver>
-        <!--<service
-            android:name=".ServiceTest"
-            android:enabled="true"
-            android:process=":your_service" >
-        </service>-->
     </application>
 
 </manifest>
