@@ -4,13 +4,29 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
+import static android.os.Build.VERSION_CODES.M;
 import static android.support.v7.widget.AppCompatDrawableManager.get;
 
 
@@ -27,6 +43,12 @@ public class ForecastFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private static final String TAG = "Forecast";
+
+    private float[] yData = {25,3f, 10.7f, 62.2f,102f,50.2f, 10f};
+    private String[] xData = {"Part1", "Part2", "part3", "part4", "part5", "part6"};
+    PieChart chart1;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -63,6 +85,11 @@ public class ForecastFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+
+
+
     }
 
     @Override
@@ -71,11 +98,76 @@ public class ForecastFragment extends Fragment {
         //setText("right");
         View inflatedView = inflater.inflate(R.layout.fragment_forecast, container,false);
 
+        initComponents(inflatedView);
+
+        // Inflate the layout for this fragment
+        return inflatedView;
+    }
+    public void initComponents(View inflatedView){
+
         // Set the Text to try this out
         TextView t = (TextView) inflatedView.findViewById(R.id.textHeader);
         t.setText("Text to Display");
-        // Inflate the layout for this fragment
-        return inflatedView;
+
+        Log.d(TAG, "onCreateView: starting create chart");
+        chart1 = (PieChart) inflatedView.findViewById(R.id.piChartOne);
+        Description desc = new Description();
+        desc.setText("Nu");
+        chart1.setDescription(desc);
+        chart1.setRotationEnabled(true);
+        chart1.setHoleRadius(25f);
+        chart1.setTransparentCircleAlpha(0);
+        chart1.setCenterText("Stuff1");
+        chart1.setCenterTextSize(10);
+        chart1.setDrawEntryLabels(true);
+
+        addDataSet(chart1);
+
+        chart1.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+
+                Log.d(TAG, "onValueSelected: value selected" );
+                Log.d(TAG, "onValueSelected: e"  + e.toString() );
+                Log.d(TAG, "onValueSelected: h"  + h.toString() );
+                float data = e.getY();
+                Log.d(TAG, "onValueSelected: y"  + data);
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
+
+
+    }
+    private void addDataSet(PieChart chart) {
+        Log.d(TAG, "addDataSet: started");
+        ArrayList<PieEntry> yEntries = new ArrayList<>();
+        ArrayList<String> xEntries = new ArrayList<>();
+
+        for(int i = 0; i < yData.length; i++){
+            yEntries.add(new PieEntry(yData[i], i));
+        }
+
+        for(int i = 0; i < xData.length; i++) {
+            xEntries.add(xData[i]);
+        }
+
+        PieDataSet pieDataSet = new PieDataSet(yEntries, "Prognos");
+        pieDataSet.setSliceSpace(2);
+        pieDataSet.setValueTextSize(12);
+        pieDataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
+
+        Legend legend = chart.getLegend();
+        legend.setForm(Legend.LegendForm.CIRCLE);
+        //legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
+
+        PieData pieData = new PieData(pieDataSet);
+        chart.setData(pieData);
+        chart.invalidate();
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

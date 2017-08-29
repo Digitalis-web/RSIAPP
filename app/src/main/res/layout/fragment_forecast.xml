@@ -10,6 +10,13 @@
         android:layout_height="match_parent"
         android:text="@string/hello_blank_fragment" />
 
+    <com.github.mikephil.charting.charts.PieChart
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:id="@+id/piChartOne"
+        >
+
+    </com.github.mikephil.charting.charts.PieChart>
     <TextView
         android:id="@+id/textHeader"
         android:layout_width="wrap_content"
