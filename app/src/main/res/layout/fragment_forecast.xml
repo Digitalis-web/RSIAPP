@@ -11,11 +11,27 @@
         android:text="@string/hello_blank_fragment" />
 
     <com.github.mikephil.charting.charts.PieChart
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
         android:id="@+id/piChartOne"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="50dp">
 
+    </com.github.mikephil.charting.charts.PieChart>
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/piChartTwo"
+        android:layout_below="@+id/piChartOne"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        >
+    </com.github.mikephil.charting.charts.PieChart>
+    <com.github.mikephil.charting.charts.PieChart
+        android:layout_below="@+id/piChartTwo"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:id="@+id/piChartThree"
+        >
     </com.github.mikephil.charting.charts.PieChart>
     <TextView
         android:id="@+id/textHeader"

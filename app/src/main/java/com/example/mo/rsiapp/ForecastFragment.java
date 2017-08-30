@@ -1,6 +1,7 @@
 package com.example.mo.rsiapp;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -48,7 +49,10 @@ public class ForecastFragment extends Fragment {
 
     private float[] yData = {25,3f, 10.7f, 62.2f,102f,50.2f, 10f};
     private String[] xData = {"Part1", "Part2", "part3", "part4", "part5", "part6"};
+
     PieChart chart1;
+    PieChart chart2;
+    PieChart chart3;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -111,17 +115,19 @@ public class ForecastFragment extends Fragment {
 
         Log.d(TAG, "onCreateView: starting create chart");
         chart1 = (PieChart) inflatedView.findViewById(R.id.piChartOne);
-        Description desc = new Description();
-        desc.setText("Nu");
-        chart1.setDescription(desc);
-        chart1.setRotationEnabled(true);
-        chart1.setHoleRadius(25f);
-        chart1.setTransparentCircleAlpha(0);
-        chart1.setCenterText("Stuff1");
-        chart1.setCenterTextSize(10);
-        chart1.setDrawEntryLabels(true);
-
+        initPieChart(chart1);
         addDataSet(chart1);
+        //chart1.setCenterText("NOTGING");
+        chart1.setLeft(0);
+
+        chart2 = (PieChart) inflatedView.findViewById(R.id.piChartTwo);
+        initPieChart(chart2);
+        addDataSet(chart2);
+
+
+        chart3 = (PieChart) inflatedView.findViewById(R.id.piChartThree);
+        initPieChart(chart3);
+        addDataSet(chart3);
 
         chart1.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
@@ -140,6 +146,19 @@ public class ForecastFragment extends Fragment {
             }
         });
 
+
+    }
+
+    private void initPieChart(PieChart chart){
+        Description desc = new Description();
+        desc.setText("");
+        chart.setDescription(desc);
+        chart.setRotationEnabled(true);
+        chart.setHoleRadius(25f);
+        chart.setTransparentCircleAlpha(0);
+        chart.setCenterText("Stuff1");
+        chart.setCenterTextSize(10);
+        chart.setDrawEntryLabels(false);
 
     }
     private void addDataSet(PieChart chart) {
@@ -161,7 +180,14 @@ public class ForecastFragment extends Fragment {
         pieDataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
 
         Legend legend = chart.getLegend();
+        legend.setEnabled(true);
+        legend.setFormSize(10f);
+        legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        //legend.setTypeface(new Typeface());
+        legend.setDirection(Legend.LegendDirection.LEFT_TO_RIGHT);
         legend.setForm(Legend.LegendForm.CIRCLE);
+        //legend.setDrawInside(false);
         //legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
 
         PieData pieData = new PieData(pieDataSet);
