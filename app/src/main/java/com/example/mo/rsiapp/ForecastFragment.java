@@ -1,11 +1,15 @@
 package com.example.mo.rsiapp;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Layout;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +19,7 @@ import android.widget.TextView;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -118,7 +123,6 @@ public class ForecastFragment extends Fragment {
         initPieChart(chart1);
         addDataSet(chart1);
         //chart1.setCenterText("NOTGING");
-        chart1.setLeft(0);
 
         chart2 = (PieChart) inflatedView.findViewById(R.id.piChartTwo);
         initPieChart(chart2);
@@ -156,7 +160,7 @@ public class ForecastFragment extends Fragment {
         chart.setRotationEnabled(true);
         chart.setHoleRadius(25f);
         chart.setTransparentCircleAlpha(0);
-        chart.setCenterText("Stuff1");
+        chart.setCenterText("Nu");
         chart.setCenterTextSize(10);
         chart.setDrawEntryLabels(false);
 
@@ -174,26 +178,44 @@ public class ForecastFragment extends Fragment {
             xEntries.add(xData[i]);
         }
 
-        PieDataSet pieDataSet = new PieDataSet(yEntries, "Prognos");
+        PieDataSet pieDataSet = new PieDataSet(yEntries, "");
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(12);
         pieDataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
 
+        PieData pieData = new PieData(pieDataSet);
+        chart.setData(pieData);
+
+       // chart.setData(generateCenterText());
+
         Legend legend = chart.getLegend();
         legend.setEnabled(true);
         legend.setFormSize(10f);
-        legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
+
+        ArrayList<LegendEntry> lEntries = new ArrayList<>();
+        LegendEntry e = new LegendEntry("1", legend.getForm(), legend.getFormSize(), legend.getFormLineWidth(), legend.getFormLineDashEffect(), chart.getData().getColors()[0]);
+        lEntries.add(e);
+        legend.setEntries(lEntries);
+        //legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
+        legend.setOrientation(Legend.LegendOrientation.VERTICAL);
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
         //legend.setTypeface(new Typeface());
         legend.setDirection(Legend.LegendDirection.LEFT_TO_RIGHT);
-        legend.setForm(Legend.LegendForm.CIRCLE);
+        //legend.setForm(Legend.LegendForm.CIRCLE);
+        legend.setDrawInside(false);
         //legend.setDrawInside(false);
         //legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
 
-        PieData pieData = new PieData(pieDataSet);
-        chart.setData(pieData);
         chart.invalidate();
 
+
+    }
+    private SpannableString generateCenterText() {
+        SpannableString s = new SpannableString("Revenues\nQuarters 2015");
+        s.setSpan(new RelativeSizeSpan(2f), 0, 8, 0);
+        s.setSpan(new ForegroundColorSpan(Color.GRAY), 8, s.length(), 0);
+        return s;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

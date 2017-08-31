@@ -12,10 +12,14 @@
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/piChartOne"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="180dp"
-        android:background="@color/colorPrimary"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="50dp"
+        android:background="@color/colorPrimaryDark"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/textHeader"
+        android:layout_alignEnd="@+id/textHeader">
 
     </com.github.mikephil.charting.charts.PieChart>
 
@@ -24,15 +28,18 @@
         android:layout_below="@+id/piChartOne"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        >
+        android:layout_alignRight="@+id/piChartOne"
+        android:layout_alignEnd="@+id/piChartOne">
     </com.github.mikephil.charting.charts.PieChart>
     <com.github.mikephil.charting.charts.PieChart
         android:layout_below="@+id/piChartTwo"
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:id="@+id/piChartThree"
-        >
+        android:layout_alignRight="@+id/piChartTwo"
+        android:layout_alignEnd="@+id/piChartTwo">
     </com.github.mikephil.charting.charts.PieChart>
+
     <TextView
         android:id="@+id/textHeader"
         android:layout_width="wrap_content"
@@ -40,6 +47,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="180dp"
-        android:text="Fel" />
+        android:text="Fel"
+        android:visibility="invisible" />
 
 </RelativeLayout>
