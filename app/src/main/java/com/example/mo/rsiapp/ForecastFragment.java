@@ -161,7 +161,7 @@ public class ForecastFragment extends Fragment {
         chart.setHoleRadius(25f);
         chart.setTransparentCircleAlpha(0);
         chart.setCenterText("Nu");
-        chart.setCenterTextSize(10);
+        chart.setCenterTextSize(15);
         chart.setDrawEntryLabels(false);
 
     }

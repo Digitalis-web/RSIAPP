@@ -22,6 +22,15 @@
         android:layout_alignEnd="@+id/textHeader">
 
     </com.github.mikephil.charting.charts.PieChart>
+    <LinearLayout
+        android:id="@+id/chartInfoOne"
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="180dp"
+        android:layout_toRightOf="@id/piChartOne">
+
+    </LinearLayout>
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/piChartTwo"
@@ -31,6 +40,16 @@
         android:layout_alignRight="@+id/piChartOne"
         android:layout_alignEnd="@+id/piChartOne">
     </com.github.mikephil.charting.charts.PieChart>
+    <LinearLayout
+        android:id="@+id/chartInfoTwo"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="180dp"
+        android:layout_below="@id/chartInfoOne"
+        android:background="@color/colorPrimary"
+        android:layout_toRightOf="@id/piChartTwo">
+    </LinearLayout>
+
     <com.github.mikephil.charting.charts.PieChart
         android:layout_below="@+id/piChartTwo"
         android:layout_width="match_parent"
@@ -39,6 +58,15 @@
         android:layout_alignRight="@+id/piChartTwo"
         android:layout_alignEnd="@+id/piChartTwo">
     </com.github.mikephil.charting.charts.PieChart>
+
+    <LinearLayout
+        android:id="@+id/chartInfoThree"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/chartInfoThree"
+        android:layout_height="180dp"
+        android:layout_toRightOf="@id/piChartThree">
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textHeader"
