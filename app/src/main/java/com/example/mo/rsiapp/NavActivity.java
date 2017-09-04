@@ -15,6 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.mo.rsiapp.backgroundtasks.Alarm;
+
 public class NavActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ForecastFragment.OnFragmentInteractionListener {
 
@@ -52,6 +54,14 @@ public class NavActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    public void manualCancelAlarm(View v) {
+        Alarm.cancelAlarm(this);
+    }
+
+    public void manualStartAlarm(View v){
+        Alarm.setAlarm(this);
     }
 
     @Override

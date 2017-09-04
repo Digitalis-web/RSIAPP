@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void manualStartAlarm(View v){
         Alarm.setAlarm(this);
-
     }
 
     @Override

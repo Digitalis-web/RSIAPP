@@ -16,6 +16,7 @@ import com.example.mo.rsiapp.datamanaging.FetchingManager;
  */
 public class Alarm extends BroadcastReceiver
 {
+    private final String TAG = "Alarm";
     @Override
     public void onReceive(Context context, Intent intent)
     {
@@ -24,6 +25,7 @@ public class Alarm extends BroadcastReceiver
         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
         wl.acquire();
 
+        Log.d(TAG, "onReceive: makeing toast");
         // Put here YOUR code.
         Toast.makeText(context, "Alarm !!!!!!!!!!", Toast.LENGTH_LONG).show(); // For example
         FetchingManager.fetchAndControlData();
