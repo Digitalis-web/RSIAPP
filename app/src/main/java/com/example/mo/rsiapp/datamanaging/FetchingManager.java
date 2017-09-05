@@ -11,6 +11,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import static java.nio.file.Paths.get;
+
 /**
  * Created by mo on 23/07/17.
  */
@@ -21,12 +23,17 @@ public class FetchingManager {
     private static String TAG = "FetchingManager";
 
 
-    public static void fetchAndControlData(){
+    public static void fetchData(){
         Log.d(TAG, "fetchAndControlData: fetching data");
+        JSONFetcher JF = new JSONFetcher();
+        JF.execute(url);
+    }
+
+    public static void parseData(JSONObject data){
+        Log.d(TAG, "parseData: running"  );
         try {
-            JSONObject jsonData = getJSONObjectFromURL(url);
-        } catch (IOException e) {
-            e.printStackTrace();
+            String time = data.get("times").toString();
+            Log.d(TAG, "parseData: " + time);
         } catch (JSONException e) {
             e.printStackTrace();
         }

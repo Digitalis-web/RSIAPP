@@ -28,7 +28,7 @@ public class Alarm extends BroadcastReceiver
         Log.d(TAG, "onReceive: makeing toast");
         // Put here YOUR code.
         Toast.makeText(context, "Alarm !!!!!!!!!!", Toast.LENGTH_LONG).show(); // For example
-        FetchingManager.fetchAndControlData();
+        //FetchingManager.fetchAndControlData();
 
         wl.release();
     }

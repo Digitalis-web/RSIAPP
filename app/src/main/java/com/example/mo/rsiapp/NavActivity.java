@@ -58,7 +58,7 @@ public class NavActivity extends AppCompatActivity
     }
 
     public void manualFetchData(View v) {
-        FetchingManager.fetchAndControlData();
+        FetchingManager.fetchData();
     }
     public void manualCancelAlarm(View v) {
         Alarm.cancelAlarm(this);
