@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.mo.rsiapp.backgroundtasks.Alarm;
+import com.example.mo.rsiapp.datamanaging.FetchingManager;
 
 public class NavActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ForecastFragment.OnFragmentInteractionListener {
@@ -56,6 +57,9 @@ public class NavActivity extends AppCompatActivity
         }
     }
 
+    public void manualFetchData(View v) {
+        FetchingManager.fetchAndControlData();
+    }
     public void manualCancelAlarm(View v) {
         Alarm.cancelAlarm(this);
     }
