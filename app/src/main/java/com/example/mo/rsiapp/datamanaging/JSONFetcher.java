@@ -12,7 +12,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import static com.example.mo.rsiapp.datamanaging.FetchingManager.url;
 
 /**
  * Created by mo on 05/09/17.
@@ -20,11 +19,13 @@ import static com.example.mo.rsiapp.datamanaging.FetchingManager.url;
 
 public class JSONFetcher extends AsyncTask<String, Void, JSONObject> {
     public String TAG = "JSONFETCHING";
+    public boolean forecastFetch;
 
-    public JSONFetcher(){
+    public JSONFetcher(boolean forecastFetch){
         Log.d(TAG, "JSONFetcher: creating object");
-        //this.urlStr = url;
+        this.forecastFetch = forecastFetch;
 
+        //this.urlStr = url;
     }
 
 
@@ -69,13 +70,17 @@ public class JSONFetcher extends AsyncTask<String, Void, JSONObject> {
         }
         Log.d(TAG, "doinbackground2");
         return JSONObj;
-
     }
 
     @Override
     protected void onPostExecute(JSONObject result){
         Log.d(TAG, "onPPostExecute: " + result.toString().substring(result.toString().length()-59));
-        FetchingManager.parseData(result);
+        if(forecastFetch){
+            FetchingManager.parseForecastData(result);
+        }
+        else {
+            FetchingManager.parseAreasData(result);
+        }
 
     }
 }

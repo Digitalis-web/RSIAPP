@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,12 +15,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 
 import com.example.mo.rsiapp.backgroundtasks.Alarm;
+import com.example.mo.rsiapp.customviews.InstantAutoComplete;
 import com.example.mo.rsiapp.datamanaging.FetchingManager;
 
 public class NavActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ForecastFragment.OnFragmentInteractionListener {
+
+    public static InstantAutoComplete searchBar;
+    private static String TAG = "NavActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +53,25 @@ public class NavActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(false); // hide title in action bar
+
+
+        searchBar = (InstantAutoComplete) findViewById(R.id.search_area);
+        FetchingManager.fetchAreas();
+
+        /*
+        // Get a reference to the AutoCompleteTextView in the layout
+        AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.search_area);
+        textView.setDropDownBackgroundResource(R.color.colorWhite);
+        textView.setThreshold(0);
+
+// Get the string array
+        //String[] countries = getResources().getStringArray(R.array.countries_array);
+        String[] areas = {"joel asd", "mesasd", "russkie", "saker", "joes eas"};
+// Create the adapter and set it to the AutoCompleteTextView
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, areas);
+        textView.setAdapter(adapter);*/
     }
 
     @Override
@@ -59,6 +84,9 @@ public class NavActivity extends AppCompatActivity
         }
     }
 
+    public void manualFetchAreas(View v) {
+        FetchingManager.fetchAreas();
+    }
     public void manualFetchData(View v) {
         FetchingManager.fetchData();
     }

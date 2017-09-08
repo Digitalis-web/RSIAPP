@@ -2,6 +2,9 @@ package com.example.mo.rsiapp.datamanaging;
 
 import android.util.Log;
 
+import com.example.mo.rsiapp.NavActivity;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -10,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 import static java.nio.file.Paths.get;
 
@@ -19,18 +23,46 @@ import static java.nio.file.Paths.get;
 
 public class FetchingManager {
 
-    public static String url = "http://163.172.101.14:8000/api/ogJu1VCu09HpHD6VbHX34jChdoKz2fR5/area/1427@1497772800";
+    private static String url = "http://163.172.101.14:8000/api/ogJu1VCu09HpHD6VbHX34jChdoKz2fR5/area/1427@1497772800";
+    private static String areasUrl = "http://163.172.101.14:8000/api//forecasts";
     private static String TAG = "FetchingManager";
+    public static ArrayList<String> areasName = new ArrayList<>();
+    public static ArrayList<String> areasID = new ArrayList<>();
 
+    public static void fetchAreas(){
+        Log.d(TAG, "fetchAndControlData: fetching data");
+        JSONFetcher JF = new JSONFetcher(false);
+        JF.execute(areasUrl);
+    }
 
     public static void fetchData(){
         Log.d(TAG, "fetchAndControlData: fetching data");
-        JSONFetcher JF = new JSONFetcher();
+        JSONFetcher JF = new JSONFetcher(true);
         JF.execute(url);
     }
 
-    public static void parseData(JSONObject data){
-        Log.d(TAG, "parseData: running"  );
+    public static void parseAreasData(JSONObject data) {
+        Log.d(TAG, "parseAreasData: " + data.toString());
+        try {
+            JSONArray areasObj = data.getJSONArray("areas");
+
+            Log.d(TAG, "parseAreasData: areas" + areasObj.toString());
+            for(int i = 0; i < areasObj.length(); i++){
+                JSONObject obj = areasObj.getJSONObject(i);
+                areasName.add(obj.get("name").toString());
+                areasID.add(obj.get("id").toString());
+                //Log.d(TAG, "parseAreasData: id: " + obj.get("id"));
+                //Log.d(TAG, "parseAreasData: name: " + obj.get("name"));
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        NavActivity.searchBar.updateList(areasName);
+    }
+    public static void parseForecastData(JSONObject data){
+        Log.d(TAG, "parseData: running");
         try {
             String time = data.get("times").toString();
             Log.d(TAG, "parseData: " + time);

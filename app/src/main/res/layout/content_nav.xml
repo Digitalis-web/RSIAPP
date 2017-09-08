@@ -13,27 +13,29 @@
         android:id="@+id/btnStartAlarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="manualStartAlarm"
-        android:text="Start alarm"
-        tools:layout_editor_absoluteX="163dp"
-        tools:layout_editor_absoluteY="129dp"
+        android:layout_alignEnd="@+id/btnStopAlarm"
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/btnStopAlarm"
-        android:layout_alignEnd="@+id/btnStopAlarm"
-        android:layout_marginRight="19dp"
         android:layout_marginEnd="19dp"
-        android:layout_marginTop="169dp" />
+        android:layout_marginRight="19dp"
+        android:layout_marginTop="169dp"
+        android:onClick="manualStartAlarm"
+        android:text="Start alarm"
+        android:visibility="invisible"
+        tools:layout_editor_absoluteX="163dp"
+        tools:layout_editor_absoluteY="129dp" />
 
     <Button
         android:id="@+id/btnStopAlarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:onClick="manualCancelAlarm"
         android:text="Stop alarm"
+        android:visibility="invisible"
         tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="255dp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        tools:layout_editor_absoluteY="255dp" />
 
     <Button
         android:id="@+id/btnFetchData"
@@ -44,5 +46,20 @@
         android:layout_alignRight="@+id/btnStartAlarm"
         android:layout_marginTop="66dp"
         android:onClick="manualFetchData"
-        android:text="Fetch data" />
+        android:text="Fetch data"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btnFetchAreas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btnStopAlarm"
+        android:layout_alignStart="@+id/btnStopAlarm"
+        android:layout_below="@+id/btnStopAlarm"
+        android:layout_marginLeft="17dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="46dp"
+        android:onClick="manualFetchAreas"
+        android:text="Fetch areas"
+        android:visibility="invisible" />
 </RelativeLayout>

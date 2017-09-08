@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    android:focusable="true"
     tools:context="com.example.mo.rsiapp.NavActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -20,10 +22,21 @@
             app:popupTheme="@style/AppTheme.PopupOverlay"
             >
 
-            <android.support.v7.widget.AppCompatAutoCompleteTextView
-                android:layout_width="wrap_content"
+            <com.example.mo.rsiapp.customviews.InstantAutoComplete
+                android:id="@+id/search_area"
+                android:layout_width="match_parent"
+                android:ems="10"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_menu_camera"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorGrey"
+                android:textColorLink="@color/colorWhite"
+                android:textColorHighlight="@color/colorWhite"
+                android:inputType="text"
+                android:maxLines="1"
+                android:imeOptions="actionDone"
+                android:popupTheme="@color/colorWhite"
+                android:hint="Sök efter område"
+                android:drawableLeft="@drawable/ic_menu_search"
                 />
 
 
