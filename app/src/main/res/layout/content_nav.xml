@@ -21,7 +21,7 @@
         android:layout_marginTop="169dp"
         android:onClick="manualStartAlarm"
         android:text="Start alarm"
-        android:visibility="invisible"
+        android:visibility="visible"
         tools:layout_editor_absoluteX="163dp"
         tools:layout_editor_absoluteY="129dp" />
 
@@ -33,7 +33,7 @@
         android:layout_centerVertical="true"
         android:onClick="manualCancelAlarm"
         android:text="Stop alarm"
-        android:visibility="invisible"
+        android:visibility="visible"
         tools:layout_editor_absoluteX="161dp"
         tools:layout_editor_absoluteY="255dp" />
 
@@ -61,5 +61,5 @@
         android:layout_marginTop="46dp"
         android:onClick="manualFetchAreas"
         android:text="Fetch areas"
-        android:visibility="invisible" />
+        android:visibility="visible" />
 </RelativeLayout>
