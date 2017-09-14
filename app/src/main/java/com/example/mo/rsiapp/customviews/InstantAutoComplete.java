@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mo.rsiapp.R;
+import com.example.mo.rsiapp.datamanaging.FetchingManager;
 
 import java.util.ArrayList;
 
@@ -57,12 +58,12 @@ public class InstantAutoComplete extends android.support.v7.widget.AppCompatAuto
         });
 
         ArrayList<String> list = new ArrayList<>();
-        list.add("asd");
-        list.add("as123123123123123123d");
-        list.add("as12ssss123123123123123d");
-        list.add("hej");
-        list.add("as12ssss123123123123123d");
-        updateList(list);
+        //list.add("asd");
+        //list.add("as123123123123123123d");
+        //list.add("as12ssss123123123123123d");
+        //list.add("hej");
+        //list.add("as12ssss123123123123123d");
+        //updateList(list);
 
         setOnEditorActionListener(this); // listen for enter button
         setOnItemClickListener(this); // listen for enter button
@@ -128,6 +129,12 @@ public class InstantAutoComplete extends android.support.v7.widget.AppCompatAuto
 
     public void useSelectedValue(){
         Toast.makeText(getContext(), getText(), Toast.LENGTH_SHORT).show();
+        String areaName = getText().toString();
+        int index = FetchingManager.areasName.indexOf(areaName);
+        Log.d(TAG, "useSelectedValue: index : " + index);
+        Log.d(TAG, "useSelectedValue: id : " + FetchingManager.areasID.get(index));
+        int areaID = Integer.parseInt(FetchingManager.areasID.get(index));
+        FetchingManager.fetchForecast(areaID, FetchingManager.latestForecastTime);
     }
 
     @Override

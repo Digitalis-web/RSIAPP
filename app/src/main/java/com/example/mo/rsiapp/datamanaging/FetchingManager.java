@@ -15,6 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import static android.os.Build.VERSION_CODES.N;
 import static java.nio.file.Paths.get;
 
 /**
@@ -24,10 +25,12 @@ import static java.nio.file.Paths.get;
 public class FetchingManager {
 
     private static String url = "http://163.172.101.14:8000/api/ogJu1VCu09HpHD6VbHX34jChdoKz2fR5/area/1427@1497772800";
+    private static String forecastUrl = "http://163.172.101.14:8000/api/ogJu1VCu09HpHD6VbHX34jChdoKz2fR5/area/";
     private static String areasUrl = "http://163.172.101.14:8000/api//forecasts";
     private static String TAG = "FetchingManager";
     public static ArrayList<String> areasName = new ArrayList<>();
     public static ArrayList<String> areasID = new ArrayList<>();
+    public static long latestForecastTime = 0;
 
     public static void fetchAreas(){
         Log.d(TAG, "fetchAndControlData: fetching data");
@@ -35,8 +38,9 @@ public class FetchingManager {
         JF.execute(areasUrl);
     }
 
-    public static void fetchData(){
-        Log.d(TAG, "fetchAndControlData: fetching data");
+    public static void fetchForecast(int areaID, long time){
+        String url = forecastUrl + areaID + "@" + time;
+        Log.d(TAG, "fetchAndControlData: fetching data from : " + url);
         JSONFetcher JF = new JSONFetcher(true);
         JF.execute(url);
     }
@@ -55,6 +59,16 @@ public class FetchingManager {
                 //Log.d(TAG, "parseAreasData: name: " + obj.get("name"));
             }
 
+            JSONArray forecastsObj = data.getJSONArray("forecasts");
+
+            for(int i = 0; i < forecastsObj.length(); i++) {
+                JSONObject obj = forecastsObj.getJSONObject(i);
+
+                latestForecastTime = Long.parseLong(obj.get("creation_time").toString());
+                Log.d(TAG, "parseAreasData: lastforecast: " + latestForecastTime);
+
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -70,6 +84,7 @@ public class FetchingManager {
             e.printStackTrace();
         }
 
+        NavActivity.openForecast(NavActivity.navActivity);
     }
 
     public static JSONObject getJSONObjectFromURL(String urlString) throws IOException, JSONException {

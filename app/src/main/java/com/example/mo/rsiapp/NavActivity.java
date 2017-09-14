@@ -1,5 +1,6 @@
 package com.example.mo.rsiapp;
 
+import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -27,10 +28,13 @@ public class NavActivity extends AppCompatActivity
 
     public static InstantAutoComplete searchBar;
     private static String TAG = "NavActivity";
+    public static NavActivity navActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        navActivity = this;
+
         setContentView(R.layout.activity_nav);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -87,8 +91,9 @@ public class NavActivity extends AppCompatActivity
     public void manualFetchAreas(View v) {
         FetchingManager.fetchAreas();
     }
+
     public void manualFetchData(View v) {
-        FetchingManager.fetchData();
+        //FetchingManager.fetchForecast(0);
     }
     public void manualCancelAlarm(View v) {
         Alarm.cancelAlarm(this);
@@ -120,6 +125,13 @@ public class NavActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    public static void openForecast(NavActivity activity){
+        ForecastFragment fragment = new ForecastFragment().newInstance("", "");
+        FragmentManager manager = activity.getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.fragmentLayout, fragment, fragment.getTag()).commit();
+
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -127,11 +139,7 @@ public class NavActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_forecast) {
-            // Handle the camera action
-
-            ForecastFragment fragment = new ForecastFragment().newInstance("test122222222222", "test2");
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.fragmentLayout, fragment, fragment.getTag()).commit();
+            openForecast(this);
         } else if (id == R.id.nav_settings) {
 
         }
