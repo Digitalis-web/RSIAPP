@@ -80,6 +80,18 @@ public class FetchingManager {
         try {
             String time = data.get("times").toString();
             Log.d(TAG, "parseData: " + time);
+
+            // If there is any data for this area
+            if(data.has("data")){
+                Log.d(TAG, "parseForecastData: data finns");
+                String d = data.get("data").toString();
+                JSONArray dataObj = data.getJSONArray("data");
+                Log.d(TAG, "parseData: " + dataObj.toString());
+            }
+            else {
+                Log.d(TAG, "parseForecastData: data finns INTE");
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
