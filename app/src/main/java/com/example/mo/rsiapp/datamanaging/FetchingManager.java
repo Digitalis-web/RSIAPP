@@ -7,14 +7,16 @@ import com.example.mo.rsiapp.NavActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.BufferedReader; import java.io.IOException; import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import static android.R.attr.category;
+import static android.R.attr.data;
+import static android.R.attr.id;
+import static android.R.attr.matchOrder;
 import static android.os.Build.VERSION_CODES.N;
 import static java.nio.file.Paths.get;
 
@@ -32,6 +34,10 @@ public class FetchingManager {
     public static ArrayList<String> areasID = new ArrayList<>();
     public static long latestForecastTime = 0;
 
+    // Variables relevant to the latest forecast fetch
+    public static ArrayList<String> categories = new ArrayList<>();
+    public static ArrayList<JSONObject> categorizedData = new ArrayList<>();
+
     public static void fetchAreas(){
         Log.d(TAG, "fetchAndControlData: fetching data");
         JSONFetcher JF = new JSONFetcher(false);
@@ -48,11 +54,12 @@ public class FetchingManager {
     public static void parseAreasData(JSONObject data) {
         Log.d(TAG, "parseAreasData: " + data.toString());
         try {
-            JSONArray areasObj = data.getJSONArray("areas");
 
-            Log.d(TAG, "parseAreasData: areas" + areasObj.toString());
-            for(int i = 0; i < areasObj.length(); i++){
-                JSONObject obj = areasObj.getJSONObject(i);
+            JSONArray areasArr = data.getJSONArray("areas");
+
+            Log.d(TAG, "parseAreasData: areas" + areasArr.toString());
+            for(int i = 0; i < areasArr.length(); i++){
+                JSONObject obj = areasArr.getJSONObject(i);
                 areasName.add(obj.get("name").toString());
                 areasID.add(obj.get("id").toString());
                 //Log.d(TAG, "parseAreasData: id: " + obj.get("id"));
@@ -81,12 +88,24 @@ public class FetchingManager {
             String time = data.get("times").toString();
             Log.d(TAG, "parseData: " + time);
 
+
             // If there is any data for this area
             if(data.has("data")){
                 Log.d(TAG, "parseForecastData: data finns");
                 String d = data.get("data").toString();
-                JSONArray dataObj = data.getJSONArray("data");
-                Log.d(TAG, "parseData: " + dataObj.toString());
+
+
+                ArrayList<JSONObject> routeData = getAllDataByRouteID(data, 0); // picks out the relevant data
+                categories = findAllCategories(routeData);
+
+                for(int i = 0; i < categories.size(); i++){
+                    JSONObject dataObj = getDataByCategory(routeData, categories.get(i));
+                    categorizedData.add(dataObj);
+                }
+
+
+                //Log.d(TAG, "parseData: " + dataObj.toString());
+
             }
             else {
                 Log.d(TAG, "parseForecastData: data finns INTE");
@@ -97,6 +116,78 @@ public class FetchingManager {
         }
 
         NavActivity.openForecast(NavActivity.navActivity);
+    }
+
+    public static JSONObject getDataByCategory(ArrayList<JSONObject> dataList, String category) {
+
+        try {
+            // Loops over all the given data and find the one that matched the given category
+            for(int i = 0; i < dataList.size(); i++){
+                JSONObject dataItem = dataList.get(i);
+                String layer = dataItem.get("layer").toString();
+
+                if(layer.equals(category)){
+                    return dataItem;
+                }
+
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        return null;
+    }
+    // Finds the type of data that is available for a given route
+    public static ArrayList<String> findAllCategories(ArrayList<JSONObject> dataList){
+        ArrayList<String> categories = new ArrayList<>();
+
+        try {
+            for(int i = 0; i < dataList.size(); i++){
+                JSONObject dataItemObj = dataList.get(i);
+                String category = dataItemObj.get("layer").toString();
+                Log.d(TAG, "findAllCategories: categories found: " + category);
+                categories.add(category);
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        return categories;
+    }
+    // Finds the data for a given route
+    public static ArrayList<JSONObject> getAllDataByRouteID(JSONObject data, int id){
+
+        ArrayList<JSONObject> matchedData = new ArrayList<>(); // The array to be returned
+
+        try {
+            JSONArray dataArr = data.getJSONArray("data");
+            // loops over all the items in the data list and adds the relevant ones to the matchedData array
+            for(int i = 0; i < dataArr.length();i++) {
+                Log.d(TAG, "parseForecastData: value : " + dataArr.get(i));
+                JSONObject dataItem = dataArr.getJSONObject(i);
+                //JSONArray dataItemArr = dataArr.getJSONArray(i);
+                JSONObject dataRouteObj = dataItem.getJSONObject("route");
+                int route = dataRouteObj.getInt("route_id");
+
+                // adds the items that match the given route_id
+                if(route == id){
+                    matchedData.add(dataItem);
+                }
+                Log.d(TAG, "parseForecastData: route_id : + " + dataRouteObj.get("route_id"));
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return matchedData;
+
+
+
     }
 
     public static JSONObject getJSONObjectFromURL(String urlString) throws IOException, JSONException {
