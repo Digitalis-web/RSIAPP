@@ -34,6 +34,8 @@ public class FetchingManager {
     public static ArrayList<String> areasID = new ArrayList<>();
     public static long latestForecastTime = 0;
 
+    public static long closestHourTime = 0;
+
     // Variables relevant to the latest forecast fetch
     public static ArrayList<String> categories = new ArrayList<>();
     public static ArrayList<JSONObject> categorizedData = new ArrayList<>();
@@ -101,6 +103,7 @@ public class FetchingManager {
                 for(int i = 0; i < categories.size(); i++){
                     JSONObject dataObj = getDataByCategory(routeData, categories.get(i));
                     categorizedData.add(dataObj);
+                    Log.d(TAG, "parseForecastData: " + dataObj.toString());
                 }
 
 
@@ -115,7 +118,25 @@ public class FetchingManager {
             e.printStackTrace();
         }
 
+        closestHourTime = getClosestHourTime();
         NavActivity.openForecast(NavActivity.navActivity);
+    }
+
+    public static long getClosestHourTime(){
+        long unixTime = System.currentTimeMillis() / 1000L;
+        Log.d(TAG, "getClosestHourTime: unixTime: " + unixTime);
+
+        long hourRest = unixTime % 3600;
+        long cloestHourTime = unixTime - hourRest; // Floored hour
+
+        // if current time more than XX:30
+        if(hourRest >= 1800) {
+            cloestHourTime += 3600;
+        }
+        Log.d(TAG, "getClosestHourTime: cloests: " + cloestHourTime);
+
+        return cloestHourTime;
+
     }
 
     public static JSONObject getDataByCategory(ArrayList<JSONObject> dataList, String category) {
