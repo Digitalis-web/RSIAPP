@@ -101,10 +101,15 @@ public class FetchingManager {
                 categories = findAllCategories(routeData);
 
                 for(int i = 0; i < categories.size(); i++){
-                    JSONObject dataObj = getDataByCategory(routeData, categories.get(i));
+                    JSONObject dataObj = findDataByCategory(routeData, categories.get(i));
                     categorizedData.add(dataObj);
-                    Log.d(TAG, "parseForecastData: " + dataObj.toString());
+                    //Log.d(TAG, "parseForecastData: " + dataObj.toString());
                 }
+
+                //Log.d(TAG, "parseForecastData: roadcond_data: " + getDataForCategory("roadcondition").getJSONArray("series"));
+                getDataPoint("roadcondition", 0);
+
+
 
 
                 //Log.d(TAG, "parseData: " + dataObj.toString());
@@ -120,6 +125,40 @@ public class FetchingManager {
 
         closestHourTime = getClosestHourTime();
         NavActivity.openForecast(NavActivity.navActivity);
+    }
+
+    public static void getDataPoint(String category, long time){
+        try {
+            JSONObject data = getDataForCategory(category);
+            JSONArray seriesArray = data.getJSONArray("series");
+
+            for(int i = 0; i < seriesArray.length(); i++){
+                Log.d(TAG, "getDataPoint: " + seriesArray.get(i));
+                Log.d(TAG, "getDataPoint: " + seriesArray.getJSONObject(i));
+                JSONObject seriesItem = seriesArray.getJSONObject(i);
+                String name = seriesItem.getString("name");
+                JSONArray seriesData = seriesItem.getJSONArray("data");
+                Log.d(TAG, "getDataPoint: name : " + name);
+                ////Log.d(TAG, "getDataPoint: data : " + seriesData);
+
+                for(int n = 0; n < seriesData.length(); n++){
+                    JSONObject timePointObj = seriesData.getJSONObject(n);
+                    long pointTime = timePointObj.getLong("x");
+                    int value = timePointObj.getInt("y");
+                    Log.d(TAG, "getDataPoint: time: " + pointTime);
+                    Log.d(TAG, "getDataPoint: value: " + value);
+
+                }
+
+            }
+
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     public static long getClosestHourTime(){
@@ -139,7 +178,23 @@ public class FetchingManager {
 
     }
 
-    public static JSONObject getDataByCategory(ArrayList<JSONObject> dataList, String category) {
+    public static JSONObject getDataForCategory(String category){
+
+        int index = categories.indexOf(category);
+        Log.d(TAG, "getDataForCategory: " + categories.toString());
+        JSONObject obj = null;
+        if(index != -1){
+            obj = categorizedData.get(index);
+        }
+        else {
+            Log.d(TAG, "getDataForCategory: Category does not exist");
+        }
+
+        return obj;
+
+    }
+
+    public static JSONObject findDataByCategory(ArrayList<JSONObject> dataList, String category) {
 
         try {
             // Loops over all the given data and find the one that matched the given category
@@ -188,7 +243,7 @@ public class FetchingManager {
             JSONArray dataArr = data.getJSONArray("data");
             // loops over all the items in the data list and adds the relevant ones to the matchedData array
             for(int i = 0; i < dataArr.length();i++) {
-                Log.d(TAG, "parseForecastData: value : " + dataArr.get(i));
+                //Log.d(TAG, "parseForecastData: value : " + dataArr.get(i));
                 JSONObject dataItem = dataArr.getJSONObject(i);
                 //JSONArray dataItemArr = dataArr.getJSONArray(i);
                 JSONObject dataRouteObj = dataItem.getJSONObject("route");
@@ -198,7 +253,7 @@ public class FetchingManager {
                 if(route == id){
                     matchedData.add(dataItem);
                 }
-                Log.d(TAG, "parseForecastData: route_id : + " + dataRouteObj.get("route_id"));
+                //Log.d(TAG, "parseForecastData: route_id : + " + dataRouteObj.get("route_id"));
 
             }
         } catch (JSONException e) {
