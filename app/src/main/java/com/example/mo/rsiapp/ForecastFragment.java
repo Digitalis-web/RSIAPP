@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.mo.rsiapp.datamanaging.FetchingManager;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
@@ -31,7 +32,11 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+import static android.R.attr.category;
+import static android.R.attr.label;
 import static android.os.Build.VERSION_CODES.M;
 import static android.support.v7.widget.AppCompatDrawableManager.get;
 
@@ -64,6 +69,7 @@ public class ForecastFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    //ArrayList<Map<String, String>> series = [{ name: 'Dry', color: '#99cc66', stroke: 'rgba(0,0,0,0.2)', label: 'Torrt' }, { name: 'Moist', color: '#8eb1e6', stroke: 'rgba(0,0,0,0.2)', label: 'Fuktigt' }, { name: 'Wet', color: '#2a70d9', stroke: 'rgba(0,0,0,0.2)', label: 'VÃ¥tt' }, { name: 'LightSnow', color: '#66ffff', stroke: 'rgba(0,0,0,0.2)', label: 'LÃ¤tt snÃ¶' }, { name: 'Snow', color: '#00c0c0', stroke: 'rgba(0,0,0,0.2)', label: 'SnÃ¶' }, { name: 'DriftingSnow', color: '#156262', stroke: 'rgba(0,0,0,0.2)', label: 'SnÃ¶drev' }, { name: 'Slipperiness', color: '#cc66cc', stroke: 'rgba(0,0,0,0.2)', label: 'Halka' }, { name: 'Hazardous', color: '#e96605', stroke: 'rgba(0,0,0,0.2)', label: 'SvÃ¥r halka' }];
 
     public ForecastFragment() {
         // Required empty public constructor
@@ -114,24 +120,33 @@ public class ForecastFragment extends Fragment {
     }
     public void initComponents(View inflatedView){
 
-        // Set the Text to try this out
-        TextView t = (TextView) inflatedView.findViewById(R.id.textHeader);
-        t.setText("Text to Display");
+        //TextView t = (TextView) inflatedView.findViewById(R.id.textHeader);
+        //t.setText("Text to Display");
+
+        HashMap<String, Long> chart1Values = FetchingManager.getDataPoint(FetchingManager.categories.get(0), FetchingManager.chartOneTime);
+        HashMap<String, Long> chart2Values = FetchingManager.getDataPoint(FetchingManager.categories.get(0), FetchingManager.chartTwoTime);
+        HashMap<String, Long> chart3Values = FetchingManager.getDataPoint(FetchingManager.categories.get(0), FetchingManager.chartThreeTime);
+
+        Log.d(TAG, "initComponents: cahrt1: " + chart1Values.toString());
+        Log.d(TAG, "initComponents: cahrt2: " + chart2Values.toString());
+        Log.d(TAG, "initComponents: cahrt3: " + chart3Values.toString());
 
         Log.d(TAG, "onCreateView: starting create chart");
         chart1 = (PieChart) inflatedView.findViewById(R.id.piChartOne);
         initPieChart(chart1);
-        addDataSet(chart1);
+        addDataSet(chart1, chart1Values);
         //chart1.setCenterText("NOTGING");
 
         chart2 = (PieChart) inflatedView.findViewById(R.id.piChartTwo);
         initPieChart(chart2);
-        addDataSet(chart2);
+        addDataSet(chart2, chart2Values);
 
 
         chart3 = (PieChart) inflatedView.findViewById(R.id.piChartThree);
         initPieChart(chart3);
-        addDataSet(chart3);
+        addDataSet(chart3, chart3Values);
+
+
 
         chart1.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
@@ -165,23 +180,35 @@ public class ForecastFragment extends Fragment {
         chart.setDrawEntryLabels(false);
 
     }
-    private void addDataSet(PieChart chart) {
+    private void addDataSet(PieChart chart, HashMap<String, Long> values) {
         Log.d(TAG, "addDataSet: started");
         ArrayList<PieEntry> yEntries = new ArrayList<>();
         ArrayList<String> xEntries = new ArrayList<>();
 
-        for(int i = 0; i < yData.length; i++){
-            yEntries.add(new PieEntry(yData[i], i));
-        }
 
-        for(int i = 0; i < xData.length; i++) {
-            xEntries.add(xData[i]);
+        int i = 0;
+        for(String key : values.keySet()){
+            long value = values.get(key);
+            if (value > 0) {
+                Log.d(TAG, "addDataSet: adding value  " + value);
+                yEntries.add(new PieEntry(value, i));
+                xEntries.add(key);
+                Log.d(TAG, "addDataSet: key: " + key);
+            }
+            i++;
         }
+//      for(int i = 0; i < yData.length; i++){
+//          yEntries.add(new PieEntry(yData[i], i));
+//      }
+
+//      for(int i = 0; i < xData.length; i++) {
+//          xEntries.add(xData[i]);
+//      }
 
         PieDataSet pieDataSet = new PieDataSet(yEntries, "");
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(12);
-        pieDataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        //pieDataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
 
         PieData pieData = new PieData(pieDataSet);
         chart.setData(pieData);

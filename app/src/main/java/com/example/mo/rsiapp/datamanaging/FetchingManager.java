@@ -8,17 +8,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader; import java.io.IOException; import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-import static android.R.attr.category;
-import static android.R.attr.data;
-import static android.R.attr.id;
-import static android.R.attr.matchOrder;
-import static android.os.Build.VERSION_CODES.N;
-import static java.nio.file.Paths.get;
 
 /**
  * Created by mo on 23/07/17.
@@ -35,6 +29,9 @@ public class FetchingManager {
     public static long latestForecastTime = 0;
 
     public static long closestHourTime = 0;
+    public static long chartOneTime = 0;
+    public static long chartTwoTime = 0;
+    public static long chartThreeTime = 0;
 
     // Variables relevant to the latest forecast fetch
     public static ArrayList<String> categories = new ArrayList<>();
@@ -73,7 +70,8 @@ public class FetchingManager {
             for(int i = 0; i < forecastsObj.length(); i++) {
                 JSONObject obj = forecastsObj.getJSONObject(i);
 
-                latestForecastTime = Long.parseLong(obj.get("creation_time").toString());
+                //latestForecastTime = Long.parseLong(obj.get("creation_time").toString());
+                latestForecastTime = 1485680400; // TEMP DEBUG
                 Log.d(TAG, "parseAreasData: lastforecast: " + latestForecastTime);
 
             }
@@ -107,7 +105,7 @@ public class FetchingManager {
                 }
 
                 //Log.d(TAG, "parseForecastData: roadcond_data: " + getDataForCategory("roadcondition").getJSONArray("series"));
-                getDataPoint("roadcondition", 0);
+                //getDataPoint("roadcondition", 0);
 
 
 
@@ -124,17 +122,22 @@ public class FetchingManager {
         }
 
         closestHourTime = getClosestHourTime();
+        chartOneTime = closestHourTime;
+        chartTwoTime = closestHourTime + 4*3600;
+        chartThreeTime = closestHourTime + 8*3600;
         NavActivity.openForecast(NavActivity.navActivity);
     }
 
-    public static void getDataPoint(String category, long time){
+    public static HashMap<String, Long> getDataPoint(String category, long time){
+
+        HashMap<String, Long> values = new HashMap<>();
         try {
             JSONObject data = getDataForCategory(category);
             JSONArray seriesArray = data.getJSONArray("series");
 
             for(int i = 0; i < seriesArray.length(); i++){
-                Log.d(TAG, "getDataPoint: " + seriesArray.get(i));
-                Log.d(TAG, "getDataPoint: " + seriesArray.getJSONObject(i));
+                //Log.d(TAG, "getDataPoint: " + seriesArray.get(i));
+                //Log.d(TAG, "getDataPoint: " + seriesArray.getJSONObject(i));
                 JSONObject seriesItem = seriesArray.getJSONObject(i);
                 String name = seriesItem.getString("name");
                 JSONArray seriesData = seriesItem.getJSONArray("data");
@@ -144,9 +147,15 @@ public class FetchingManager {
                 for(int n = 0; n < seriesData.length(); n++){
                     JSONObject timePointObj = seriesData.getJSONObject(n);
                     long pointTime = timePointObj.getLong("x");
-                    int value = timePointObj.getInt("y");
+                    Long value = timePointObj.getLong("y");
                     Log.d(TAG, "getDataPoint: time: " + pointTime);
-                    Log.d(TAG, "getDataPoint: value: " + value);
+                    Log.d(TAG, "getDataPoint: checkingTime: " + time);
+                    //Log.d(TAG, "getDataPoint: value: " + value);
+
+                    if(pointTime == time){
+                        values.put(name, value);
+                        Log.d(TAG, "getDataPoint: PUTTING VALUES");
+                    }
 
                 }
 
@@ -158,23 +167,25 @@ public class FetchingManager {
             e.printStackTrace();
         }
 
-
+        return values;
     }
 
     public static long getClosestHourTime(){
-        long unixTime = System.currentTimeMillis() / 1000L;
-        Log.d(TAG, "getClosestHourTime: unixTime: " + unixTime);
+        //long unixTime = System.currentTimeMillis() / 1000L;
+        long unixTime = latestForecastTime+3600;
+        //Log.d(TAG, "getClosestHourTime: unixTime: " + unixTime);
 
         long hourRest = unixTime % 3600;
-        long cloestHourTime = unixTime - hourRest; // Floored hour
+        long closestHourTime = unixTime - hourRest; // Floored hour
 
         // if current time more than XX:30
         if(hourRest >= 1800) {
-            cloestHourTime += 3600;
+            closestHourTime += 3600;
         }
-        Log.d(TAG, "getClosestHourTime: cloests: " + cloestHourTime);
+        //Log.d(TAG, "getClosestHourTime: cloests: " + closestHourTime);
 
-        return cloestHourTime;
+
+        return closestHourTime;
 
     }
 
