@@ -57,9 +57,6 @@ public class ForecastFragment extends Fragment {
 
     private static final String TAG = "Forecast";
 
-    private float[] yData = {25,3f, 10.7f, 62.2f,102f,50.2f, 10f};
-    private String[] xData = {"Part1", "Part2", "part3", "part4", "part5", "part6"};
-
     PieChart chart1;
     PieChart chart2;
     PieChart chart3;
@@ -69,10 +66,88 @@ public class ForecastFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    //ArrayList<Map<String, String>> series = [{ name: 'Dry', color: '#99cc66', stroke: 'rgba(0,0,0,0.2)', label: 'Torrt' }, { name: 'Moist', color: '#8eb1e6', stroke: 'rgba(0,0,0,0.2)', label: 'Fuktigt' }, { name: 'Wet', color: '#2a70d9', stroke: 'rgba(0,0,0,0.2)', label: 'VÃ¥tt' }, { name: 'LightSnow', color: '#66ffff', stroke: 'rgba(0,0,0,0.2)', label: 'LÃ¤tt snÃ¶' }, { name: 'Snow', color: '#00c0c0', stroke: 'rgba(0,0,0,0.2)', label: 'SnÃ¶' }, { name: 'DriftingSnow', color: '#156262', stroke: 'rgba(0,0,0,0.2)', label: 'SnÃ¶drev' }, { name: 'Slipperiness', color: '#cc66cc', stroke: 'rgba(0,0,0,0.2)', label: 'Halka' }, { name: 'Hazardous', color: '#e96605', stroke: 'rgba(0,0,0,0.2)', label: 'SvÃ¥r halka' }];
+    ArrayList<HashMap<String, String>> roadConditionInfo = initRoadConditionInfoArray();
+
 
     public ForecastFragment() {
         // Required empty public constructor
+    }
+
+    public ArrayList<HashMap<String, String>> initRoadConditionInfoArray(){
+        ArrayList<HashMap<String, String>> roadConditionInfo = new ArrayList<>();
+
+        HashMap<String, String> map = new HashMap<>();
+
+        map.put("name", "Dry");
+        map.put("color", "#99cc66");
+        map.put("label", "Torrt");
+        roadConditionInfo.add(map);
+
+        map = new HashMap<>();
+        map.put("name", "Moist");
+        map.put("color", "#8eb1e6");
+        map.put("label", "Fuktigt");
+        roadConditionInfo.add(map);
+
+        map = new HashMap<>();
+        map.put("name", "Wet");
+        map.put("color", "#2a70d9");
+        map.put("label", "Vått");
+        roadConditionInfo.add(map);
+
+        //[{ name: 'Dry', color: '#99cc66', stroke: 'rgba(0,0,0,0.2)', label: 'Torrt' },
+        // { name: 'Moist', color: '#8eb1e6', stroke: 'rgba(0,0,0,0.2)', label: 'Fuktigt' },
+        // { name: 'Wet', color: '#2a70d9', stroke: 'rgba(0,0,0,0.2)', label: 'VÃ¥tt' },
+        // { name: 'LightSnow', color: '#66ffff', stroke: 'rgba(0,0,0,0.2)', label: 'LÃ¤tt snÃ¶' },
+        // { name: 'Snow', color: '#00c0c0', stroke: 'rgba(0,0,0,0.2)', label: 'SnÃ¶' },
+        // { name: 'DriftingSnow', color: '#156262', stroke: 'rgba(0,0,0,0.2)', label: 'SnÃ¶drev' },
+        // { name: 'Slipperiness', color: '#cc66cc', stroke: 'rgba(0,0,0,0.2)', label: 'Halka' },
+        // { name: 'Hazardous', color: '#e96605', stroke: 'rgba(0,0,0,0.2)', label: 'SvÃ¥r halka' }];
+        map = new HashMap<>();
+        map.put("name", "LightSnow");
+        map.put("color", "#66ffff");
+        map.put("label", "Lätt snö");
+        roadConditionInfo.add(map);
+
+        map = new HashMap<>();
+        map.put("name", "Snow");
+        map.put("color", "#00c0c0");
+        map.put("label", "Snö");
+        roadConditionInfo.add(map);
+
+        map = new HashMap<>();
+        map.put("name", "DriftingSnow");
+        map.put("color", "#156262");
+        map.put("label", "Snö drev");
+        roadConditionInfo.add(map);
+
+        map = new HashMap<>();
+        map.put("name", "Slipperiness");
+        map.put("color", "#cc66cc");
+        map.put("label", "Halka");
+        roadConditionInfo.add(map);
+
+        map = new HashMap<>();
+        map.put("name", "Hazardous");
+        map.put("color", "#e96605");
+        map.put("label", "Svår halka");
+        roadConditionInfo.add(map);
+
+        return roadConditionInfo;
+    }
+
+    public String getRoadConditionInfoByName(String name, String type){
+        String value = "";
+
+        for(int i = 0; i < roadConditionInfo.size(); i++) {
+            HashMap<String, String> map = roadConditionInfo.get(i);
+            Log.d(TAG, "getRoadConditionInfoByName: name: " + map.get("name"));
+            if (map.get("name").equals(name)) {
+                return map.get(type);
+            }
+        }
+
+       return value;
     }
 
     /**
@@ -100,11 +175,6 @@ public class ForecastFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
-
-
-
     }
 
     @Override
@@ -123,9 +193,10 @@ public class ForecastFragment extends Fragment {
         //TextView t = (TextView) inflatedView.findViewById(R.id.textHeader);
         //t.setText("Text to Display");
 
-        HashMap<String, Long> chart1Values = FetchingManager.getDataPoint(FetchingManager.categories.get(0), FetchingManager.chartOneTime);
-        HashMap<String, Long> chart2Values = FetchingManager.getDataPoint(FetchingManager.categories.get(0), FetchingManager.chartTwoTime);
-        HashMap<String, Long> chart3Values = FetchingManager.getDataPoint(FetchingManager.categories.get(0), FetchingManager.chartThreeTime);
+        String category = FetchingManager.categories.get(0);
+        HashMap<String, Long> chart1Values = FetchingManager.getDataPoint(category, FetchingManager.chartOneTime);
+        HashMap<String, Long> chart2Values = FetchingManager.getDataPoint(category, FetchingManager.chartTwoTime);
+        HashMap<String, Long> chart3Values = FetchingManager.getDataPoint(category, FetchingManager.chartThreeTime);
 
         Log.d(TAG, "initComponents: cahrt1: " + chart1Values.toString());
         Log.d(TAG, "initComponents: cahrt2: " + chart2Values.toString());
@@ -134,17 +205,17 @@ public class ForecastFragment extends Fragment {
         Log.d(TAG, "onCreateView: starting create chart");
         chart1 = (PieChart) inflatedView.findViewById(R.id.piChartOne);
         initPieChart(chart1);
-        addDataSet(chart1, chart1Values);
+        addDataSet(category, chart1, chart1Values);
         //chart1.setCenterText("NOTGING");
 
         chart2 = (PieChart) inflatedView.findViewById(R.id.piChartTwo);
         initPieChart(chart2);
-        addDataSet(chart2, chart2Values);
+        addDataSet(category, chart2, chart2Values);
 
 
         chart3 = (PieChart) inflatedView.findViewById(R.id.piChartThree);
         initPieChart(chart3);
-        addDataSet(chart3, chart3Values);
+        addDataSet(category, chart3, chart3Values);
 
 
 
@@ -180,35 +251,37 @@ public class ForecastFragment extends Fragment {
         chart.setDrawEntryLabels(false);
 
     }
-    private void addDataSet(PieChart chart, HashMap<String, Long> values) {
+    private void addDataSet(String category, PieChart chart, HashMap<String, Long> values) {
         Log.d(TAG, "addDataSet: started");
         ArrayList<PieEntry> yEntries = new ArrayList<>();
         ArrayList<String> xEntries = new ArrayList<>();
 
+        ArrayList<Integer> colors = new ArrayList<>();
 
         int i = 0;
         for(String key : values.keySet()){
             long value = values.get(key);
+
             if (value > 0) {
                 Log.d(TAG, "addDataSet: adding value  " + value);
                 yEntries.add(new PieEntry(value, i));
                 xEntries.add(key);
+                if(category.equals("roadcondition")){
+                    String hexColor = getRoadConditionInfoByName(key, "color");
+                    Log.d(TAG, "addDataSet: color: "  +hexColor );
+                    int color = Color.parseColor(hexColor);
+                    colors.add(color);
+                }
                 Log.d(TAG, "addDataSet: key: " + key);
             }
             i++;
         }
-//      for(int i = 0; i < yData.length; i++){
-//          yEntries.add(new PieEntry(yData[i], i));
-//      }
-
-//      for(int i = 0; i < xData.length; i++) {
-//          xEntries.add(xData[i]);
-//      }
 
         PieDataSet pieDataSet = new PieDataSet(yEntries, "");
         pieDataSet.setSliceSpace(2);
-        pieDataSet.setValueTextSize(12);
+        pieDataSet.setValueTextSize(0);
         //pieDataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        pieDataSet.setColors(colors);
 
         PieData pieData = new PieData(pieDataSet);
         chart.setData(pieData);
@@ -216,7 +289,7 @@ public class ForecastFragment extends Fragment {
        // chart.setData(generateCenterText());
 
         Legend legend = chart.getLegend();
-        legend.setEnabled(true);
+        legend.setEnabled(false);
         legend.setFormSize(10f);
 
         ArrayList<LegendEntry> lEntries = new ArrayList<>();
