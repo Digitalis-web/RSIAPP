@@ -2,10 +2,15 @@ package com.example.mo.rsiapp;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.Layout;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -14,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.mo.rsiapp.datamanaging.FetchingManager;
@@ -198,24 +204,25 @@ public class ForecastFragment extends Fragment {
         HashMap<String, Long> chart2Values = FetchingManager.getDataPoint(category, FetchingManager.chartTwoTime);
         HashMap<String, Long> chart3Values = FetchingManager.getDataPoint(category, FetchingManager.chartThreeTime);
 
-        Log.d(TAG, "initComponents: cahrt1: " + chart1Values.toString());
-        Log.d(TAG, "initComponents: cahrt2: " + chart2Values.toString());
-        Log.d(TAG, "initComponents: cahrt3: " + chart3Values.toString());
+        //Log.d(TAG, "initComponents: cahrt1: " + chart1Values.toString());
+        //Log.d(TAG, "initComponents: cahrt2: " + chart2Values.toString());
+        //Log.d(TAG, "initComponents: cahrt3: " + chart3Values.toString());
 
         Log.d(TAG, "onCreateView: starting create chart");
         chart1 = (PieChart) inflatedView.findViewById(R.id.piChartOne);
+        LinearLayout chart1InfoLayout = (LinearLayout) inflatedView.findViewById(R.id.chartInfoOne);
         initPieChart(chart1);
-        addDataSet(category, chart1, chart1Values);
-        //chart1.setCenterText("NOTGING");
+        addDataSet(category, chart1, chart1Values, chart1InfoLayout);
 
         chart2 = (PieChart) inflatedView.findViewById(R.id.piChartTwo);
+        LinearLayout chart2InfoLayout = (LinearLayout) inflatedView.findViewById(R.id.chartInfoTwo);
         initPieChart(chart2);
-        addDataSet(category, chart2, chart2Values);
-
+        addDataSet(category, chart2, chart2Values, chart2InfoLayout);
 
         chart3 = (PieChart) inflatedView.findViewById(R.id.piChartThree);
+        LinearLayout chart3InfoLayout = (LinearLayout) inflatedView.findViewById(R.id.chartInfoThree);
         initPieChart(chart3);
-        addDataSet(category, chart3, chart3Values);
+        addDataSet(category, chart3, chart3Values, chart3InfoLayout);
 
 
 
@@ -251,7 +258,26 @@ public class ForecastFragment extends Fragment {
         chart.setDrawEntryLabels(false);
 
     }
-    private void addDataSet(String category, PieChart chart, HashMap<String, Long> values) {
+
+    int i = 0;
+    // Adds a value to the list next to a chart that explains what each color on the chart represents
+    private void addInfoListItem(String label, int color, LinearLayout infoLayout){
+        i++;
+        TextView labelView = new TextView(getContext());
+        labelView.setText(label);
+        infoLayout.addView(labelView);
+
+
+
+        Drawable icon = ContextCompat.getDrawable(getActivity(), R.drawable.ic_circle).mutate();
+        Log.d(TAG, "addInfoListItem: color: " + color);
+        icon.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN));
+
+        labelView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+
+
+    }
+    private void addDataSet(String category, PieChart chart, HashMap<String, Long> values, LinearLayout infoLayout) {
         Log.d(TAG, "addDataSet: started");
         ArrayList<PieEntry> yEntries = new ArrayList<>();
         ArrayList<String> xEntries = new ArrayList<>();
@@ -268,9 +294,11 @@ public class ForecastFragment extends Fragment {
                 xEntries.add(key);
                 if(category.equals("roadcondition")){
                     String hexColor = getRoadConditionInfoByName(key, "color");
+                    String label = getRoadConditionInfoByName(key, "label");
                     Log.d(TAG, "addDataSet: color: "  +hexColor );
                     int color = Color.parseColor(hexColor);
                     colors.add(color);
+                    addInfoListItem(label, color, infoLayout);
                 }
                 Log.d(TAG, "addDataSet: key: " + key);
             }
@@ -310,12 +338,6 @@ public class ForecastFragment extends Fragment {
         chart.invalidate();
 
 
-    }
-    private SpannableString generateCenterText() {
-        SpannableString s = new SpannableString("Revenues\nQuarters 2015");
-        s.setSpan(new RelativeSizeSpan(2f), 0, 8, 0);
-        s.setSpan(new ForegroundColorSpan(Color.GRAY), 8, s.length(), 0);
-        return s;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
