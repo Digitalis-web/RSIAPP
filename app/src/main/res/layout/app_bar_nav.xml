@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -24,13 +25,11 @@
 
             <com.example.mo.rsiapp.customviews.InstantAutoComplete
                 android:id="@+id/search_area"
+                style="@style/AppTheme.InstantAutoComplete"
                 android:layout_width="match_parent"
                 android:ems="10"
+                android:textSize="25sp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorWhite"
-                android:textColorHint="@color/colorGrey"
-                android:textColorLink="@color/colorWhite"
-                android:textColorHighlight="@color/colorWhite"
                 android:inputType="text"
                 android:maxLines="1"
                 android:imeOptions="actionDone"

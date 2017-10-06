@@ -147,7 +147,6 @@ public class ForecastFragment extends Fragment {
 
         for(int i = 0; i < roadConditionInfo.size(); i++) {
             HashMap<String, String> map = roadConditionInfo.get(i);
-            Log.d(TAG, "getRoadConditionInfoByName: name: " + map.get("name"));
             if (map.get("name").equals(name)) {
                 return map.get(type);
             }
@@ -204,6 +203,7 @@ public class ForecastFragment extends Fragment {
         HashMap<String, Long> chart2Values = FetchingManager.getDataPoint(category, FetchingManager.chartTwoTime);
         HashMap<String, Long> chart3Values = FetchingManager.getDataPoint(category, FetchingManager.chartThreeTime);
 
+
         //Log.d(TAG, "initComponents: cahrt1: " + chart1Values.toString());
         //Log.d(TAG, "initComponents: cahrt2: " + chart2Values.toString());
         //Log.d(TAG, "initComponents: cahrt3: " + chart3Values.toString());
@@ -251,10 +251,10 @@ public class ForecastFragment extends Fragment {
         desc.setText("");
         chart.setDescription(desc);
         chart.setRotationEnabled(true);
-        chart.setHoleRadius(25f);
+        chart.setHoleRadius(0f);
         chart.setTransparentCircleAlpha(0);
-        chart.setCenterText("Nu");
-        chart.setCenterTextSize(15);
+        //chart.setCenterText("Nu");
+        //chart.setCenterTextSize(15);
         chart.setDrawEntryLabels(false);
 
     }
@@ -270,7 +270,6 @@ public class ForecastFragment extends Fragment {
 
 
         Drawable icon = ContextCompat.getDrawable(getActivity(), R.drawable.ic_circle).mutate();
-        Log.d(TAG, "addInfoListItem: color: " + color);
         icon.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN));
 
         labelView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
@@ -278,35 +277,36 @@ public class ForecastFragment extends Fragment {
 
     }
     private void addDataSet(String category, PieChart chart, HashMap<String, Long> values, LinearLayout infoLayout) {
+        Log.d(TAG, "addDataSet: RUNNING ADD DATA");
         Log.d(TAG, "addDataSet: started");
         ArrayList<PieEntry> yEntries = new ArrayList<>();
         ArrayList<String> xEntries = new ArrayList<>();
 
         ArrayList<Integer> colors = new ArrayList<>();
 
+
+
         int i = 0;
         for(String key : values.keySet()){
             long value = values.get(key);
 
             if (value > 0) {
-                Log.d(TAG, "addDataSet: adding value  " + value);
                 yEntries.add(new PieEntry(value, i));
                 xEntries.add(key);
                 if(category.equals("roadcondition")){
                     String hexColor = getRoadConditionInfoByName(key, "color");
                     String label = getRoadConditionInfoByName(key, "label");
-                    Log.d(TAG, "addDataSet: color: "  +hexColor );
+                    Log.d(TAG, "addDataSet: label: " + label);
                     int color = Color.parseColor(hexColor);
                     colors.add(color);
                     addInfoListItem(label, color, infoLayout);
                 }
-                Log.d(TAG, "addDataSet: key: " + key);
             }
             i++;
         }
 
         PieDataSet pieDataSet = new PieDataSet(yEntries, "");
-        pieDataSet.setSliceSpace(2);
+        pieDataSet.setSliceSpace(0);
         pieDataSet.setValueTextSize(0);
         //pieDataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
         pieDataSet.setColors(colors);
@@ -318,22 +318,22 @@ public class ForecastFragment extends Fragment {
 
         Legend legend = chart.getLegend();
         legend.setEnabled(false);
-        legend.setFormSize(10f);
+        //legend.setFormSize(10f);
 
-        ArrayList<LegendEntry> lEntries = new ArrayList<>();
-        LegendEntry e = new LegendEntry("1", legend.getForm(), legend.getFormSize(), legend.getFormLineWidth(), legend.getFormLineDashEffect(), chart.getData().getColors()[0]);
-        lEntries.add(e);
-        legend.setEntries(lEntries);
+        //ArrayList<LegendEntry> lEntries = new ArrayList<>();
+        //LegendEntry e = new LegendEntry("1", legend.getForm(), legend.getFormSize(), legend.getFormLineWidth(), legend.getFormLineDashEffect(), chart.getData().getColors()[0]);
+        //lEntries.add(e);
+        //legend.setEntries(lEntries);
         //legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
-        legend.setOrientation(Legend.LegendOrientation.VERTICAL);
-        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        //legend.setOrientation(Legend.LegendOrientation.VERTICAL);
+        //legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        //legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
         //legend.setTypeface(new Typeface());
-        legend.setDirection(Legend.LegendDirection.LEFT_TO_RIGHT);
+        //legend.setDirection(Legend.LegendDirection.LEFT_TO_RIGHT);
         //legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setDrawInside(false);
         //legend.setDrawInside(false);
-        //legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
+        //legend.setDrawInside(false);
+        //legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);*/
 
         chart.invalidate();
 

@@ -3,9 +3,14 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorBlue</item>
+        <item name="colorPrimaryDark">@color/colorLightBlue</item>
+        <item name="colorAccent">@color/colorGrey</item>
+        <item name="android:textColorPrimary">@color/colorBlack</item>
+        <item name="android:textColorSecondary">@color/colorBlack</item>
+        <item name="android:textColor">@color/colorGrey</item>
+        <item name="actionBarSize">75dp</item>
+        <item name = "android:dropDownListViewStyle">@style/AppTheme.DropDownItem</item>
     </style>
 
     <style name="AppTheme.NoTitle" parent="AppTheme">
@@ -19,6 +24,19 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.InstantAutoComplete" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+        <item name = "android:background">@null</item>
+        <item name = "android:textColor">@color/colorBlack</item>
+        <item name = "android:textColorHint">@color/colorDarkGrey</item>
+
+    </style>
+
+    <style name = "AppTheme.DropDownItem">
+        <item name = "android:layout_marginTop">10dp</item>
+        <item name = "android:background">@color/colorLightBlue</item>
+        <item name = "android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
 </resources>

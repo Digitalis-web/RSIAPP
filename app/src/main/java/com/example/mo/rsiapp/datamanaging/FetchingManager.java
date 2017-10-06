@@ -39,11 +39,13 @@ public class FetchingManager {
 
     public static void fetchAreas(){
         Log.d(TAG, "fetchAndControlData: fetching data");
+        clearOldData();
         JSONFetcher JF = new JSONFetcher(false);
         JF.execute(areasUrl);
     }
 
     public static void fetchForecast(int areaID, long time){
+        clearOldData();
         String url = forecastUrl + areaID + "@" + time;
         Log.d(TAG, "fetchAndControlData: fetching data from : " + url);
         JSONFetcher JF = new JSONFetcher(true);
@@ -83,7 +85,7 @@ public class FetchingManager {
         NavActivity.searchBar.updateList(areasName);
     }
     public static void parseForecastData(JSONObject data){
-        Log.d(TAG, "parseData: running");
+        Log.d(TAG, "parseData: length of data: " + data.toString().length());
         try {
             String time = data.get("times").toString();
             Log.d(TAG, "parseData: " + time);
@@ -141,20 +143,16 @@ public class FetchingManager {
                 JSONObject seriesItem = seriesArray.getJSONObject(i);
                 String name = seriesItem.getString("name");
                 JSONArray seriesData = seriesItem.getJSONArray("data");
-                Log.d(TAG, "getDataPoint: name : " + name);
                 ////Log.d(TAG, "getDataPoint: data : " + seriesData);
 
                 for(int n = 0; n < seriesData.length(); n++){
                     JSONObject timePointObj = seriesData.getJSONObject(n);
                     long pointTime = timePointObj.getLong("x");
                     Long value = timePointObj.getLong("y");
-                    Log.d(TAG, "getDataPoint: time: " + pointTime);
-                    Log.d(TAG, "getDataPoint: checkingTime: " + time);
                     //Log.d(TAG, "getDataPoint: value: " + value);
 
                     if(pointTime == time){
                         values.put(name, value);
-                        Log.d(TAG, "getDataPoint: PUTTING VALUES");
                     }
 
                 }
@@ -275,6 +273,11 @@ public class FetchingManager {
 
 
 
+    }
+
+    public static void clearOldData(){
+        categories.clear();
+        categorizedData.clear();
     }
 
     public static JSONObject getJSONObjectFromURL(String urlString) throws IOException, JSONException {
