@@ -73,9 +73,12 @@ public class InstantAutoComplete extends android.support.v7.widget.AppCompatAuto
         //String[] areas = {"joel asd", "mesasd", "russkie", "saker", "joes eas", "jerry", "jakob", "stash", "sant", "joels", "parski", "asda283", "muskiies"};
         String[] areas = new String[list.size()];
         list.toArray(areas);
+
+
         // Create the adapter and set it to the AutoCompleteTextView
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, areas);
+                //new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, areas);
+                new ArrayAdapter<String>(getContext(), R.layout.autocomplete_list_item, areas);
         this.setAdapter(adapter);
 
 

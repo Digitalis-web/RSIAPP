@@ -25,15 +25,16 @@
 
             <com.example.mo.rsiapp.customviews.InstantAutoComplete
                 android:id="@+id/search_area"
-                style="@style/AppTheme.InstantAutoComplete"
                 android:layout_width="match_parent"
+                android:dropDownHorizontalOffset="2dp"
                 android:ems="10"
                 android:textSize="25sp"
                 android:layout_height="wrap_content"
                 android:inputType="text"
+                android:background="@null"
                 android:maxLines="1"
                 android:imeOptions="actionDone"
-                android:popupTheme="@color/colorWhite"
+                android:popupTheme="@style/AppTheme.DropDownItem"
                 android:hint="Sök efter område"
                 android:drawableLeft="@drawable/ic_menu_search"
                 />
