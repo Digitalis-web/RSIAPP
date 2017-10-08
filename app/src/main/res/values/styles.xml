@@ -19,9 +19,6 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name = "android:dropDownListViewStyle">@style/AppTheme.DropDownItem</item>
-        <item name = "android:autoCompleteTextViewStyle">@style/AppTheme.DropDownItem</item>
-        <item name = "android:dropDownItemStyle">@style/AppTheme.DropDownItem</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
