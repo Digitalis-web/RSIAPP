@@ -24,8 +24,15 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
 
+    <style name="AppTheme.ChartContainer" parent="AppTheme">
+        <item name="android:layout_marginTop">@dimen/container_spacing</item>
+        <item name="android:layout_marginLeft">@dimen/container_spacing</item>
+        <item name="android:layout_marginRight">@dimen/container_spacing</item>
+        <item name="android:paddingTop">@dimen/container_inner_spacing</item>
+        <item name="android:paddingBottom">@dimen/container_inner_spacing</item>
+    </style>
 
-    <style name="AppTheme.InstantAutoComplete" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+    <style name="AppTheme.InstantAutoComplete" parent="AppTheme" >
         <item name = "android:textColor">@color/colorBlack</item>
         <item name = "android:textColorHint">@color/colorDarkGrey</item>
     </style>

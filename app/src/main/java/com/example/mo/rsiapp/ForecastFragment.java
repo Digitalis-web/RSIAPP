@@ -265,6 +265,7 @@ public class ForecastFragment extends Fragment {
         i++;
         TextView labelView = new TextView(getContext());
         labelView.setText(label);
+        labelView.setEms(5);
         infoLayout.addView(labelView);
 
 
