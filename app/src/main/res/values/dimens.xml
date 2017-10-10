@@ -7,5 +7,5 @@
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="container_height">160dp</dimen>
     <dimen name="container_spacing">20dp</dimen>
-    <dimen name="container_inner_spacing">10dp</dimen>
+    <dimen name="container_inner_spacing">0dp</dimen>
 </resources>

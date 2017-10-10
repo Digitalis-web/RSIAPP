@@ -16,6 +16,16 @@
         android:layout_height="@dimen/container_height"
         >
 
+        <LinearLayout
+            android:id="@+id/chartInfoOne"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+
+            >
+        </LinearLayout>
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/piChartOne"
             android:layout_width="wrap_content"
@@ -23,23 +33,23 @@
             android:layout_height="match_parent"
             >
         </com.github.mikephil.charting.charts.PieChart>
-        <LinearLayout
-            android:id="@+id/chartInfoOne"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            >
-
-        </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/chartContainerTwo"
         style="@style/AppTheme.ChartContainer"
-        android:background="@color/colorBlue"
+        android:background="@color/colorGrey"
         android:layout_width="match_parent"
         android:layout_height="@dimen/container_height"
         >
+        <LinearLayout
+            android:id="@+id/chartInfoTwo"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            >
+        </LinearLayout>
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/piChartTwo"
             android:layout_width="wrap_content"
@@ -47,23 +57,24 @@
             android:layout_height="match_parent"
             >
         </com.github.mikephil.charting.charts.PieChart>
-        <LinearLayout
-            android:id="@+id/chartInfoTwo"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            >
-        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/chartContainerThree"
         style="@style/AppTheme.ChartContainer"
-        android:background="@color/colorGrey"
+        android:background="@color/colorWhite"
         android:layout_width="match_parent"
         android:layout_height="@dimen/container_height"
         >
+        <LinearLayout
+            android:id="@+id/chartInfoThree"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            >
+        </LinearLayout>
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/piChartThree"
             android:layout_width="wrap_content"
@@ -71,15 +82,6 @@
             android:layout_height="match_parent"
             >
         </com.github.mikephil.charting.charts.PieChart>
-        <LinearLayout
-
-            android:id="@+id/chartInfoThree"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            >
-        </LinearLayout>
     </LinearLayout>
 
 

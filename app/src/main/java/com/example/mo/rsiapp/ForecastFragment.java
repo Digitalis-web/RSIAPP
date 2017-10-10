@@ -71,6 +71,8 @@ public class ForecastFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private ViewGroup rootViewGroup;
+
     private OnFragmentInteractionListener mListener;
     ArrayList<HashMap<String, String>> roadConditionInfo = initRoadConditionInfoArray();
 
@@ -187,6 +189,7 @@ public class ForecastFragment extends Fragment {
                              Bundle savedInstanceState) {
         //setText("right");
         View inflatedView = inflater.inflate(R.layout.fragment_forecast, container,false);
+        rootViewGroup = container;
 
         initComponents(inflatedView);
 
@@ -259,13 +262,10 @@ public class ForecastFragment extends Fragment {
 
     }
 
-    int i = 0;
     // Adds a value to the list next to a chart that explains what each color on the chart represents
     private void addInfoListItem(String label, int color, LinearLayout infoLayout){
-        i++;
-        TextView labelView = new TextView(getContext());
-        labelView.setText(label);
-        labelView.setEms(5);
+        TextView labelView = (TextView) View.inflate(getContext(), R.layout.chart_list_item, null);
+        labelView.setText(" " + label);
         infoLayout.addView(labelView);
 
 
