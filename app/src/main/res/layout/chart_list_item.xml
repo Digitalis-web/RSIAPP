@@ -6,7 +6,7 @@
     android:textStyle="bold"
     android:ems="5"
     android:textColor="@color/colorBlack"
-    android:paddingTop="3dp"
+    android:paddingTop="0dp"
     android:gravity="left"
     android:paddingLeft="50dp"
 
