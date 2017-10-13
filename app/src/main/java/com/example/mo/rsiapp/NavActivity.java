@@ -17,7 +17,11 @@ import android.widget.ListView;
 
 import com.example.mo.rsiapp.backgroundtasks.Alarm;
 import com.example.mo.rsiapp.customviews.InstantAutoComplete;
+import com.example.mo.rsiapp.customviews.NavAreaItem;
+import com.example.mo.rsiapp.customviews.NavAreaItemAdapter;
 import com.example.mo.rsiapp.datamanaging.FetchingManager;
+
+import java.util.ArrayList;
 
 public class NavActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ForecastFragment.OnFragmentInteractionListener {
@@ -45,11 +49,13 @@ public class NavActivity extends AppCompatActivity
         //NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         //navigationView.setNavigationItemSelectedListener(this);
 
-        String[] navItems = {"hejjo", "hi", "herry"};
+        ArrayList<NavAreaItem> navAreaItems = new ArrayList<>();
+        navAreaItems.add(new NavAreaItem("test1"));
+        navAreaItems.add(new NavAreaItem("test2"));
 
         navDrawerList = (ListView) findViewById(R.id.nav_view);
 
-        navDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.nav_area_item, navItems));
+        navDrawerList.setAdapter(new NavAreaItemAdapter(this, navAreaItems));
 
         getSupportActionBar().setDisplayShowTitleEnabled(false); // hide title in action bar
 

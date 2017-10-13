@@ -8,6 +8,6 @@
     android:textColor="@color/colorBlack"
     android:paddingTop="0dp"
     android:gravity="left"
-    android:paddingLeft="50dp"
+    android:paddingLeft="@dimen/chart_list_item_spacing"
 
 />

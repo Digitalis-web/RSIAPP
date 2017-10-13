@@ -23,6 +23,13 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+    <style name="ChartListHeader" parent="AppTheme">
+        <item name = "android:textColor">@color/colorBlack</item>
+        <item name = "android:textSize">22dp</item>
+        <item name = "android:paddingLeft">@dimen/chart_list_item_spacing</item>
+        <item name = "android:textStyle">bold</item>
+
+    </style>
 
     <style name="AppTheme.ChartContainer" parent="AppTheme">
         <item name="android:layout_marginTop">@dimen/container_spacing</item>
