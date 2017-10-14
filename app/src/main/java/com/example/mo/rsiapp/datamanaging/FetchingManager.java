@@ -127,7 +127,7 @@ public class FetchingManager {
         chartOneTime = closestHourTime;
         chartTwoTime = closestHourTime + 4*3600;
         chartThreeTime = closestHourTime + 8*3600;
-        NavActivity.openForecast(NavActivity.navActivity);
+        NavActivity.openForecast();
     }
 
     public static HashMap<String, Long> getDataPoint(String category, long time){

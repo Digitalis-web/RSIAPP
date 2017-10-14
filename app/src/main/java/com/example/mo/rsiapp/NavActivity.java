@@ -23,8 +23,10 @@ import com.example.mo.rsiapp.datamanaging.FetchingManager;
 
 import java.util.ArrayList;
 
+import static com.example.mo.rsiapp.R.menu.nav;
+
 public class NavActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ForecastFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ForecastFragment.OnFragmentInteractionListener, LoadingFragment.OnFragmentInteractionListener {
 
     public static InstantAutoComplete searchBar;
     private static String TAG = "NavActivity";
@@ -63,19 +65,6 @@ public class NavActivity extends AppCompatActivity
         searchBar = (InstantAutoComplete) findViewById(R.id.search_area);
         FetchingManager.fetchAreas();
 
-        /*
-        // Get a reference to the AutoCompleteTextView in the layout
-        AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.search_area);
-        textView.setDropDownBackgroundResource(R.color.colorWhite);
-        textView.setThreshold(0);
-
-// Get the string array
-        //String[] countries = getResources().getStringArray(R.array.countries_array);
-        String[] areas = {"joel asd", "mesasd", "russkie", "saker", "joes eas"};
-// Create the adapter and set it to the AutoCompleteTextView
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, areas);
-        textView.setAdapter(adapter);*/
     }
 
     @Override
@@ -106,7 +95,7 @@ public class NavActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.nav, menu);
+        getMenuInflater().inflate(nav, menu);
         return true;
     }
 
@@ -125,11 +114,16 @@ public class NavActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public static void openForecast(NavActivity activity){
+    public static void openForecast(){
         ForecastFragment fragment = new ForecastFragment().newInstance("", "");
-        FragmentManager manager = activity.getSupportFragmentManager();
+        FragmentManager manager = navActivity.getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.fragmentLayout, fragment, fragment.getTag()).commit();
+    }
 
+    public static void openLoadingScreen(){
+        LoadingFragment fragment = new LoadingFragment().newInstance();
+        FragmentManager manager = navActivity.getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.fragmentLayout, fragment, fragment.getTag()).commit();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -139,7 +133,7 @@ public class NavActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_forecast) {
-            openForecast(this);
+            openForecast();
         } else if (id == R.id.nav_settings) {
 
         }

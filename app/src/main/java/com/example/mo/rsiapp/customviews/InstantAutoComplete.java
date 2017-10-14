@@ -13,6 +13,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mo.rsiapp.NavActivity;
 import com.example.mo.rsiapp.R;
 import com.example.mo.rsiapp.datamanaging.FetchingManager;
 
@@ -134,10 +135,9 @@ public class InstantAutoComplete extends android.support.v7.widget.AppCompatAuto
         Toast.makeText(getContext(), getText(), Toast.LENGTH_SHORT).show();
         String areaName = getText().toString();
         int index = FetchingManager.areasName.indexOf(areaName);
-        Log.d(TAG, "useSelectedValue: index : " + index);
-        Log.d(TAG, "useSelectedValue: id : " + FetchingManager.areasID.get(index));
         int areaID = Integer.parseInt(FetchingManager.areasID.get(index));
-        FetchingManager.fetchForecast(areaID, FetchingManager.latestForecastTime);
+        NavActivity.openLoadingScreen();
+        //FetchingManager.fetchForecast(areaID, FetchingManager.latestForecastTime);
     }
 
     @Override

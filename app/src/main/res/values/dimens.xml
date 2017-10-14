@@ -5,7 +5,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
-    <dimen name="container_height">160dp</dimen>
+    <dimen name="container_height">180dp</dimen>
     <dimen name="container_spacing">20dp</dimen>
     <dimen name="container_inner_spacing">0dp</dimen>
     <dimen name="chart_list_item_spacing">50dp</dimen>
