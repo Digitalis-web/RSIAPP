@@ -72,8 +72,8 @@ public class FetchingManager {
             for(int i = 0; i < forecastsObj.length(); i++) {
                 JSONObject obj = forecastsObj.getJSONObject(i);
 
-                //latestForecastTime = Long.parseLong(obj.get("creation_time").toString());
-                latestForecastTime = 1485680400; // TEMP DEBUG
+                latestForecastTime = Long.parseLong(obj.get("creation_time").toString());
+                //latestForecastTime = 1485680400; // TEMP DEBUG
                 Log.d(TAG, "parseAreasData: lastforecast: " + latestForecastTime);
 
             }
