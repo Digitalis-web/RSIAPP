@@ -37,14 +37,14 @@ public class FetchingManager {
     public static ArrayList<String> categories = new ArrayList<>();
     public static ArrayList<JSONObject> categorizedData = new ArrayList<>();
 
-    public static void fetchAreas(){
+    public static void fetchAreas() {
         Log.d(TAG, "fetchAndControlData: fetching data");
         clearOldData();
         JSONFetcher JF = new JSONFetcher(false);
         JF.execute(areasUrl);
     }
 
-    public static void fetchForecast(int areaID, long time){
+    public static void fetchForecast(int areaID, long time) {
         clearOldData();
         String url = forecastUrl + areaID + "@" + time;
         Log.d(TAG, "fetchAndControlData: fetching data from : " + url);
@@ -84,6 +84,7 @@ public class FetchingManager {
 
         NavActivity.searchBar.updateList(areasName);
     }
+
     public static void parseForecastData(JSONObject data){
         Log.d(TAG, "parseData: length of data: " + data.toString().length());
         try {
