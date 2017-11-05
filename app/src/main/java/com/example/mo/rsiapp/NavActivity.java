@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.example.mo.rsiapp.backgroundtasks.Alarm;
@@ -52,8 +53,13 @@ public class NavActivity extends AppCompatActivity
         //navigationView.setNavigationItemSelectedListener(this);
 
         ArrayList<NavAreaItem> navAreaItems = new ArrayList<>();
-        navAreaItems.add(new NavAreaItem("test1"));
+        /*navAreaItems.add(new NavAreaItem("test1"));
         navAreaItems.add(new NavAreaItem("test2"));
+        navAreaItems.add(new NavAreaItem("test2"));
+        navAreaItems.add(new NavAreaItem("test2"));
+        navAreaItems.add(new NavAreaItem("test2"));
+        navAreaItems.add(new NavAreaItem("test2"));
+        navAreaItems.add(new NavAreaItem("test2"));*/
 
         navDrawerList = (ListView) findViewById(R.id.nav_view);
 
