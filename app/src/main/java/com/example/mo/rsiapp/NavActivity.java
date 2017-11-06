@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -53,6 +54,9 @@ public class NavActivity extends AppCompatActivity
         //navigationView.setNavigationItemSelectedListener(this);
 
         ArrayList<NavAreaItem> navAreaItems = new ArrayList<>();
+        navAreaItems.add(new NavAreaItem("test1", false));
+        navAreaItems.add(new NavAreaItem("test2", false));
+        navAreaItems.add(new NavAreaItem("test3", false));
         /*navAreaItems.add(new NavAreaItem("test1"));
         navAreaItems.add(new NavAreaItem("test2"));
         navAreaItems.add(new NavAreaItem("test2"));
@@ -63,7 +67,7 @@ public class NavActivity extends AppCompatActivity
 
         navDrawerList = (ListView) findViewById(R.id.nav_view);
 
-        navDrawerList.setAdapter(new NavAreaItemAdapter(this, navAreaItems));
+        navDrawerList.setAdapter(new NavAreaItemAdapter(this, navAreaItems, navDrawerList));
 
         getSupportActionBar().setDisplayShowTitleEnabled(false); // hide title in action bar
 
@@ -72,6 +76,8 @@ public class NavActivity extends AppCompatActivity
         FetchingManager.fetchAreas();
 
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -131,6 +137,7 @@ public class NavActivity extends AppCompatActivity
         FragmentManager manager = navActivity.getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.fragmentLayout, fragment, fragment.getTag()).commit();
     }
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

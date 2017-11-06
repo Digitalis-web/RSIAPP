@@ -33,6 +33,7 @@
         android:layout_gravity="start"
         android:background="@color/colorWhite"
         >
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,6 +43,7 @@
             android:textAlignment="center"
 
             />
+
 
         <ListView android:id="@+id/nav_view"
             android:layout_width="match_parent"

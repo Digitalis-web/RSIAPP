@@ -15,6 +15,10 @@ public class NavAreaItem {
     }
 
 
+    public boolean isAddButton(){
+        return isAddButton;
+    }
+
     public String getName(){
         return name;
     }
