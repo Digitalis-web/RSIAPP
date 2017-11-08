@@ -103,6 +103,17 @@
             </com.github.mikephil.charting.charts.PieChart>
         </LinearLayout>
 
+        <com.example.mo.rsiapp.customviews.WatchAreaButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bevaka område"
+            android:background="@color/colorBlue"
+            android:layout_margin="@dimen/container_spacing"
+            android:textColor="@color/colorBlack"
+
+            />
+
+
 
 
         <TextView

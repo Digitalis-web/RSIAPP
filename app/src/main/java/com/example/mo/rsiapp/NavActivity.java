@@ -3,6 +3,7 @@ package com.example.mo.rsiapp;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,6 +23,7 @@ import com.example.mo.rsiapp.customviews.InstantAutoComplete;
 import com.example.mo.rsiapp.customviews.NavAreaItem;
 import com.example.mo.rsiapp.customviews.NavAreaItemAdapter;
 import com.example.mo.rsiapp.datamanaging.FetchingManager;
+import com.example.mo.rsiapp.datamanaging.StorageManager;
 
 import java.util.ArrayList;
 
@@ -74,6 +76,11 @@ public class NavActivity extends AppCompatActivity
 
         searchBar = (InstantAutoComplete) findViewById(R.id.search_area);
         FetchingManager.fetchAreas();
+
+
+        //StorageManager.saveString("test", "hello");
+        String value = StorageManager.getString("test");
+        Log.d(TAG, "onCreate: SAVED VALUE: " + value);
 
     }
 

@@ -58,13 +58,6 @@ public class InstantAutoComplete extends android.support.v7.widget.AppCompatAuto
             }
         });
 
-        ArrayList<String> list = new ArrayList<>();
-        //list.add("asd");
-        //list.add("as123123123123123123d");
-        //list.add("as12ssss123123123123123d");
-        //list.add("hej");
-        //list.add("as12ssss123123123123123d");
-        //updateList(list);
 
         setOnEditorActionListener(this); // listen for enter button
         setOnItemClickListener(this); // listen for enter button

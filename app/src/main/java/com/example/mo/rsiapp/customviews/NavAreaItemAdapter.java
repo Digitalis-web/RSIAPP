@@ -114,6 +114,7 @@ public class NavAreaItemAdapter extends BaseAdapter implements ListView.OnItemCl
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         NavAreaItem clickedItem = getItem(i);
         Log.d(TAG, "onItemClick: clicked: " +  i + " l " + l);
+        clickedItem.onClick(view, c);
 
     }
 }
