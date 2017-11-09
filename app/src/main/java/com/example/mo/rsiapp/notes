@@ -11,5 +11,5 @@ hitta på något annat än piechart för yttemperatur
 välja kategorier
 laddnings animation
 ange nyckel
-spara områden
-göra forecast fragment scrollable?
+visa tid istället för "om 4h"
+ta bort focus från sökbaren när man öppnar nav

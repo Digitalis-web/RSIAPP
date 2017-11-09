@@ -103,6 +103,7 @@ public class ForecastFragment extends Fragment {
         // { name: 'DriftingSnow', color: '#156262', stroke: 'rgba(0,0,0,0.2)', label: 'SnÃ¶drev' },
         // { name: 'Slipperiness', color: '#cc66cc', stroke: 'rgba(0,0,0,0.2)', label: 'Halka' },
         // { name: 'Hazardous', color: '#e96605', stroke: 'rgba(0,0,0,0.2)', label: 'SvÃ¥r halka' }];
+
         map = new HashMap<>();
         map.put("name", "LightSnow");
         map.put("color", "#66ffff");

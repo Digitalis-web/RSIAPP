@@ -38,7 +38,6 @@ public class WatchAreaButton extends android.support.v7.widget.AppCompatButton i
         this.areaID = areaID;
 
         isAddButton = !StorageManager.areaIsWatched(areaID);
-        Log.d(TAG, "init: isaddbutton " + isAddButton);
 
         // If the area is watched, the color of the button will be changed
         int bgColor;
@@ -60,11 +59,9 @@ public class WatchAreaButton extends android.support.v7.widget.AppCompatButton i
     @Override
     public void onClick(View view) {
         if(isAddButton) {
-            Log.d(TAG, "onClick: adding area " + areaID);
             StorageManager.addWatchedArea(areaID);
         }
         else {
-            Log.d(TAG, "onClick: removing area " + areaID);
             StorageManager.removeWatchedArea(areaID);
         }
 

@@ -33,10 +33,7 @@ public class NavAreaItemAdapter extends BaseAdapter implements ListView.OnItemCl
     public NavAreaItemAdapter(Context c, ArrayList<NavAreaItem> list, ListView listView) {
         navItemsList = list;
         this.c = c;
-        list.add(new NavAreaItem("", true));
         listView.setOnItemClickListener(this);
-
-
     }
 
     @Override
@@ -69,44 +66,9 @@ public class NavAreaItemAdapter extends BaseAdapter implements ListView.OnItemCl
         }
 
         NavAreaItem navItem = navItemsList.get(position);
+        TextView name = (TextView) row.findViewById(R.id.nav_item_header);
+        name.setText(navItem.getName());
 
-        int bgColor = 0;
-        int visibility = 0;
-
-        if(navItem.isAddButton()){
-            bgColor = ResourcesCompat.getColor(c.getResources(), R.color.colorGrey, null);
-
-            Log.d(TAG, "getView: row: " + row);
-            Log.d(TAG, "getView: runnig is button");
-            visibility = View.VISIBLE;
-
-        //    row.setBackgroundColor(color);
-        }
-        else {
-            TextView name = (TextView) row.findViewById(R.id.nav_item_header);
-            name.setText(navItem.getName());
-            bgColor = ResourcesCompat.getColor(c.getResources(), R.color.colorLightBlue, null);
-            visibility = View.INVISIBLE;
-        }
-
-        ImageView addIcon = (ImageView) row.findViewById(R.id.nav_add_icon);
-        addIcon.setVisibility(visibility);
-
-        LinearLayout innerContainer = (LinearLayout) row.findViewById(R.id.nav_item_inner_container);
-        innerContainer.setBackgroundColor(bgColor);
-
-
-
-        /*ClientDetails detail = clientArrayList.get(position);
-        TextView email = (TextView) row.findViewById(R.id.tvClientEmail);
-        email.setText(detail.email);
-        TextView id = (TextView) row.findViewById(R.id.tvClientID);
-        id.setText("ID : " + detail.id);
-        TextView company = (TextView) row
-                .findViewById(R.id.tvClientCompanyName);
-        company.setText(detail.company);
-        TextView status = (TextView) row.findViewById(R.id.tvClientStatus);
-        status.setText("Status:" + detail.status);*/
         return row;
     }
 

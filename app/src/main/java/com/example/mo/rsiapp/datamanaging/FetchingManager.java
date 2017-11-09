@@ -44,7 +44,7 @@ public class FetchingManager {
         JF.execute(areasUrl);
     }
 
-    public static void fetchForecast(int areaID, long time) {
+    public static void fetchForecast(String areaID, long time) {
         clearOldData();
         String url = forecastUrl + areaID + "@" + time;
         Log.d(TAG, "fetchAndControlData: fetching data from : " + url);
@@ -82,7 +82,14 @@ public class FetchingManager {
             e.printStackTrace();
         }
 
+        NavActivity.navActivity.updateNavItems();
         NavActivity.searchBar.updateList(areasName);
+    }
+
+    public static String getAreaNameFromID(String areaID){
+        int index = areasID.indexOf(areaID);
+        String areaName = areasName.get(index);
+        return areaName;
     }
 
     public static void parseForecastData(JSONObject data){

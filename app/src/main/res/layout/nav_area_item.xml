@@ -21,14 +21,6 @@
             android:textSize="19sp"
             android:layout_marginLeft="@dimen/nav_item_spacing"
             />
-        <ImageView
-            android:id="@+id/nav_add_icon"
-            android:visibility="invisible"
-            android:src="@drawable/ic_plus"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-
     </LinearLayout>
 
 

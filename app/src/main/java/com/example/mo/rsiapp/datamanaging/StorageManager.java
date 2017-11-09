@@ -5,13 +5,10 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.mo.rsiapp.NavActivity;
-import com.example.mo.rsiapp.R;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import static android.R.attr.defaultValue;
-import static android.R.attr.value;
 
 /**
  * Created by mo on 08/11/17.
@@ -35,14 +32,14 @@ public class StorageManager {
         Set<String> set = getStringSet(WATCHED_AREAS_KEY);
         set.remove(areaID);
         saveStringSet(WATCHED_AREAS_KEY, set);
-        NavActivity.navActivity.initNavItems();
+        NavActivity.navActivity.updateNavItems();
     }
 
     public static void addWatchedArea(String areaID){
         Set<String> set = getStringSet(WATCHED_AREAS_KEY);
         set.add(areaID);
         saveStringSet(WATCHED_AREAS_KEY, set);
-        NavActivity.navActivity.initNavItems();
+        NavActivity.navActivity.updateNavItems();
     }
 
     public static void saveStringSet(String key, Set<String> set) {

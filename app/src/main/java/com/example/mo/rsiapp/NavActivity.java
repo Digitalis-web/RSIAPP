@@ -13,9 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.example.mo.rsiapp.backgroundtasks.Alarm;
@@ -34,9 +31,10 @@ public class NavActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ForecastFragment.OnFragmentInteractionListener, LoadingFragment.OnFragmentInteractionListener {
 
     public static InstantAutoComplete searchBar;
-    private static String TAG = "NavActivity";
+    private static final String TAG = "NavActivity";
     public static NavActivity navActivity;
     private ListView navDrawerList;
+    private DrawerLayout navDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,34 +45,14 @@ public class NavActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+                this, navDrawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        navDrawer.setDrawerListener(toggle);
         toggle.syncState();
 
         Log.d(TAG, "onCreate: watched areas: " + StorageManager.getWatchedAreas().toString());
 
-        //NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        //navigationView.setNavigationItemSelectedListener(this);
-
-        //ArrayList<NavAreaItem> navAreaItems = new ArrayList<>();
-        //navAreaItems.add(new NavAreaItem("test1", false));
-        //navAreaItems.add(new NavAreaItem("test2", false));
-        //navAreaItems.add(new NavAreaItem("test3", false));
-        /*navAreaItems.add(new NavAreaItem("test1"));
-        navAreaItems.add(new NavAreaItem("test2"));
-        navAreaItems.add(new NavAreaItem("test2"));
-        navAreaItems.add(new NavAreaItem("test2"));
-        navAreaItems.add(new NavAreaItem("test2"));
-        navAreaItems.add(new NavAreaItem("test2"));
-        navAreaItems.add(new NavAreaItem("test2"));*/
-
-        //navDrawerList = (ListView) findViewById(R.id.nav_view);
-
-        //navDrawerList.setAdapter(new NavAreaItemAdapter(this, navAreaItems, navDrawerList));
-
-        initNavItems();
 
         getSupportActionBar().setDisplayShowTitleEnabled(false); // hide title in action bar
 
@@ -82,25 +60,23 @@ public class NavActivity extends AppCompatActivity
         searchBar = (InstantAutoComplete) findViewById(R.id.search_area);
         FetchingManager.fetchAreas();
 
-
-        //StorageManager.saveString("test", "hello");
-        String value = StorageManager.getString("test");
-        Log.d(TAG, "onCreate: SAVED VALUE: " + value);
-
     }
 
-    public void initNavItems(){
+    public void closeNav(){
+        navDrawer.closeDrawers();
+    }
+
+    public void updateNavItems(){
         Set<String> watchedAreas = StorageManager.getWatchedAreas();
         ArrayList<NavAreaItem> navAreaItems = new ArrayList<>();
 
         for(String areaID : watchedAreas){
-            navAreaItems.add(new NavAreaItem(areaID, false));
+            String areaName = FetchingManager.getAreaNameFromID(areaID);
+            navAreaItems.add(new NavAreaItem(areaName, areaID));
         }
 
         navDrawerList = (ListView) findViewById(R.id.nav_view);
-
         navDrawerList.setAdapter(new NavAreaItemAdapter(this, navAreaItems, navDrawerList));
-
     }
 
 

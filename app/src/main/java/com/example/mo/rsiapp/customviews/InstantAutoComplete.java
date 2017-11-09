@@ -128,7 +128,7 @@ public class InstantAutoComplete extends android.support.v7.widget.AppCompatAuto
         Toast.makeText(getContext(), getText(), Toast.LENGTH_SHORT).show();
         String areaName = getText().toString();
         int index = FetchingManager.areasName.indexOf(areaName);
-        int areaID = Integer.parseInt(FetchingManager.areasID.get(index));
+        String areaID = FetchingManager.areasID.get(index);
         NavActivity.openLoadingScreen();
         FetchingManager.fetchForecast(areaID, FetchingManager.latestForecastTime);
     }
