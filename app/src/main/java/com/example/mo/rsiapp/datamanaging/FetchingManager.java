@@ -87,8 +87,10 @@ public class FetchingManager {
 
     public static void parseForecastData(JSONObject data){
         Log.d(TAG, "parseData: length of data: " + data.toString().length());
+        String areaID = "" ;
         try {
             String time = data.get("times").toString();
+            areaID = data.get("area").toString();
             Log.d(TAG, "parseData: " + time);
 
 
@@ -128,7 +130,7 @@ public class FetchingManager {
         chartOneTime = closestHourTime;
         chartTwoTime = closestHourTime + 4*3600;
         chartThreeTime = closestHourTime + 8*3600;
-        NavActivity.openForecast();
+        NavActivity.openForecast(areaID);
     }
 
     public static HashMap<String, Long> getDataPoint(String category, long time){

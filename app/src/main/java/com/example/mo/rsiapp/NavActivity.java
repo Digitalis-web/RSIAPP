@@ -26,6 +26,7 @@ import com.example.mo.rsiapp.datamanaging.FetchingManager;
 import com.example.mo.rsiapp.datamanaging.StorageManager;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import static com.example.mo.rsiapp.R.menu.nav;
 
@@ -52,13 +53,15 @@ public class NavActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        Log.d(TAG, "onCreate: watched areas: " + StorageManager.getWatchedAreas().toString());
+
         //NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         //navigationView.setNavigationItemSelectedListener(this);
 
-        ArrayList<NavAreaItem> navAreaItems = new ArrayList<>();
-        navAreaItems.add(new NavAreaItem("test1", false));
-        navAreaItems.add(new NavAreaItem("test2", false));
-        navAreaItems.add(new NavAreaItem("test3", false));
+        //ArrayList<NavAreaItem> navAreaItems = new ArrayList<>();
+        //navAreaItems.add(new NavAreaItem("test1", false));
+        //navAreaItems.add(new NavAreaItem("test2", false));
+        //navAreaItems.add(new NavAreaItem("test3", false));
         /*navAreaItems.add(new NavAreaItem("test1"));
         navAreaItems.add(new NavAreaItem("test2"));
         navAreaItems.add(new NavAreaItem("test2"));
@@ -67,9 +70,11 @@ public class NavActivity extends AppCompatActivity
         navAreaItems.add(new NavAreaItem("test2"));
         navAreaItems.add(new NavAreaItem("test2"));*/
 
-        navDrawerList = (ListView) findViewById(R.id.nav_view);
+        //navDrawerList = (ListView) findViewById(R.id.nav_view);
 
-        navDrawerList.setAdapter(new NavAreaItemAdapter(this, navAreaItems, navDrawerList));
+        //navDrawerList.setAdapter(new NavAreaItemAdapter(this, navAreaItems, navDrawerList));
+
+        initNavItems();
 
         getSupportActionBar().setDisplayShowTitleEnabled(false); // hide title in action bar
 
@@ -84,6 +89,19 @@ public class NavActivity extends AppCompatActivity
 
     }
 
+    public void initNavItems(){
+        Set<String> watchedAreas = StorageManager.getWatchedAreas();
+        ArrayList<NavAreaItem> navAreaItems = new ArrayList<>();
+
+        for(String areaID : watchedAreas){
+            navAreaItems.add(new NavAreaItem(areaID, false));
+        }
+
+        navDrawerList = (ListView) findViewById(R.id.nav_view);
+
+        navDrawerList.setAdapter(new NavAreaItemAdapter(this, navAreaItems, navDrawerList));
+
+    }
 
 
     @Override
@@ -133,8 +151,8 @@ public class NavActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public static void openForecast(){
-        ForecastFragment fragment = new ForecastFragment().newInstance("", "");
+    public static void openForecast(String areaID){
+        ForecastFragment fragment = new ForecastFragment().newInstance(areaID);
         FragmentManager manager = navActivity.getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.fragmentLayout, fragment, fragment.getTag()).commit();
     }
@@ -153,7 +171,7 @@ public class NavActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_forecast) {
-            openForecast();
+            //openForecast();
         } else if (id == R.id.nav_settings) {
 
         }
