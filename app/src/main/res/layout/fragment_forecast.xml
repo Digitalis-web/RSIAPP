@@ -10,6 +10,15 @@
         tools:context="com.example.mo.rsiapp.ForecastFragment">
 
 
+        <TextView
+            android:id="@+id/forecast_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            />
+
+
+
         <LinearLayout
             android:id="@+id/chartContainerOne"
             style="@style/AppTheme.ChartContainer"
@@ -102,6 +111,15 @@
                 >
             </com.github.mikephil.charting.charts.PieChart>
         </LinearLayout>
+
+        <com.example.mo.rsiapp.customviews.WatchAreaButton
+            android:id="@+id/watchAreaBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/container_spacing"
+            android:textColor="@color/colorBlack"
+            />
+
 
 
 

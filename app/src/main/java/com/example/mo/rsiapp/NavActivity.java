@@ -3,6 +3,7 @@ package com.example.mo.rsiapp;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.mo.rsiapp.backgroundtasks.Alarm;
@@ -20,8 +20,10 @@ import com.example.mo.rsiapp.customviews.InstantAutoComplete;
 import com.example.mo.rsiapp.customviews.NavAreaItem;
 import com.example.mo.rsiapp.customviews.NavAreaItemAdapter;
 import com.example.mo.rsiapp.datamanaging.FetchingManager;
+import com.example.mo.rsiapp.datamanaging.StorageManager;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import static com.example.mo.rsiapp.R.menu.nav;
 
@@ -29,9 +31,10 @@ public class NavActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ForecastFragment.OnFragmentInteractionListener, LoadingFragment.OnFragmentInteractionListener {
 
     public static InstantAutoComplete searchBar;
-    private static String TAG = "NavActivity";
+    private static final String TAG = "NavActivity";
     public static NavActivity navActivity;
     private ListView navDrawerList;
+    private DrawerLayout navDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,22 +45,14 @@ public class NavActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+                this, navDrawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        navDrawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        //NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        //navigationView.setNavigationItemSelectedListener(this);
+        Log.d(TAG, "onCreate: watched areas: " + StorageManager.getWatchedAreas().toString());
 
-        ArrayList<NavAreaItem> navAreaItems = new ArrayList<>();
-        navAreaItems.add(new NavAreaItem("test1"));
-        navAreaItems.add(new NavAreaItem("test2"));
-
-        navDrawerList = (ListView) findViewById(R.id.nav_view);
-
-        navDrawerList.setAdapter(new NavAreaItemAdapter(this, navAreaItems));
 
         getSupportActionBar().setDisplayShowTitleEnabled(false); // hide title in action bar
 
@@ -66,6 +61,24 @@ public class NavActivity extends AppCompatActivity
         FetchingManager.fetchAreas();
 
     }
+
+    public void closeNav(){
+        navDrawer.closeDrawers();
+    }
+
+    public void updateNavItems(){
+        Set<String> watchedAreas = StorageManager.getWatchedAreas();
+        ArrayList<NavAreaItem> navAreaItems = new ArrayList<>();
+
+        for(String areaID : watchedAreas){
+            String areaName = FetchingManager.getAreaNameFromID(areaID);
+            navAreaItems.add(new NavAreaItem(areaName, areaID));
+        }
+
+        navDrawerList = (ListView) findViewById(R.id.nav_view);
+        navDrawerList.setAdapter(new NavAreaItemAdapter(this, navAreaItems, navDrawerList));
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -114,8 +127,8 @@ public class NavActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public static void openForecast(){
-        ForecastFragment fragment = new ForecastFragment().newInstance("", "");
+    public static void openForecast(String areaID){
+        ForecastFragment fragment = new ForecastFragment().newInstance(areaID);
         FragmentManager manager = navActivity.getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.fragmentLayout, fragment, fragment.getTag()).commit();
     }
@@ -126,6 +139,7 @@ public class NavActivity extends AppCompatActivity
         manager.beginTransaction().replace(R.id.fragmentLayout, fragment, fragment.getTag()).commit();
     }
 
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -133,7 +147,7 @@ public class NavActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_forecast) {
-            openForecast();
+            //openForecast();
         } else if (id == R.id.nav_settings) {
 
         }

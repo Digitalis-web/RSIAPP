@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.mo.rsiapp.customviews.WatchAreaButton;
 import com.example.mo.rsiapp.datamanaging.FetchingManager;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
@@ -33,18 +34,10 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.ColorTemplate;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
-import static android.R.attr.category;
-import static android.R.attr.label;
-import static android.os.Build.VERSION_CODES.M;
-import static android.support.v7.widget.AppCompatDrawableManager.get;
 
 
 /**
@@ -59,7 +52,7 @@ public class ForecastFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    //private static final String ARG_PARAM2 = "param2";
 
     private static final String TAG = "Forecast";
 
@@ -68,8 +61,7 @@ public class ForecastFragment extends Fragment {
     PieChart chart3;
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String areaID;
 
     private ViewGroup rootViewGroup;
 
@@ -111,6 +103,7 @@ public class ForecastFragment extends Fragment {
         // { name: 'DriftingSnow', color: '#156262', stroke: 'rgba(0,0,0,0.2)', label: 'SnÃ¶drev' },
         // { name: 'Slipperiness', color: '#cc66cc', stroke: 'rgba(0,0,0,0.2)', label: 'Halka' },
         // { name: 'Hazardous', color: '#e96605', stroke: 'rgba(0,0,0,0.2)', label: 'SvÃ¥r halka' }];
+
         map = new HashMap<>();
         map.put("name", "LightSnow");
         map.put("color", "#66ffff");
@@ -161,16 +154,14 @@ public class ForecastFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment ForecastFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ForecastFragment newInstance(String param1, String param2) {
+    public static ForecastFragment newInstance(String areaID) {
         ForecastFragment fragment = new ForecastFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM1, areaID);
+        //args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -179,8 +170,8 @@ public class ForecastFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            areaID = getArguments().getString(ARG_PARAM1);
+            //mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -196,20 +187,18 @@ public class ForecastFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflatedView;
     }
+
     public void initComponents(View inflatedView){
 
-        //TextView t = (TextView) inflatedView.findViewById(R.id.textHeader);
-        //t.setText("Text to Display");
+
+        final WatchAreaButton watchButton = (WatchAreaButton) inflatedView.findViewById(R.id.watchAreaBtn);
+        watchButton.init(areaID);
 
         String category = FetchingManager.categories.get(0);
         HashMap<String, Long> chart1Values = FetchingManager.getDataPoint(category, FetchingManager.chartOneTime);
         HashMap<String, Long> chart2Values = FetchingManager.getDataPoint(category, FetchingManager.chartTwoTime);
         HashMap<String, Long> chart3Values = FetchingManager.getDataPoint(category, FetchingManager.chartThreeTime);
 
-
-        //Log.d(TAG, "initComponents: cahrt1: " + chart1Values.toString());
-        //Log.d(TAG, "initComponents: cahrt2: " + chart2Values.toString());
-        //Log.d(TAG, "initComponents: cahrt3: " + chart3Values.toString());
 
         Log.d(TAG, "onCreateView: starting create chart");
         chart1 = (PieChart) inflatedView.findViewById(R.id.piChartOne);

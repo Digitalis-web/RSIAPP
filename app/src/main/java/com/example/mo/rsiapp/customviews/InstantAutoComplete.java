@@ -58,13 +58,6 @@ public class InstantAutoComplete extends android.support.v7.widget.AppCompatAuto
             }
         });
 
-        ArrayList<String> list = new ArrayList<>();
-        //list.add("asd");
-        //list.add("as123123123123123123d");
-        //list.add("as12ssss123123123123123d");
-        //list.add("hej");
-        //list.add("as12ssss123123123123123d");
-        //updateList(list);
 
         setOnEditorActionListener(this); // listen for enter button
         setOnItemClickListener(this); // listen for enter button
@@ -135,7 +128,7 @@ public class InstantAutoComplete extends android.support.v7.widget.AppCompatAuto
         Toast.makeText(getContext(), getText(), Toast.LENGTH_SHORT).show();
         String areaName = getText().toString();
         int index = FetchingManager.areasName.indexOf(areaName);
-        int areaID = Integer.parseInt(FetchingManager.areasID.get(index));
+        String areaID = FetchingManager.areasID.get(index);
         NavActivity.openLoadingScreen();
         FetchingManager.fetchForecast(areaID, FetchingManager.latestForecastTime);
     }

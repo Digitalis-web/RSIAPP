@@ -1,31 +1,39 @@
 package com.example.mo.rsiapp.customviews;
 
 import android.content.Context;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.mo.rsiapp.R;
 
 import java.util.ArrayList;
 
+import static android.R.attr.name;
+
 /**
  * Created by mo on 12/10/17.
  */
 
 
-public class NavAreaItemAdapter extends BaseAdapter {
+public class NavAreaItemAdapter extends BaseAdapter implements ListView.OnItemClickListener {
     // ArrayList<String> name, company, email, id, status;
     ArrayList<NavAreaItem> navItemsList;
     Context c;
     private final String TAG = "NavAdapter";
 
-    public NavAreaItemAdapter(Context c, ArrayList<NavAreaItem> list) {
+    public NavAreaItemAdapter(Context c, ArrayList<NavAreaItem> list, ListView listView) {
         navItemsList = list;
         this.c = c;
+        listView.setOnItemClickListener(this);
     }
 
     @Override
@@ -35,7 +43,7 @@ public class NavAreaItemAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public NavAreaItem getItem(int position) {
         // TODO Auto-generated method stub
         return navItemsList.get(position);
     }
@@ -60,17 +68,15 @@ public class NavAreaItemAdapter extends BaseAdapter {
         NavAreaItem navItem = navItemsList.get(position);
         TextView name = (TextView) row.findViewById(R.id.nav_item_header);
         name.setText(navItem.getName());
-        /*ClientDetails detail = clientArrayList.get(position);
-        TextView email = (TextView) row.findViewById(R.id.tvClientEmail);
-        email.setText(detail.email);
-        TextView id = (TextView) row.findViewById(R.id.tvClientID);
-        id.setText("ID : " + detail.id);
-        TextView company = (TextView) row
-                .findViewById(R.id.tvClientCompanyName);
-        company.setText(detail.company);
-        TextView status = (TextView) row.findViewById(R.id.tvClientStatus);
-        status.setText("Status:" + detail.status);*/
+
         return row;
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        NavAreaItem clickedItem = getItem(i);
+        Log.d(TAG, "onItemClick: clicked: " +  i + " l " + l);
+        clickedItem.onClick(view, c);
+
+    }
 }
