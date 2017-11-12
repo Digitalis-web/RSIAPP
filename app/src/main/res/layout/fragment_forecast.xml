@@ -1,137 +1,157 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
-    <LinearLayout
-        xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context="com.example.mo.rsiapp.ForecastFragment">
-
-
-        <TextView
-            android:id="@+id/forecast_header"
+        android:layout_height="wrap_content"
+        android:id="@+id/forecast_scroll_view"
+        >
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context="com.example.mo.rsiapp.ForecastFragment">
+
+
+            <TextView
+                android:id="@+id/forecast_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="29sp"
+                android:paddingTop="@dimen/container_spacing"
+                android:textColor="@color/colorBlack"
+                />
+
+
+
+            <LinearLayout
+                android:id="@+id/chartContainerOne"
+                style="@style/AppTheme.ChartContainer"
+                android:background="@color/colorBlue"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/container_height"
+                > <LinearLayout
+                    android:id="@+id/chartInfoOne"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/ChartListHeader"
+                        android:text="Nu"
+                        />
+                </LinearLayout>
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/piChartOne"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="3"
+                    android:layout_height="match_parent"
+                    >
+                </com.github.mikephil.charting.charts.PieChart>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/chartContainerTwo"
+                style="@style/AppTheme.ChartContainer"
+                android:background="@color/colorGrey"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/container_height"
+                >
+                <LinearLayout
+                    android:id="@+id/chartInfoTwo"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/ChartListHeader"
+                        android:text="Om 4h"
+                        />
+                </LinearLayout>
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/piChartTwo"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="3"
+                    android:layout_height="match_parent"
+                    >
+                </com.github.mikephil.charting.charts.PieChart>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/chartContainerThree"
+                style="@style/AppTheme.ChartContainer"
+                android:background="@color/colorWhite"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/container_height"
+                >
+                <LinearLayout
+                    android:id="@+id/chartInfoThree"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/ChartListHeader"
+                        android:text="Om 8h"
+                        />
+                </LinearLayout>
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/piChartThree"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="3"
+                    android:layout_height="match_parent"
+                    >
+                </com.github.mikephil.charting.charts.PieChart>
+            </LinearLayout>
+
+            <com.example.mo.rsiapp.customviews.WatchAreaButton
+                android:id="@+id/watchAreaBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/container_spacing"
+                android:textColor="@color/colorBlack"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:background="@color/colorBlue"
+        android:layout_alignParentBottom="true"
+        >
+        <android.support.v7.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             />
-
-
-
-        <LinearLayout
-            android:id="@+id/chartContainerOne"
-            style="@style/AppTheme.ChartContainer"
-            android:background="@color/colorBlue"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/container_height"
-            >
-
-            <LinearLayout
-                android:id="@+id/chartInfoOne"
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/ChartListHeader"
-                    android:text="Nu"
-                    />
-            </LinearLayout>
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/piChartOne"
-                android:layout_width="wrap_content"
-                android:layout_weight="3"
-                android:layout_height="match_parent"
-                >
-            </com.github.mikephil.charting.charts.PieChart>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/chartContainerTwo"
-            style="@style/AppTheme.ChartContainer"
-            android:background="@color/colorGrey"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/container_height"
-            >
-            <LinearLayout
-                android:id="@+id/chartInfoTwo"
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/ChartListHeader"
-                    android:text="Om 4h"
-                    />
-            </LinearLayout>
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/piChartTwo"
-                android:layout_width="wrap_content"
-                android:layout_weight="3"
-                android:layout_height="match_parent"
-                >
-            </com.github.mikephil.charting.charts.PieChart>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/chartContainerThree"
-            style="@style/AppTheme.ChartContainer"
-            android:background="@color/colorWhite"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/container_height"
-            >
-            <LinearLayout
-                android:id="@+id/chartInfoThree"
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/ChartListHeader"
-                    android:text="Om 8h"
-                    />
-            </LinearLayout>
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/piChartThree"
-                android:layout_width="wrap_content"
-                android:layout_weight="3"
-                android:layout_height="match_parent"
-                >
-            </com.github.mikephil.charting.charts.PieChart>
-        </LinearLayout>
-
-        <com.example.mo.rsiapp.customviews.WatchAreaButton
-            android:id="@+id/watchAreaBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/container_spacing"
-            android:textColor="@color/colorBlack"
+        <android.support.v7.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             />
-
-
-
-
-        <TextView
-            android:id="@+id/textHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="180dp"
-            android:text="Fel"
-            android:visibility="gone" />
+        <android.support.v7.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            />
 
     </LinearLayout>
-</ScrollView>
+
+</RelativeLayout>

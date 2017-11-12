@@ -35,6 +35,8 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -193,6 +195,10 @@ public class ForecastFragment extends Fragment {
 
         final WatchAreaButton watchButton = (WatchAreaButton) inflatedView.findViewById(R.id.watchAreaBtn);
         watchButton.init(areaID);
+
+        String areaName = FetchingManager.getAreaNameFromID(areaID);
+        TextView headerView = (TextView) inflatedView.findViewById(R.id.forecast_header);
+        headerView.setText(areaName);
 
         String category = FetchingManager.categories.get(0);
         HashMap<String, Long> chart1Values = FetchingManager.getDataPoint(category, FetchingManager.chartOneTime);
