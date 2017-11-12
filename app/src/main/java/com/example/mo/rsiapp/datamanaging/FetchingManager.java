@@ -88,8 +88,13 @@ public class FetchingManager {
 
     public static String getAreaNameFromID(String areaID){
         int index = areasID.indexOf(areaID);
-        String areaName = areasName.get(index);
-        return areaName;
+        if(index != -1) {
+            String areaName = areasName.get(index);
+            return areaName;
+        }
+        else {
+            return "";
+        }
     }
 
     public static void parseForecastData(JSONObject data){

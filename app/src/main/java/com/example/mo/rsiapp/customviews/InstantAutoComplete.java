@@ -64,10 +64,8 @@ public class InstantAutoComplete extends android.support.v7.widget.AppCompatAuto
     }
 
     public void updateList(ArrayList<String> list){
-        //String[] areas = {"joel asd", "mesasd", "russkie", "saker", "joes eas", "jerry", "jakob", "stash", "sant", "joels", "parski", "asda283", "muskiies"};
         String[] areas = new String[list.size()];
         list.toArray(areas);
-
 
         // Create the adapter and set it to the AutoCompleteTextView
         ArrayAdapter<String> adapter =

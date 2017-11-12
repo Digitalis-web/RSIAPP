@@ -10,4 +10,5 @@
     <dimen name="container_inner_spacing">0dp</dimen>
     <dimen name="chart_list_item_spacing">50dp</dimen>
     <dimen name="nav_item_spacing">10dp</dimen>
+    <dimen name="category_button_spacing">2dp</dimen>
 </resources>

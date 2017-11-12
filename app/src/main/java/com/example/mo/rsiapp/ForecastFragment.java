@@ -1,24 +1,21 @@
 package com.example.mo.rsiapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.text.Layout;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,7 +24,6 @@ import com.example.mo.rsiapp.datamanaging.FetchingManager;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -35,11 +31,10 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.example.mo.rsiapp.datamanaging.FetchingManager.categories;
 
 
 /**
@@ -58,9 +53,17 @@ public class ForecastFragment extends Fragment {
 
     private static final String TAG = "Forecast";
 
-    PieChart chart1;
-    PieChart chart2;
-    PieChart chart3;
+    private static ArrayList<String> viewCategories = new ArrayList<String>(){{
+        add("roadcondition");
+        add("roadfriction");
+        add("roadtemperature");
+        add("slipincidents");
+        add("roadtreatment");
+    }};
+
+    PieChart chartOne;
+    PieChart chartTwo;
+    PieChart chartThree;
 
     // TODO: Rename and change types of parameters
     private String areaID;
@@ -69,6 +72,8 @@ public class ForecastFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     ArrayList<HashMap<String, String>> roadConditionInfo = initRoadConditionInfoArray();
+    ArrayList<String> availableCategories = new ArrayList<>();
+    ArrayList<String> availableCategoriesLabels = new ArrayList<>();
 
 
     public ForecastFragment() {
@@ -145,7 +150,7 @@ public class ForecastFragment extends Fragment {
         for(int i = 0; i < roadConditionInfo.size(); i++) {
             HashMap<String, String> map = roadConditionInfo.get(i);
             if (map.get("name").equals(name)) {
-                return map.get(type);
+                return map.get(type)/**/;
             }
         }
 
@@ -177,6 +182,25 @@ public class ForecastFragment extends Fragment {
         }
     }
 
+
+    public void findAvailableCategories(){
+        // FetchingManager.categories contains the "categories" that the chosen area has data about.
+        // The viewCategories are the categories that should always be viewable when they are available
+        // availableCategories are the categories that the user will be able to choose from
+        for (int i = 0; i < FetchingManager.categories.size(); i++) {
+            String category = FetchingManager.categories.get(i);
+            Log.d(TAG, "initCategoryButtons: " + FetchingManager.categories.get(i));
+
+
+            // if the category is to be viewable
+            if (viewCategories.contains(category)) {
+                availableCategories.add(category);
+                availableCategoriesLabels.add(getCategoryLabel(category));
+            }
+
+        }
+
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -185,61 +209,130 @@ public class ForecastFragment extends Fragment {
         rootViewGroup = container;
 
         initComponents(inflatedView);
+        findAvailableCategories();
 
         // Inflate the layout for this fragment
         return inflatedView;
     }
 
-    public void initComponents(View inflatedView){
+    /*public void initCategoryButtons(View infaltedView) {
+        RadioGroup group = (RadioGroup) infaltedView.findViewById(R.id.category_radio_group);
+        // FetchingManager.categories contains the "categories" that the chosen area has data about.
+        // The viewCategories are the categories that should always be viewable when they are available
+        for (int i = 0; i < FetchingManager.categories.size(); i++) {
+            String category = FetchingManager.categories.get(i);
+            Log.d(TAG, "initCategoryButtons: " + FetchingManager.categories.get(i));
 
+            // if the category is to be viewable
+            if (viewCategories.contains(category)) {
+            }
 
-        final WatchAreaButton watchButton = (WatchAreaButton) inflatedView.findViewById(R.id.watchAreaBtn);
-        watchButton.init(areaID);
+        }
+    }*/
 
-        String areaName = FetchingManager.getAreaNameFromID(areaID);
-        TextView headerView = (TextView) inflatedView.findViewById(R.id.forecast_header);
-        headerView.setText(areaName);
+    public String getCategoryLabel(String category){
+        String label = "";
+        switch (category){
+            case "roadcondition":
+                label = "Väglag";
+                break;
+            case "roadfriction":
+                label = "Friktion";
+                break;
+            case "roadtemperature":
+                label = "Yttemperatur";
+                break;
+            case "slipincidents":
+                label = "Halkrapporter";
+                break;
+            case "roadtreatment":
+                label = "Åtgärder";
+                break;
+        }
+        return label;
 
-        String category = FetchingManager.categories.get(0);
+    }
+
+    public void openSelectCategoryMenu(){
+        CharSequence categories[] = availableCategoriesLabels.toArray(new String[availableCategoriesLabels.size()]);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Pick a color");
+        builder.setItems(categories, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int index) {
+                Log.d(TAG, "onClick: category: " + availableCategories.get(index));
+                updateCharts(availableCategories.get(index), getView());
+            }
+        });
+        builder.show();
+
+    }
+
+    public void updateCharts(String category, View inflatedView){
+        //String category = categories.get(0);
         HashMap<String, Long> chart1Values = FetchingManager.getDataPoint(category, FetchingManager.chartOneTime);
         HashMap<String, Long> chart2Values = FetchingManager.getDataPoint(category, FetchingManager.chartTwoTime);
         HashMap<String, Long> chart3Values = FetchingManager.getDataPoint(category, FetchingManager.chartThreeTime);
 
-
         Log.d(TAG, "onCreateView: starting create chart");
-        chart1 = (PieChart) inflatedView.findViewById(R.id.piChartOne);
         LinearLayout chart1InfoLayout = (LinearLayout) inflatedView.findViewById(R.id.chartInfoOne);
-        initPieChart(chart1);
-        addDataSet(category, chart1, chart1Values, chart1InfoLayout);
+        addDataSet(category, chartOne, chart1Values, chart1InfoLayout);
 
-        chart2 = (PieChart) inflatedView.findViewById(R.id.piChartTwo);
         LinearLayout chart2InfoLayout = (LinearLayout) inflatedView.findViewById(R.id.chartInfoTwo);
-        initPieChart(chart2);
-        addDataSet(category, chart2, chart2Values, chart2InfoLayout);
+        addDataSet(category, chartTwo, chart2Values, chart2InfoLayout);
 
-        chart3 = (PieChart) inflatedView.findViewById(R.id.piChartThree);
         LinearLayout chart3InfoLayout = (LinearLayout) inflatedView.findViewById(R.id.chartInfoThree);
-        initPieChart(chart3);
-        addDataSet(category, chart3, chart3Values, chart3InfoLayout);
+        addDataSet(category, chartThree, chart3Values, chart3InfoLayout);
 
-
-
-        chart1.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+        /*chart1.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
 
-                Log.d(TAG, "onValueSelected: value selected" );
-                Log.d(TAG, "onValueSelected: e"  + e.toString() );
-                Log.d(TAG, "onValueSelected: h"  + h.toString() );
-                float data = e.getY();
-                Log.d(TAG, "onValueSelected: y"  + data);
+                //Log.d(TAG, "onValueSelected: value selected" );
+                //Log.d(TAG, "onValueSelected: e"  + e.toString() );
+                //Log.d(TAG, "onValueSelected: h"  + h.toString() );
+                //float data = e.getY();
+                //Log.d(TAG, "onValueSelected: y"  + data);
             }
 
             @Override
             public void onNothingSelected() {
 
             }
+        });*/
+
+
+    }
+
+    public void initComponents(View inflatedView){
+
+        chartOne   = inflatedView.findViewById(R.id.piChartOne);
+        chartTwo   = inflatedView.findViewById(R.id.piChartTwo);
+        chartThree = inflatedView.findViewById(R.id.piChartThree);
+
+        initPieChart(chartOne);
+        initPieChart(chartTwo);
+        initPieChart(chartThree);
+
+        updateCharts(FetchingManager.categories.get(0), inflatedView);
+
+        final WatchAreaButton watchButton = (WatchAreaButton) inflatedView.findViewById(R.id.watch_area_button);
+        watchButton.init(areaID);
+
+        final Button categoriesButton = (Button) inflatedView.findViewById(R.id.select_category_button);
+        categoriesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openSelectCategoryMenu();
+            }
         });
+        //initCategoryButtons(inflatedView);
+
+
+        String areaName = FetchingManager.getAreaNameFromID(areaID);
+        TextView headerView = (TextView) inflatedView.findViewById(R.id.forecast_header);
+        headerView.setText(areaName);
 
 
     }
