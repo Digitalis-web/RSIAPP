@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.mo.rsiapp.customviews.WatchAreaButton;
+import com.example.mo.rsiapp.datamanaging.DisplayInfoManager;
 import com.example.mo.rsiapp.datamanaging.FetchingManager;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
@@ -34,7 +35,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static com.example.mo.rsiapp.datamanaging.FetchingManager.categories;
+import static com.example.mo.rsiapp.datamanaging.DisplayInfoManager.roadConditionInfo;
 
 
 /**
@@ -53,13 +54,6 @@ public class ForecastFragment extends Fragment {
 
     private static final String TAG = "Forecast";
 
-    private static ArrayList<String> viewCategories = new ArrayList<String>(){{
-        add("roadcondition");
-        add("roadfriction");
-        add("roadtemperature");
-        add("slipincidents");
-        add("roadtreatment");
-    }};
 
     PieChart chartOne;
     PieChart chartTwo;
@@ -71,7 +65,6 @@ public class ForecastFragment extends Fragment {
     private ViewGroup rootViewGroup;
 
     private OnFragmentInteractionListener mListener;
-    ArrayList<HashMap<String, String>> roadConditionInfo = initRoadConditionInfoArray();
     ArrayList<String> availableCategories = new ArrayList<>();
     ArrayList<String> availableCategoriesLabels = new ArrayList<>();
 
@@ -80,75 +73,13 @@ public class ForecastFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public ArrayList<HashMap<String, String>> initRoadConditionInfoArray(){
-        ArrayList<HashMap<String, String>> roadConditionInfo = new ArrayList<>();
 
-        HashMap<String, String> map = new HashMap<>();
-
-        map.put("name", "Dry");
-        map.put("color", "#99cc66");
-        map.put("label", "Torrt");
-        roadConditionInfo.add(map);
-
-        map = new HashMap<>();
-        map.put("name", "Moist");
-        map.put("color", "#8eb1e6");
-        map.put("label", "Fuktigt");
-        roadConditionInfo.add(map);
-
-        map = new HashMap<>();
-        map.put("name", "Wet");
-        map.put("color", "#2a70d9");
-        map.put("label", "Vått");
-        roadConditionInfo.add(map);
-
-        //[{ name: 'Dry', color: '#99cc66', stroke: 'rgba(0,0,0,0.2)', label: 'Torrt' },
-        // { name: 'Moist', color: '#8eb1e6', stroke: 'rgba(0,0,0,0.2)', label: 'Fuktigt' },
-        // { name: 'Wet', color: '#2a70d9', stroke: 'rgba(0,0,0,0.2)', label: 'VÃ¥tt' },
-        // { name: 'LightSnow', color: '#66ffff', stroke: 'rgba(0,0,0,0.2)', label: 'LÃ¤tt snÃ¶' },
-        // { name: 'Snow', color: '#00c0c0', stroke: 'rgba(0,0,0,0.2)', label: 'SnÃ¶' },
-        // { name: 'DriftingSnow', color: '#156262', stroke: 'rgba(0,0,0,0.2)', label: 'SnÃ¶drev' },
-        // { name: 'Slipperiness', color: '#cc66cc', stroke: 'rgba(0,0,0,0.2)', label: 'Halka' },
-        // { name: 'Hazardous', color: '#e96605', stroke: 'rgba(0,0,0,0.2)', label: 'SvÃ¥r halka' }];
-
-        map = new HashMap<>();
-        map.put("name", "LightSnow");
-        map.put("color", "#66ffff");
-        map.put("label", "Lätt snö");
-        roadConditionInfo.add(map);
-
-        map = new HashMap<>();
-        map.put("name", "Snow");
-        map.put("color", "#00c0c0");
-        map.put("label", "Snö");
-        roadConditionInfo.add(map);
-
-        map = new HashMap<>();
-        map.put("name", "DriftingSnow");
-        map.put("color", "#156262");
-        map.put("label", "Snö drev");
-        roadConditionInfo.add(map);
-
-        map = new HashMap<>();
-        map.put("name", "Slipperiness");
-        map.put("color", "#cc66cc");
-        map.put("label", "Halka");
-        roadConditionInfo.add(map);
-
-        map = new HashMap<>();
-        map.put("name", "Hazardous");
-        map.put("color", "#e96605");
-        map.put("label", "Svår halka");
-        roadConditionInfo.add(map);
-
-        return roadConditionInfo;
-    }
 
     public String getRoadConditionInfoByName(String name, String type){
         String value = "";
 
-        for(int i = 0; i < roadConditionInfo.size(); i++) {
-            HashMap<String, String> map = roadConditionInfo.get(i);
+        for(int i = 0; i < DisplayInfoManager.roadConditionInfo.size(); i++) {
+            HashMap<String, String> map = DisplayInfoManager.roadConditionInfo.get(i);
             if (map.get("name").equals(name)) {
                 return map.get(type)/**/;
             }
@@ -193,7 +124,7 @@ public class ForecastFragment extends Fragment {
 
 
             // if the category is to be viewable
-            if (viewCategories.contains(category)) {
+            if (DisplayInfoManager.viewCategories.contains(category)) {
                 availableCategories.add(category);
                 availableCategoriesLabels.add(getCategoryLabel(category));
             }
@@ -350,6 +281,17 @@ public class ForecastFragment extends Fragment {
 
     }
 
+    // Removes the info items that explain the charts. Removes everything but the first element which is the title
+    private void removeAllInfoListItems(LinearLayout infoLayout){
+        //infoLayout.getView();
+        int elementCount = infoLayout.getChildCount();
+        Log.d(TAG, "removeAllInfoListItems: elementCount: " + elementCount);
+        Log.d(TAG, "removeAllInfoListItems: layout: " + infoLayout);
+        for(int i = elementCount-1; i > 0; i--){
+            infoLayout.removeViewAt(i);
+        }
+    }
+
     // Adds a value to the list next to a chart that explains what each color on the chart represents
     private void addInfoListItem(String label, int color, LinearLayout infoLayout){
         TextView labelView = (TextView) View.inflate(getContext(), R.layout.chart_list_item, null);
@@ -369,28 +311,41 @@ public class ForecastFragment extends Fragment {
         Log.d(TAG, "addDataSet: RUNNING ADD DATA");
         Log.d(TAG, "addDataSet: started");
         ArrayList<PieEntry> yEntries = new ArrayList<>();
-        ArrayList<String> xEntries = new ArrayList<>();
+        //ArrayList<String> xEntries = new ArrayList<>();
 
         ArrayList<Integer> colors = new ArrayList<>();
 
-
+        removeAllInfoListItems(infoLayout);
 
         int i = 0;
         for(String key : values.keySet()){
             long value = values.get(key);
 
-            if (value > 0) {
-                yEntries.add(new PieEntry(value, i));
-                xEntries.add(key);
-                if(category.equals("roadcondition")){
+            Log.d(TAG, "addDataSet: value : " + value);
+            Log.d(TAG, "addDataSet: key : " + key);
+            if(category.equals("roadcondition")){
+                if (value > 0) {
+                    yEntries.add(new PieEntry(value, i));
+                //xEntries.add(key);
                     String hexColor = getRoadConditionInfoByName(key, "color");
                     String label = getRoadConditionInfoByName(key, "label");
-                    Log.d(TAG, "addDataSet: label: " + label);
                     int color = Color.parseColor(hexColor);
                     colors.add(color);
                     addInfoListItem(label, color, infoLayout);
                 }
             }
+            else if(category.equals("roadtreatment")) {
+                // Juding from current application, the "Plough" layer is always 0 and is hidden
+                if(!key.equals("Plough") && value > 0) {
+                    yEntries.add(new PieEntry(value, i));
+                    String hexColor = DisplayInfoManager.getSaltColor(key);
+                    Log.d(TAG, "addDataSet: hexColor: " + hexColor);
+                    int color = Color.parseColor(hexColor);
+                    colors.add(color);
+                    addInfoListItem(key, color, infoLayout);
+                }
+            }
+
             i++;
         }
 

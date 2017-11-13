@@ -239,7 +239,8 @@ public class FetchingManager {
 
         return null;
     }
-    // Finds the type of data that is available for a given route
+
+    // Finds the type of data that is available for a given route or area
     public static ArrayList<String> findAllCategories(ArrayList<JSONObject> dataList){
         ArrayList<String> categories = new ArrayList<>();
 
