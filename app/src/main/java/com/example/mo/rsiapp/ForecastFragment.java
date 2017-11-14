@@ -1,33 +1,30 @@
 package com.example.mo.rsiapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.text.Layout;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.mo.rsiapp.customviews.WatchAreaButton;
+import com.example.mo.rsiapp.datamanaging.DisplayInfoManager;
 import com.example.mo.rsiapp.datamanaging.FetchingManager;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -38,6 +35,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.example.mo.rsiapp.datamanaging.DisplayInfoManager.roadConditionInfo;
 
 
 /**
@@ -56,9 +54,10 @@ public class ForecastFragment extends Fragment {
 
     private static final String TAG = "Forecast";
 
-    PieChart chart1;
-    PieChart chart2;
-    PieChart chart3;
+
+    PieChart chartOne;
+    PieChart chartTwo;
+    PieChart chartThree;
 
     // TODO: Rename and change types of parameters
     private String areaID;
@@ -66,84 +65,23 @@ public class ForecastFragment extends Fragment {
     private ViewGroup rootViewGroup;
 
     private OnFragmentInteractionListener mListener;
-    ArrayList<HashMap<String, String>> roadConditionInfo = initRoadConditionInfoArray();
+    ArrayList<String> availableCategories = new ArrayList<>();
+    ArrayList<String> availableCategoriesLabels = new ArrayList<>();
 
 
     public ForecastFragment() {
         // Required empty public constructor
     }
 
-    public ArrayList<HashMap<String, String>> initRoadConditionInfoArray(){
-        ArrayList<HashMap<String, String>> roadConditionInfo = new ArrayList<>();
 
-        HashMap<String, String> map = new HashMap<>();
-
-        map.put("name", "Dry");
-        map.put("color", "#99cc66");
-        map.put("label", "Torrt");
-        roadConditionInfo.add(map);
-
-        map = new HashMap<>();
-        map.put("name", "Moist");
-        map.put("color", "#8eb1e6");
-        map.put("label", "Fuktigt");
-        roadConditionInfo.add(map);
-
-        map = new HashMap<>();
-        map.put("name", "Wet");
-        map.put("color", "#2a70d9");
-        map.put("label", "Vått");
-        roadConditionInfo.add(map);
-
-        //[{ name: 'Dry', color: '#99cc66', stroke: 'rgba(0,0,0,0.2)', label: 'Torrt' },
-        // { name: 'Moist', color: '#8eb1e6', stroke: 'rgba(0,0,0,0.2)', label: 'Fuktigt' },
-        // { name: 'Wet', color: '#2a70d9', stroke: 'rgba(0,0,0,0.2)', label: 'VÃ¥tt' },
-        // { name: 'LightSnow', color: '#66ffff', stroke: 'rgba(0,0,0,0.2)', label: 'LÃ¤tt snÃ¶' },
-        // { name: 'Snow', color: '#00c0c0', stroke: 'rgba(0,0,0,0.2)', label: 'SnÃ¶' },
-        // { name: 'DriftingSnow', color: '#156262', stroke: 'rgba(0,0,0,0.2)', label: 'SnÃ¶drev' },
-        // { name: 'Slipperiness', color: '#cc66cc', stroke: 'rgba(0,0,0,0.2)', label: 'Halka' },
-        // { name: 'Hazardous', color: '#e96605', stroke: 'rgba(0,0,0,0.2)', label: 'SvÃ¥r halka' }];
-
-        map = new HashMap<>();
-        map.put("name", "LightSnow");
-        map.put("color", "#66ffff");
-        map.put("label", "Lätt snö");
-        roadConditionInfo.add(map);
-
-        map = new HashMap<>();
-        map.put("name", "Snow");
-        map.put("color", "#00c0c0");
-        map.put("label", "Snö");
-        roadConditionInfo.add(map);
-
-        map = new HashMap<>();
-        map.put("name", "DriftingSnow");
-        map.put("color", "#156262");
-        map.put("label", "Snö drev");
-        roadConditionInfo.add(map);
-
-        map = new HashMap<>();
-        map.put("name", "Slipperiness");
-        map.put("color", "#cc66cc");
-        map.put("label", "Halka");
-        roadConditionInfo.add(map);
-
-        map = new HashMap<>();
-        map.put("name", "Hazardous");
-        map.put("color", "#e96605");
-        map.put("label", "Svår halka");
-        roadConditionInfo.add(map);
-
-        return roadConditionInfo;
-    }
 
     public String getRoadConditionInfoByName(String name, String type){
         String value = "";
 
-        for(int i = 0; i < roadConditionInfo.size(); i++) {
-            HashMap<String, String> map = roadConditionInfo.get(i);
+        for(int i = 0; i < DisplayInfoManager.roadConditionInfo.size(); i++) {
+            HashMap<String, String> map = DisplayInfoManager.roadConditionInfo.get(i);
             if (map.get("name").equals(name)) {
-                return map.get(type);
+                return map.get(type)/**/;
             }
         }
 
@@ -175,6 +113,25 @@ public class ForecastFragment extends Fragment {
         }
     }
 
+
+    public void findAvailableCategories(){
+        // FetchingManager.categories contains the "categories" that the chosen area has data about.
+        // The viewCategories are the categories that should always be viewable when they are available
+        // availableCategories are the categories that the user will be able to choose from
+        for (int i = 0; i < FetchingManager.categories.size(); i++) {
+            String category = FetchingManager.categories.get(i);
+            Log.d(TAG, "initCategoryButtons: " + FetchingManager.categories.get(i));
+
+
+            // if the category is to be viewable
+            if (DisplayInfoManager.viewCategories.contains(category)) {
+                availableCategories.add(category);
+                availableCategoriesLabels.add(getCategoryLabel(category));
+            }
+
+        }
+
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -183,57 +140,130 @@ public class ForecastFragment extends Fragment {
         rootViewGroup = container;
 
         initComponents(inflatedView);
+        findAvailableCategories();
 
         // Inflate the layout for this fragment
         return inflatedView;
     }
 
-    public void initComponents(View inflatedView){
+    /*public void initCategoryButtons(View infaltedView) {
+        RadioGroup group = (RadioGroup) infaltedView.findViewById(R.id.category_radio_group);
+        // FetchingManager.categories contains the "categories" that the chosen area has data about.
+        // The viewCategories are the categories that should always be viewable when they are available
+        for (int i = 0; i < FetchingManager.categories.size(); i++) {
+            String category = FetchingManager.categories.get(i);
+            Log.d(TAG, "initCategoryButtons: " + FetchingManager.categories.get(i));
 
+            // if the category is to be viewable
+            if (viewCategories.contains(category)) {
+            }
 
-        final WatchAreaButton watchButton = (WatchAreaButton) inflatedView.findViewById(R.id.watchAreaBtn);
-        watchButton.init(areaID);
+        }
+    }*/
 
-        String category = FetchingManager.categories.get(0);
+    public String getCategoryLabel(String category){
+        String label = "";
+        switch (category){
+            case "roadcondition":
+                label = "Väglag";
+                break;
+            case "roadfriction":
+                label = "Friktion";
+                break;
+            case "roadtemperature":
+                label = "Yttemperatur";
+                break;
+            case "slipincidents":
+                label = "Halkrapporter";
+                break;
+            case "roadtreatment":
+                label = "Åtgärder";
+                break;
+        }
+        return label;
+
+    }
+
+    public void openSelectCategoryMenu(){
+        CharSequence categories[] = availableCategoriesLabels.toArray(new String[availableCategoriesLabels.size()]);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Pick a color");
+        builder.setItems(categories, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int index) {
+                Log.d(TAG, "onClick: category: " + availableCategories.get(index));
+                updateCharts(availableCategories.get(index), getView());
+            }
+        });
+        builder.show();
+
+    }
+
+    public void updateCharts(String category, View inflatedView){
+        //String category = categories.get(0);
         HashMap<String, Long> chart1Values = FetchingManager.getDataPoint(category, FetchingManager.chartOneTime);
         HashMap<String, Long> chart2Values = FetchingManager.getDataPoint(category, FetchingManager.chartTwoTime);
         HashMap<String, Long> chart3Values = FetchingManager.getDataPoint(category, FetchingManager.chartThreeTime);
 
-
         Log.d(TAG, "onCreateView: starting create chart");
-        chart1 = (PieChart) inflatedView.findViewById(R.id.piChartOne);
         LinearLayout chart1InfoLayout = (LinearLayout) inflatedView.findViewById(R.id.chartInfoOne);
-        initPieChart(chart1);
-        addDataSet(category, chart1, chart1Values, chart1InfoLayout);
+        addDataSet(category, chartOne, chart1Values, chart1InfoLayout);
 
-        chart2 = (PieChart) inflatedView.findViewById(R.id.piChartTwo);
         LinearLayout chart2InfoLayout = (LinearLayout) inflatedView.findViewById(R.id.chartInfoTwo);
-        initPieChart(chart2);
-        addDataSet(category, chart2, chart2Values, chart2InfoLayout);
+        addDataSet(category, chartTwo, chart2Values, chart2InfoLayout);
 
-        chart3 = (PieChart) inflatedView.findViewById(R.id.piChartThree);
         LinearLayout chart3InfoLayout = (LinearLayout) inflatedView.findViewById(R.id.chartInfoThree);
-        initPieChart(chart3);
-        addDataSet(category, chart3, chart3Values, chart3InfoLayout);
+        addDataSet(category, chartThree, chart3Values, chart3InfoLayout);
 
-
-
-        chart1.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+        /*chart1.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
 
-                Log.d(TAG, "onValueSelected: value selected" );
-                Log.d(TAG, "onValueSelected: e"  + e.toString() );
-                Log.d(TAG, "onValueSelected: h"  + h.toString() );
-                float data = e.getY();
-                Log.d(TAG, "onValueSelected: y"  + data);
+                //Log.d(TAG, "onValueSelected: value selected" );
+                //Log.d(TAG, "onValueSelected: e"  + e.toString() );
+                //Log.d(TAG, "onValueSelected: h"  + h.toString() );
+                //float data = e.getY();
+                //Log.d(TAG, "onValueSelected: y"  + data);
             }
 
             @Override
             public void onNothingSelected() {
 
             }
+        });*/
+
+
+    }
+
+    public void initComponents(View inflatedView){
+
+        chartOne   = inflatedView.findViewById(R.id.piChartOne);
+        chartTwo   = inflatedView.findViewById(R.id.piChartTwo);
+        chartThree = inflatedView.findViewById(R.id.piChartThree);
+
+        initPieChart(chartOne);
+        initPieChart(chartTwo);
+        initPieChart(chartThree);
+
+        updateCharts(FetchingManager.categories.get(0), inflatedView);
+
+        final WatchAreaButton watchButton = (WatchAreaButton) inflatedView.findViewById(R.id.watch_area_button);
+        watchButton.init(areaID);
+
+        final Button categoriesButton = (Button) inflatedView.findViewById(R.id.select_category_button);
+        categoriesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openSelectCategoryMenu();
+            }
         });
+        //initCategoryButtons(inflatedView);
+
+
+        String areaName = FetchingManager.getAreaNameFromID(areaID);
+        TextView headerView = (TextView) inflatedView.findViewById(R.id.forecast_header);
+        headerView.setText(areaName);
 
 
     }
@@ -249,6 +279,17 @@ public class ForecastFragment extends Fragment {
         //chart.setCenterTextSize(15);
         chart.setDrawEntryLabels(false);
 
+    }
+
+    // Removes the info items that explain the charts. Removes everything but the first element which is the title
+    private void removeAllInfoListItems(LinearLayout infoLayout){
+        //infoLayout.getView();
+        int elementCount = infoLayout.getChildCount();
+        Log.d(TAG, "removeAllInfoListItems: elementCount: " + elementCount);
+        Log.d(TAG, "removeAllInfoListItems: layout: " + infoLayout);
+        for(int i = elementCount-1; i > 0; i--){
+            infoLayout.removeViewAt(i);
+        }
     }
 
     // Adds a value to the list next to a chart that explains what each color on the chart represents
@@ -270,28 +311,41 @@ public class ForecastFragment extends Fragment {
         Log.d(TAG, "addDataSet: RUNNING ADD DATA");
         Log.d(TAG, "addDataSet: started");
         ArrayList<PieEntry> yEntries = new ArrayList<>();
-        ArrayList<String> xEntries = new ArrayList<>();
+        //ArrayList<String> xEntries = new ArrayList<>();
 
         ArrayList<Integer> colors = new ArrayList<>();
 
-
+        removeAllInfoListItems(infoLayout);
 
         int i = 0;
         for(String key : values.keySet()){
             long value = values.get(key);
 
-            if (value > 0) {
-                yEntries.add(new PieEntry(value, i));
-                xEntries.add(key);
-                if(category.equals("roadcondition")){
+            Log.d(TAG, "addDataSet: value : " + value);
+            Log.d(TAG, "addDataSet: key : " + key);
+            if(category.equals("roadcondition")){
+                if (value > 0) {
+                    yEntries.add(new PieEntry(value, i));
+                //xEntries.add(key);
                     String hexColor = getRoadConditionInfoByName(key, "color");
                     String label = getRoadConditionInfoByName(key, "label");
-                    Log.d(TAG, "addDataSet: label: " + label);
                     int color = Color.parseColor(hexColor);
                     colors.add(color);
                     addInfoListItem(label, color, infoLayout);
                 }
             }
+            else if(category.equals("roadtreatment")) {
+                // Juding from current application, the "Plough" layer is always 0 and is hidden
+                if(!key.equals("Plough") && value > 0) {
+                    yEntries.add(new PieEntry(value, i));
+                    String hexColor = DisplayInfoManager.getSaltColor(key);
+                    Log.d(TAG, "addDataSet: hexColor: " + hexColor);
+                    int color = Color.parseColor(hexColor);
+                    colors.add(color);
+                    addInfoListItem(key, color, infoLayout);
+                }
+            }
+
             i++;
         }
 

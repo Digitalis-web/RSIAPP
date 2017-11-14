@@ -19,6 +19,7 @@ import com.example.mo.rsiapp.backgroundtasks.Alarm;
 import com.example.mo.rsiapp.customviews.InstantAutoComplete;
 import com.example.mo.rsiapp.customviews.NavAreaItem;
 import com.example.mo.rsiapp.customviews.NavAreaItemAdapter;
+import com.example.mo.rsiapp.datamanaging.DisplayInfoManager;
 import com.example.mo.rsiapp.datamanaging.FetchingManager;
 import com.example.mo.rsiapp.datamanaging.StorageManager;
 
@@ -58,6 +59,8 @@ public class NavActivity extends AppCompatActivity
 
 
         searchBar = (InstantAutoComplete) findViewById(R.id.search_area);
+        DisplayInfoManager.initData();
+
         FetchingManager.fetchAreas();
 
     }

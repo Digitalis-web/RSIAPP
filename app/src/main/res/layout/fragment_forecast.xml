@@ -1,9 +1,10 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/forecast_scroll_view"
     >
     <LinearLayout
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -14,7 +15,10 @@
             android:id="@+id/forecast_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:textAlignment="center"
+            android:textSize="29sp"
+            android:paddingTop="@dimen/container_spacing"
+            android:textColor="@color/colorBlack"
             />
 
 
@@ -26,7 +30,6 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/container_height"
             >
-
             <LinearLayout
                 android:id="@+id/chartInfoOne"
                 android:orientation="vertical"
@@ -112,26 +115,24 @@
             </com.github.mikephil.charting.charts.PieChart>
         </LinearLayout>
 
-        <com.example.mo.rsiapp.customviews.WatchAreaButton
-            android:id="@+id/watchAreaBtn"
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/select_category_button"
+            style="@style/ForecastButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/container_spacing"
-            android:textColor="@color/colorBlack"
+            android:background="@color/colorWhite"
+            android:text="Mer"
+
             />
-
-
-
-
-        <TextView
-            android:id="@+id/textHeader"
-            android:layout_width="wrap_content"
+        <com.example.mo.rsiapp.customviews.WatchAreaButton
+            android:id="@+id/watch_area_button"
+            style="@style/ForecastButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="180dp"
-            android:text="Fel"
-            android:visibility="gone" />
+            android:layout_marginBottom="@dimen/container_spacing"
+            />
 
     </LinearLayout>
 </ScrollView>
+
+
