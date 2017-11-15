@@ -19,11 +19,22 @@ import java.net.URL;
 
 public class JSONFetcher extends AsyncTask<String, Void, JSONObject> {
     public String TAG = "JSONFETCHING";
-    public boolean forecastFetch;
+    //public boolean forecastFetch;
+    private int fetchMode = 0;
 
-    public JSONFetcher(boolean forecastFetch){
-        Log.d(TAG, "JSONFetcher: creating object");
-        this.forecastFetch = forecastFetch;
+
+    public static final short FETCH_FORECAST = 0;
+    public static final short FETCH_AREAS = 1;
+    public static final short FETCH_AREAS_IN_BACKGROUND = 2;
+    public static final short FETCH_FORECAST_IN_BACKGROUND = 3;
+
+    public JSONFetcher(int fetchMode){
+        //Log.d(TAG, "JSONFetcher: creating object " + updateUI);
+        this.fetchMode = fetchMode;
+
+
+        //this.forecastFetch = forecastFetch;
+
 
         //this.urlStr = url;
     }
@@ -37,6 +48,8 @@ public class JSONFetcher extends AsyncTask<String, Void, JSONObject> {
     @Override
     protected JSONObject doInBackground(String... params) {
         String urlStr = params[0];
+        //updateUI = params[1].equals("true"); // weather the UI should be updated with the new data or not
+
         Log.d(TAG, "doinbackground");
         HttpURLConnection urlConnection = null;
         String jsonString = "";
@@ -74,12 +87,19 @@ public class JSONFetcher extends AsyncTask<String, Void, JSONObject> {
 
     @Override
     protected void onPostExecute(JSONObject result){
-        Log.d(TAG, "onPPostExecute: " + result.toString().substring(result.toString().length()-59));
-        if(forecastFetch){
-            FetchingManager.parseForecastData(result);
+        //Log.d(TAG, "onPPostExecute: " + result.toString().substring(result.toString().length()-59));
+        Log.d(TAG, "onPPostExecute: " + fetchMode);
+        if (fetchMode == FETCH_FORECAST) {
+            FetchingManager.parseForecastData(result, true);
         }
-        else {
-            FetchingManager.parseAreasData(result);
+        else if (fetchMode == FETCH_AREAS) {
+            FetchingManager.parseAreasData(result, true);
+        }
+        else if (fetchMode == FETCH_AREAS_IN_BACKGROUND) {
+            FetchingManager.parseAreasData(result, false);
+        }
+        else if (fetchMode == FETCH_FORECAST_IN_BACKGROUND) {
+            FetchingManager.parseAreasData(result, false);
         }
 
     }

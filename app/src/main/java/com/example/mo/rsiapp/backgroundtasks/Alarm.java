@@ -17,18 +17,21 @@ import com.example.mo.rsiapp.datamanaging.FetchingManager;
 public class Alarm extends BroadcastReceiver
 {
     private final String TAG = "Alarm";
+    public static Context currentAlarmContext = null;
     @Override
     public void onReceive(Context context, Intent intent)
     {
+        currentAlarmContext = context;
         Log.i("debugging", "kör on reciveve");
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
         wl.acquire();
 
         Log.d(TAG, "onReceive: makeing toast");
-        // Put here YOUR code.
+
         Toast.makeText(context, "Alarm !!!!!!!!!!", Toast.LENGTH_LONG).show(); // For example
-        //FetchingManager.fetchAndControlData();
+        FetchingManager.fetchAndControlData();
+
 
         wl.release();
     }
@@ -42,12 +45,12 @@ public class Alarm extends BroadcastReceiver
         Log.i("debugging", "setting repeating in set alarm");
     }
 
-    public static void cancelAlarm(Context context)
+/*    public static void cancelAlarm(Context context)
     {
         Intent intent = new Intent(context, Alarm.class);
         PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(sender);
-    }
+    }*/
 }
 

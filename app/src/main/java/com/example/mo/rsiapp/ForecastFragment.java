@@ -50,6 +50,7 @@ public class ForecastFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
     //private static final String ARG_PARAM2 = "param2";
 
     private static final String TAG = "Forecast";
@@ -61,6 +62,7 @@ public class ForecastFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
     private String areaID;
+    private int routeLength;
 
     private ViewGroup rootViewGroup;
 
@@ -76,16 +78,15 @@ public class ForecastFragment extends Fragment {
 
 
     public String getRoadConditionInfoByName(String name, String type){
-        String value = "";
 
         for(int i = 0; i < DisplayInfoManager.roadConditionInfo.size(); i++) {
             HashMap<String, String> map = DisplayInfoManager.roadConditionInfo.get(i);
             if (map.get("name").equals(name)) {
-                return map.get(type)/**/;
+                return map.get(type);
             }
         }
 
-       return value;
+       return "";
     }
 
     /**
@@ -95,10 +96,11 @@ public class ForecastFragment extends Fragment {
      * @return A new instance of fragment ForecastFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ForecastFragment newInstance(String areaID) {
+    public static ForecastFragment newInstance(String areaID, int routeLength) {
         ForecastFragment fragment = new ForecastFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, areaID);
+        args.putInt(ARG_PARAM2, routeLength);
         //args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
@@ -109,6 +111,7 @@ public class ForecastFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             areaID = getArguments().getString(ARG_PARAM1);
+            routeLength = getArguments().getInt(ARG_PARAM2);
             //mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -188,7 +191,7 @@ public class ForecastFragment extends Fragment {
         CharSequence categories[] = availableCategoriesLabels.toArray(new String[availableCategoriesLabels.size()]);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Pick a color");
+        builder.setTitle("Välj kategori");
         builder.setItems(categories, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int index) {
@@ -317,6 +320,8 @@ public class ForecastFragment extends Fragment {
 
         removeAllInfoListItems(infoLayout);
 
+        int totalLength = this.routeLength;
+
         int i = 0;
         for(String key : values.keySet()){
             long value = values.get(key);
@@ -338,6 +343,7 @@ public class ForecastFragment extends Fragment {
                 // Juding from current application, the "Plough" layer is always 0 and is hidden
                 if(!key.equals("Plough") && value > 0) {
                     yEntries.add(new PieEntry(value, i));
+                    totalLength -= value; // Calculates the remaining length for the route that have not been salted
                     String hexColor = DisplayInfoManager.getSaltColor(key);
                     Log.d(TAG, "addDataSet: hexColor: " + hexColor);
                     int color = Color.parseColor(hexColor);
@@ -345,8 +351,21 @@ public class ForecastFragment extends Fragment {
                     addInfoListItem(key, color, infoLayout);
                 }
             }
+            else if(category.equals("roadtemperature")) {
+                //Log.d(TAG, "addDataSet: key: " + key);
+                if(!key.equals("StdDev")){
+                    addInfoListItem(key + ": " + value, Color.BLACK, infoLayout);
+                }
 
+            }
             i++;
+        }
+
+        if(category.equals("roadtreatment")) {
+            yEntries.add(new PieEntry(totalLength, i));
+            int color = Color.YELLOW;
+            colors.add(color);
+            addInfoListItem("Ej saltat", color, infoLayout);
         }
 
         PieDataSet pieDataSet = new PieDataSet(yEntries, "");

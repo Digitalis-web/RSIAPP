@@ -21,6 +21,7 @@ import com.example.mo.rsiapp.customviews.NavAreaItem;
 import com.example.mo.rsiapp.customviews.NavAreaItemAdapter;
 import com.example.mo.rsiapp.datamanaging.DisplayInfoManager;
 import com.example.mo.rsiapp.datamanaging.FetchingManager;
+import com.example.mo.rsiapp.datamanaging.JSONFetcher;
 import com.example.mo.rsiapp.datamanaging.StorageManager;
 
 import java.util.ArrayList;
@@ -61,7 +62,8 @@ public class NavActivity extends AppCompatActivity
         searchBar = (InstantAutoComplete) findViewById(R.id.search_area);
         DisplayInfoManager.initData();
 
-        FetchingManager.fetchAreas();
+        //StorageManager.clearWatchedAreas();
+        FetchingManager.fetchAreas(JSONFetcher.FETCH_AREAS);
 
     }
 
@@ -94,14 +96,14 @@ public class NavActivity extends AppCompatActivity
     }
 
     public void manualFetchAreas(View v) {
-        FetchingManager.fetchAreas();
+        //FetchingManager.fetchAreas(true);
     }
 
     public void manualFetchData(View v) {
         //FetchingManager.fetchForecast(0);
     }
     public void manualCancelAlarm(View v) {
-        Alarm.cancelAlarm(this);
+        //Alarm.cancelAlarm(this);
     }
 
     public void manualStartAlarm(View v){
@@ -130,11 +132,12 @@ public class NavActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public static void openForecast(String areaID){
-        ForecastFragment fragment = new ForecastFragment().newInstance(areaID);
+    public static void openForecast(String areaID, int routeLength){
+        ForecastFragment fragment = new ForecastFragment().newInstance(areaID, routeLength);
         FragmentManager manager = navActivity.getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.fragmentLayout, fragment, fragment.getTag()).commit();
     }
+
 
     public static void openLoadingScreen(){
         LoadingFragment fragment = new LoadingFragment().newInstance();

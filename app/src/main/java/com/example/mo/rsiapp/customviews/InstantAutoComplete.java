@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.mo.rsiapp.NavActivity;
 import com.example.mo.rsiapp.R;
 import com.example.mo.rsiapp.datamanaging.FetchingManager;
+import com.example.mo.rsiapp.datamanaging.JSONFetcher;
 
 import java.util.ArrayList;
 
@@ -128,7 +129,7 @@ public class InstantAutoComplete extends android.support.v7.widget.AppCompatAuto
         int index = FetchingManager.areasName.indexOf(areaName);
         String areaID = FetchingManager.areasID.get(index);
         NavActivity.openLoadingScreen();
-        FetchingManager.fetchForecast(areaID, FetchingManager.latestForecastTime);
+        FetchingManager.fetchForecast(areaID, FetchingManager.latestForecastTime, JSONFetcher.FETCH_AREAS);
     }
 
     @Override

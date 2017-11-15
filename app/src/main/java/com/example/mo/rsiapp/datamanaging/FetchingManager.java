@@ -1,8 +1,10 @@
 package com.example.mo.rsiapp.datamanaging;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.example.mo.rsiapp.NavActivity;
+import com.example.mo.rsiapp.backgroundtasks.Alarm;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,6 +14,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
+
+import static android.R.attr.category;
 
 
 /**
@@ -37,22 +42,22 @@ public class FetchingManager {
     public static ArrayList<String> categories = new ArrayList<>();
     public static ArrayList<JSONObject> categorizedData = new ArrayList<>();
 
-    public static void fetchAreas() {
+    public static void fetchAreas(int fetchMode) {
         Log.d(TAG, "fetchAndControlData: fetching data");
         clearOldData();
-        JSONFetcher JF = new JSONFetcher(false);
+        JSONFetcher JF = new JSONFetcher(fetchMode);
         JF.execute(areasUrl);
     }
 
-    public static void fetchForecast(String areaID, long time) {
+    public static void fetchForecast(String areaID, long time, int fetchMode) {
         clearOldData();
         String url = forecastUrl + areaID + "@" + time;
         Log.d(TAG, "fetchAndControlData: fetching data from : " + url);
-        JSONFetcher JF = new JSONFetcher(true);
+        JSONFetcher JF = new JSONFetcher(fetchMode);
         JF.execute(url);
     }
 
-    public static void parseAreasData(JSONObject data) {
+    public static void parseAreasData(JSONObject data, boolean updateUI) {
         Log.d(TAG, "parseAreasData: " + data.toString());
         try {
 
@@ -82,11 +87,16 @@ public class FetchingManager {
             e.printStackTrace();
         }
 
-        NavActivity.navActivity.updateNavItems();
-        NavActivity.searchBar.updateList(areasName);
+        if(updateUI) {
+            NavActivity.navActivity.updateNavItems();
+            NavActivity.searchBar.updateList(areasName);
+        }
+        else {
+            checkForNewForecast();
+        }
     }
 
-    public static String getAreaNameFromID(String areaID){
+    public static String getAreaNameFromID(String areaID) {
         int index = areasID.indexOf(areaID);
         if(index != -1) {
             String areaName = areasName.get(index);
@@ -97,20 +107,23 @@ public class FetchingManager {
         }
     }
 
-    public static void parseForecastData(JSONObject data){
+    public static void parseForecastData(JSONObject data, boolean updateUI){
         Log.d(TAG, "parseData: length of data: " + data.toString().length());
         String areaID = "" ;
+        int routeLength = 0;
         try {
             String time = data.get("times").toString();
             areaID = data.get("area").toString();
             Log.d(TAG, "parseData: " + time);
 
 
+
             // If there is any data for this area
             if(data.has("data")){
                 Log.d(TAG, "parseForecastData: data finns");
-                String d = data.get("data").toString();
+                //String d = data.get("data").toString();
 
+                routeLength = getTotalLengthForRoute(data, 0);
 
                 ArrayList<JSONObject> routeData = getAllDataByRouteID(data, 0); // picks out the relevant data
                 categories = findAllCategories(routeData);
@@ -121,13 +134,6 @@ public class FetchingManager {
                     //Log.d(TAG, "parseForecastData: " + dataObj.toString());
                 }
 
-                //Log.d(TAG, "parseForecastData: roadcond_data: " + getDataForCategory("roadcondition").getJSONArray("series"));
-                //getDataPoint("roadcondition", 0);
-
-
-
-
-                //Log.d(TAG, "parseData: " + dataObj.toString());
 
             }
             else {
@@ -142,7 +148,11 @@ public class FetchingManager {
         chartOneTime = closestHourTime;
         chartTwoTime = closestHourTime + 4*3600;
         chartThreeTime = closestHourTime + 8*3600;
-        NavActivity.openForecast(areaID);
+
+        if(updateUI) {
+            NavActivity.openForecast(areaID, routeLength);
+        } else { //controlData();
+        }
     }
 
     public static HashMap<String, Long> getDataPoint(String category, long time){
@@ -153,28 +163,21 @@ public class FetchingManager {
             JSONArray seriesArray = data.getJSONArray("series");
 
             for(int i = 0; i < seriesArray.length(); i++){
-                //Log.d(TAG, "getDataPoint: " + seriesArray.get(i));
-                //Log.d(TAG, "getDataPoint: " + seriesArray.getJSONObject(i));
                 JSONObject seriesItem = seriesArray.getJSONObject(i);
                 String name = seriesItem.getString("name");
                 JSONArray seriesData = seriesItem.getJSONArray("data");
-                ////Log.d(TAG, "getDataPoint: data : " + seriesData);
 
                 for(int n = 0; n < seriesData.length(); n++){
                     JSONObject timePointObj = seriesData.getJSONObject(n);
                     long pointTime = timePointObj.getLong("x");
                     Long value = timePointObj.getLong("y");
-                    //Log.d(TAG, "getDataPoint: value: " + value);
 
                     if(pointTime == time){
                         values.put(name, value);
                     }
 
                 }
-
             }
-
-
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -183,6 +186,33 @@ public class FetchingManager {
         return values;
     }
 
+    public static int getTotalLengthForRoute(JSONObject data, int routeID) {
+
+        try {
+            JSONArray routeArr = data.getJSONArray("routes");
+
+            // loops over all the items in the data list and adds the relevant ones to the matchedData array
+            for(int i = 0; i < routeArr.length();i++) {
+                JSONObject routeItem = routeArr.getJSONObject(i);
+                //JSONObject dataRouteObj = routeItem.getJSONObject("total_length");
+                int route = routeItem.getInt("route_id");
+
+                if(route == routeID){
+                    int totalLength = routeItem.getInt("total_length");
+                    Log.d(TAG, "getTotalLengthForRoute: totallength: " + totalLength);
+                    return totalLength;
+                }
+
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+
+
+    }
     public static long getClosestHourTime(){
         //long unixTime = System.currentTimeMillis() / 1000L;
         long unixTime = latestForecastTime+3600;
@@ -268,9 +298,7 @@ public class FetchingManager {
             JSONArray dataArr = data.getJSONArray("data");
             // loops over all the items in the data list and adds the relevant ones to the matchedData array
             for(int i = 0; i < dataArr.length();i++) {
-                //Log.d(TAG, "parseForecastData: value : " + dataArr.get(i));
                 JSONObject dataItem = dataArr.getJSONObject(i);
-                //JSONArray dataItemArr = dataArr.getJSONArray(i);
                 JSONObject dataRouteObj = dataItem.getJSONObject("route");
                 int route = dataRouteObj.getInt("route_id");
 
@@ -278,8 +306,6 @@ public class FetchingManager {
                 if(route == id){
                     matchedData.add(dataItem);
                 }
-                //Log.d(TAG, "parseForecastData: route_id : + " + dataRouteObj.get("route_id"));
-
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -296,13 +322,13 @@ public class FetchingManager {
         categorizedData.clear();
     }
 
-    public static JSONObject getJSONObjectFromURL(String urlString) throws IOException, JSONException {
+/*    public static JSONObject getJSONObjectFromURL(String urlString) throws IOException, JSONException {
         HttpURLConnection urlConnection = null;
         URL url = new URL(urlString);
         urlConnection = (HttpURLConnection) url.openConnection();
         urlConnection.setRequestMethod("GET");
-        urlConnection.setReadTimeout(10000 /* milliseconds */ );
-        urlConnection.setConnectTimeout(15000 /* milliseconds */ );
+        urlConnection.setReadTimeout(10000 *//* milliseconds *//* );
+        urlConnection.setConnectTimeout(15000 *//* milliseconds *//* );
         urlConnection.setDoOutput(true);
         urlConnection.connect();
 
@@ -319,5 +345,37 @@ public class FetchingManager {
         System.out.println("JSON: " + jsonString);
 
         return new JSONObject(jsonString);
+    }*/
+
+    public static void checkForNewForecast(){
+        Log.d(TAG, "checkifnew: " + latestForecastTime);
+
+        long lastControlledTime = StorageManager.getLastControlledForecastTime(Alarm.currentAlarmContext);
+        Log.d(TAG, "checkifnew: " + lastControlledTime);
+
+        // if there is a new forecast to be controlled
+        //if (lastControlledTime < lastControlledTime) {
+        if (true) { // tmp
+            //fetchForecast();
+            Set<String> watchedAreas = StorageManager.getWatchedAreas(Alarm.currentAlarmContext);
+            for(String area : watchedAreas){
+                Log.d(TAG, "fetchAndControlData: area: " + area);
+                //fetchForecast();
+
+            }
+            //Log.d(TAG, "checkForNewForecast: " + getDataForCategory(categories.get(0)));
+
+            StorageManager.setLastControlledForecastTime(latestForecastTime, Alarm.currentAlarmContext);
+        }
+
+
+
+
+    }
+
+    public static void fetchAndControlData(){
+        Log.d(TAG, "fetchAndControlData: running");
+
+        fetchAreas(JSONFetcher.FETCH_AREAS_IN_BACKGROUND);
     }
 }
