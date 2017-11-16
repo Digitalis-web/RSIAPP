@@ -35,6 +35,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.example.mo.rsiapp.datamanaging.DisplayInfoManager.getCategoryLabel;
 import static com.example.mo.rsiapp.datamanaging.DisplayInfoManager.roadConditionInfo;
 
 
@@ -74,21 +75,6 @@ public class ForecastFragment extends Fragment {
     public ForecastFragment() {
         // Required empty public constructor
     }
-
-
-
-    public String getRoadConditionInfoByName(String name, String type){
-
-        for(int i = 0; i < DisplayInfoManager.roadConditionInfo.size(); i++) {
-            HashMap<String, String> map = DisplayInfoManager.roadConditionInfo.get(i);
-            if (map.get("name").equals(name)) {
-                return map.get(type);
-            }
-        }
-
-       return "";
-    }
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -129,7 +115,7 @@ public class ForecastFragment extends Fragment {
             // if the category is to be viewable
             if (DisplayInfoManager.viewCategories.contains(category)) {
                 availableCategories.add(category);
-                availableCategoriesLabels.add(getCategoryLabel(category));
+                availableCategoriesLabels.add(DisplayInfoManager.getCategoryLabel(category));
             }
 
         }
@@ -164,28 +150,6 @@ public class ForecastFragment extends Fragment {
         }
     }*/
 
-    public String getCategoryLabel(String category){
-        String label = "";
-        switch (category){
-            case "roadcondition":
-                label = "Väglag";
-                break;
-            case "roadfriction":
-                label = "Friktion";
-                break;
-            case "roadtemperature":
-                label = "Yttemperatur";
-                break;
-            case "slipincidents":
-                label = "Halkrapporter";
-                break;
-            case "roadtreatment":
-                label = "Åtgärder";
-                break;
-        }
-        return label;
-
-    }
 
     public void openSelectCategoryMenu(){
         CharSequence categories[] = availableCategoriesLabels.toArray(new String[availableCategoriesLabels.size()]);
@@ -332,8 +296,8 @@ public class ForecastFragment extends Fragment {
                 if (value > 0) {
                     yEntries.add(new PieEntry(value, i));
                 //xEntries.add(key);
-                    String hexColor = getRoadConditionInfoByName(key, "color");
-                    String label = getRoadConditionInfoByName(key, "label");
+                    String hexColor = DisplayInfoManager.getRoadConditionInfoByName(key, "color");
+                    String label = DisplayInfoManager.getRoadConditionInfoByName(key, "label");
                     int color = Color.parseColor(hexColor);
                     colors.add(color);
                     addInfoListItem(label, color, infoLayout);

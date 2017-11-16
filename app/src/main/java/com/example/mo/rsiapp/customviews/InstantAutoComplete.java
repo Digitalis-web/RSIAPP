@@ -129,7 +129,7 @@ public class InstantAutoComplete extends android.support.v7.widget.AppCompatAuto
         int index = FetchingManager.areasName.indexOf(areaName);
         String areaID = FetchingManager.areasID.get(index);
         NavActivity.openLoadingScreen();
-        FetchingManager.fetchForecast(areaID, FetchingManager.latestForecastTime, JSONFetcher.FETCH_AREAS);
+        FetchingManager.fetchForecast(areaID, FetchingManager.latestForecastTime, JSONFetcher.FETCH_FORECAST);
     }
 
     @Override

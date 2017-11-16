@@ -30,7 +30,7 @@ import java.util.Set;
 import static com.example.mo.rsiapp.R.menu.nav;
 
 public class NavActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ForecastFragment.OnFragmentInteractionListener, LoadingFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ForecastFragment.OnFragmentInteractionListener, LoadingFragment.OnFragmentInteractionListener , SettingsFragment.OnFragmentInteractionListener    {
 
     public static InstantAutoComplete searchBar;
     private static final String TAG = "NavActivity";
@@ -53,13 +53,14 @@ public class NavActivity extends AppCompatActivity
         navDrawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        Log.d(TAG, "onCreate: watched areas: " + StorageManager.getWatchedAreas().toString());
+        //Log.d(TAG, "onCreate: watched areas: " + StorageManager.getWatchedAreas().toString());
 
 
         getSupportActionBar().setDisplayShowTitleEnabled(false); // hide title in action bar
 
 
         searchBar = (InstantAutoComplete) findViewById(R.id.search_area);
+
         DisplayInfoManager.initData();
 
         //StorageManager.clearWatchedAreas();
@@ -93,6 +94,13 @@ public class NavActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    public void openSettings(View v) {
+        SettingsFragment fragment = new SettingsFragment().newInstance();
+        FragmentManager manager = navActivity.getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.fragment_layout, fragment, fragment.getTag()).commit();
+        closeNav();
     }
 
     public void manualFetchAreas(View v) {
@@ -135,14 +143,14 @@ public class NavActivity extends AppCompatActivity
     public static void openForecast(String areaID, int routeLength){
         ForecastFragment fragment = new ForecastFragment().newInstance(areaID, routeLength);
         FragmentManager manager = navActivity.getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.fragmentLayout, fragment, fragment.getTag()).commit();
+        manager.beginTransaction().replace(R.id.fragment_layout, fragment, fragment.getTag()).commit();
     }
 
 
     public static void openLoadingScreen(){
         LoadingFragment fragment = new LoadingFragment().newInstance();
         FragmentManager manager = navActivity.getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.fragmentLayout, fragment, fragment.getTag()).commit();
+        manager.beginTransaction().replace(R.id.fragment_layout, fragment, fragment.getTag()).commit();
     }
 
 

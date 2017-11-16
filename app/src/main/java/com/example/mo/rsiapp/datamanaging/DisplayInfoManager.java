@@ -14,7 +14,7 @@ import static java.nio.file.Paths.get;
 public class DisplayInfoManager {
     public static final String TAG = "DisplayInfo";
 
-    // The categories that are to be viewable in the app
+    // The categories that are to be viewable in the app, other categories will not be shown
     public static ArrayList<String> viewCategories = new ArrayList<String>(){{
         add("roadcondition");
         add("roadfriction");
@@ -54,6 +54,40 @@ public class DisplayInfoManager {
         return color;
     }
 
+    public static String getRoadConditionInfoByName(String name, String type){
+
+        for(int i = 0; i < DisplayInfoManager.roadConditionInfo.size(); i++) {
+            HashMap<String, String> map = DisplayInfoManager.roadConditionInfo.get(i);
+            if (map.get("name").equals(name)) {
+                return map.get(type);
+            }
+        }
+
+        return "";
+    }
+
+    public static String getCategoryLabel(String category){
+        String label = "";
+        switch (category){
+            case "roadcondition":
+                label = "Väglag";
+                break;
+            case "roadfriction":
+                label = "Friktion";
+                break;
+            case "roadtemperature":
+                label = "Yttemperatur";
+                break;
+            case "slipincidents":
+                label = "Halkrapporter";
+                break;
+            case "roadtreatment":
+                label = "Åtgärder";
+                break;
+        }
+        return label;
+
+    }
     public static ArrayList<HashMap<String, String>> initRoadConditionInfoArray(){
         ArrayList<HashMap<String, String>> roadConditionInfo = new ArrayList<>();
 
