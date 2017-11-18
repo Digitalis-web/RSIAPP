@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
+    android:focusableInTouchMode="true"
     >
 
     <LinearLayout
@@ -13,7 +14,7 @@
         >
 
     <android.support.v7.widget.AppCompatCheckBox
-        android:id="@+id/settings_item_header"
+        android:id="@+id/settings_item_check"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="19sp"

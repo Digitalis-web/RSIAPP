@@ -17,6 +17,7 @@ import java.util.Set;
 public class StorageManager {
     public static final String WATCHED_AREAS_KEY =  "watchedAreas";
     public static final String LAST_CONTROLLED_FORECAST_KEY =  "lastForecast";
+    public static final String SETTINGS_KEY =  "settings";
     public static final String TAG =  "StorageManager";
 
     public static final String PREF_NAME =  "areasData";
@@ -25,6 +26,18 @@ public class StorageManager {
     public static boolean areaIsWatched(String areaID) {
         Set<String> set = getWatchedAreas();
         return set.contains(areaID);
+    }
+
+    public static void saveSettings(Set<String> settingsSet){
+        saveStringSet(SETTINGS_KEY, settingsSet);
+    }
+
+    public static Set<String> getSettings(){
+        return getSettings(NavActivity.navActivity);
+    }
+
+    public static Set<String> getSettings(Context context){
+        return getStringSet(SETTINGS_KEY, context);
     }
 
     public static Set<String> getWatchedAreas(Context context) {
@@ -73,7 +86,6 @@ public class StorageManager {
         editor.apply();
         editor.putStringSet(key, set);
         editor.apply();
-        Log.d(TAG, "saveStringSet: watched areas: " + StorageManager.getWatchedAreas().toString());
     }
 
     public static Set<String> getStringSet(String key, Context context) {
@@ -81,8 +93,8 @@ public class StorageManager {
         //int defaultValue = getResources().getInteger(R.string.saved_high_score_default);
         Set<String> set = sharedPref.getStringSet(key, new HashSet<String>());
         return set;
-
     }
+
     public static Set<String> getStringSet(String key) {
         Context context = NavActivity.navActivity;
         return getStringSet(key, context);

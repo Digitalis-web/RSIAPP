@@ -88,6 +88,8 @@ public class DisplayInfoManager {
         return label;
 
     }
+
+
     public static ArrayList<HashMap<String, String>> initRoadConditionInfoArray(){
         ArrayList<HashMap<String, String>> roadConditionInfo = new ArrayList<>();
 

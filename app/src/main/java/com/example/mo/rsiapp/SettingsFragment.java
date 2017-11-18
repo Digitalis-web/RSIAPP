@@ -9,16 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.SeekBar;
 
-import com.example.mo.rsiapp.customviews.NavAreaItemAdapter;
 import com.example.mo.rsiapp.customviews.SettingsItem;
 import com.example.mo.rsiapp.customviews.SettingsItemAdapter;
+import com.example.mo.rsiapp.datamanaging.StorageManager;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -40,7 +40,9 @@ public class SettingsFragment extends Fragment  {
     private ViewGroup rootViewGroup;
     private View inflatedView;
 
+    ArrayList<SettingsItem> settingsItems = new ArrayList<>();
     private OnFragmentInteractionListener mListener;
+    private Set<String> savedSettings;
 
 
     public SettingsFragment() {
@@ -84,13 +86,61 @@ public class SettingsFragment extends Fragment  {
         });
     }
 
+    public void getSavedSettings(){
+
+       savedSettings = StorageManager.getSettings();
+
+/*        for(String savedStr : savedSettings){
+            Log.d(TAG, "setupSavedSettings: " + savedStr);
+            String[] split = savedStr.split(",");
+
+            String name = "";
+            boolean enabled = false;
+            int value = 0;
+
+            if(split.length >= 3) {
+                name = split[0];
+                enabled = split[1].equals("1");
+                value = Integer.parseInt(split[2]);
+            }
+
+            //SettingsItem item = getSettingsItemByName(name);
+
+*//*            if(item != null){
+                item.setEnabled(enabled);
+                item.setSliderValue(value);
+            }*//*
+
+        }*/
+    }
+
     public void saveSettings(){
         Log.d(TAG, "saveSettings: saving settings");
+
+        Set<String> settingsSet = new HashSet<>();
+
+
+        for (int i = 0; i < settingsItems.size(); i++){
+            SettingsItem item = settingsItems.get(i);
+
+            Log.d(TAG, "--------------------");
+            Log.d(TAG, "saveSettings: name: " + item.getName());
+            Log.d(TAG, "saveSettings: enabled: " + item.isEnabled());
+            Log.d(TAG, "saveSettings: value: " + item.getSliderValue());
+            String name = item.getName();
+            String enabled = item.isEnabled() ? "1" : "0";
+            String value = String.valueOf(item.getSliderValue());
+            String saveString = name + "," + enabled + "," + value;
+            Log.d(TAG, "saveSettings: saveString: " + saveString);
+
+            settingsSet.add(saveString);
+        }
+
+        StorageManager.saveSettings(settingsSet);
 
     }
 
     public void initCategorySettings(){
-        ArrayList<SettingsItem> settingsItems = new ArrayList<>();
         settingsItems.add(new SettingsItem("Moist"));
         settingsItems.add(new SettingsItem("Wet"));
         settingsItems.add(new SettingsItem("LightSnow"));

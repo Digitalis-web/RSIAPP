@@ -1,6 +1,7 @@
 package com.example.mo.rsiapp.customviews;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +10,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.mo.rsiapp.R;
+import com.example.mo.rsiapp.SettingsFragment;
+import com.example.mo.rsiapp.datamanaging.StorageManager;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Created by mo on 12/10/17.
@@ -23,8 +27,11 @@ public class SettingsItemAdapter extends BaseAdapter  {
     Context c;
     private final String TAG = "NavAdapter";
 
+    Set<String> savedSettings;
+
     public SettingsItemAdapter(Context c, ArrayList<SettingsItem> list, ListView listView) {
         settingsItems = list;
+        savedSettings = StorageManager.getSettings();
 
         this.c = c;
         //listView.setOnItemClickListener(this);
@@ -53,14 +60,28 @@ public class SettingsItemAdapter extends BaseAdapter  {
         // TODO Auto-generated method stub
         View row = null;
         LayoutInflater inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        boolean firstInit = false;
         if (convertView == null) {
             row = inflater.inflate(R.layout.settings_item, parent, false);
+            firstInit = true;
         } else {
             row = convertView;
+            firstInit = false;
         }
 
-        SettingsItem navItem = settingsItems.get(position);
-        navItem.initComponents(row);
+        SettingsItem settingsItem = settingsItems.get(position);
+        settingsItem.initComponents(row);
+
+        // to prevent listview recycling issue
+        settingsItem.setSliderValue(settingsItem.getSliderValue());
+        settingsItem.setEnabled(settingsItem.isEnabled());
+
+        if(firstInit){
+            settingsItem.setSavedSettings(savedSettings);
+        }
+
+        //parent.setupSavedSettings();
 
         return row;
     }
