@@ -96,19 +96,19 @@ public class DisplayInfoManager {
         HashMap<String, String> map = new HashMap<>();
 
         map.put("name", "Dry");
-        map.put("color", "#99cc66");
+        map.put("color", "#d7deb2");
         map.put("label", "Torrt");
         roadConditionInfo.add(map);
 
         map = new HashMap<>();
         map.put("name", "Moist");
-        map.put("color", "#8eb1e6");
+        map.put("color", "#addd8e");
         map.put("label", "Fuktigt");
         roadConditionInfo.add(map);
 
         map = new HashMap<>();
         map.put("name", "Wet");
-        map.put("color", "#2a70d9");
+        map.put("color", "#5aba73");
         map.put("label", "Vått");
         roadConditionInfo.add(map);
 
@@ -123,13 +123,13 @@ public class DisplayInfoManager {
 
         map = new HashMap<>();
         map.put("name", "LightSnow");
-        map.put("color", "#66ffff");
+        map.put("color", "#41b6c4");
         map.put("label", "Lätt snö");
         roadConditionInfo.add(map);
 
         map = new HashMap<>();
         map.put("name", "Snow");
-        map.put("color", "#00c0c0");
+        map.put("color", "#41b6c4");
         map.put("label", "Snö");
         roadConditionInfo.add(map);
 
@@ -141,7 +141,7 @@ public class DisplayInfoManager {
 
         map = new HashMap<>();
         map.put("name", "Slipperiness");
-        map.put("color", "#cc66cc");
+        map.put("color", "#2265a8");
         map.put("label", "Halka");
         roadConditionInfo.add(map);
 
