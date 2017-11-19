@@ -1,6 +1,5 @@
 package com.example.mo.rsiapp;
 
-import android.app.Notification;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -17,14 +16,11 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.example.mo.rsiapp.backgroundtasks.Alarm;
-import com.example.mo.rsiapp.backgroundtasks.Notifications;
 import com.example.mo.rsiapp.customviews.InstantAutoComplete;
 import com.example.mo.rsiapp.customviews.NavAreaItem;
 import com.example.mo.rsiapp.customviews.NavAreaItemAdapter;
 import com.example.mo.rsiapp.datamanaging.DisplayInfoManager;
 import com.example.mo.rsiapp.datamanaging.FetchingManager;
-import com.example.mo.rsiapp.datamanaging.Forecast;
-import com.example.mo.rsiapp.datamanaging.JSONFetcher;
 import com.example.mo.rsiapp.datamanaging.StorageManager;
 
 import java.util.ArrayList;
@@ -33,7 +29,7 @@ import java.util.Set;
 import static com.example.mo.rsiapp.R.menu.nav;
 
 public class NavActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ForecastFragment.OnFragmentInteractionListener, LoadingFragment.OnFragmentInteractionListener , SettingsFragment.OnFragmentInteractionListener    {
+        implements NavigationView.OnNavigationItemSelectedListener, ForecastFragment.OnFragmentInteractionListener, LoadingFragment.OnFragmentInteractionListener {
 
     public static InstantAutoComplete searchBar;
     private static final String TAG = "NavActivity";
@@ -56,24 +52,17 @@ public class NavActivity extends AppCompatActivity
         navDrawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        //Log.d(TAG, "onCreate: watched areas: " + StorageManager.getWatchedAreas().toString());
+        Log.d(TAG, "onCreate: watched areas: " + StorageManager.getWatchedAreas().toString());
 
 
         getSupportActionBar().setDisplayShowTitleEnabled(false); // hide title in action bar
 
 
         searchBar = (InstantAutoComplete) findViewById(R.id.search_area);
-
         DisplayInfoManager.initData();
 
-        //StorageManager.clearWatchedAreas();
-        FetchingManager.fetchAreas(JSONFetcher.FETCH_AREAS);
-        Alarm.setAlarm(this);
+        FetchingManager.fetchAreas();
 
-    }
-
-    public void testNofitication(View view){
-        Notifications.sendNotification(view, this);
     }
 
     public void closeNav(){
@@ -104,22 +93,15 @@ public class NavActivity extends AppCompatActivity
         }
     }
 
-    public void openSettings(View v) {
-        SettingsFragment fragment = new SettingsFragment().newInstance();
-        FragmentManager manager = navActivity.getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.fragment_layout, fragment, fragment.getTag()).commit();
-        closeNav();
-    }
-
     public void manualFetchAreas(View v) {
-        //FetchingManager.fetchAreas(true);
+        FetchingManager.fetchAreas();
     }
 
     public void manualFetchData(View v) {
         //FetchingManager.fetchForecast(0);
     }
     public void manualCancelAlarm(View v) {
-        //Alarm.cancelAlarm(this);
+        Alarm.cancelAlarm(this);
     }
 
     public void manualStartAlarm(View v){
@@ -148,19 +130,16 @@ public class NavActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public static void openForecast(String areaID, int routeLength, Forecast forecast){
-        ForecastFragment.viewedForecast = forecast; // passed staticly is ok here cause there will only ever be one instance of ForecastFragment at the time
-        Log.d(TAG, "openForecast: ");
-        ForecastFragment fragment = new ForecastFragment().newInstance(areaID, routeLength);
+    public static void openForecast(String areaID){
+        ForecastFragment fragment = new ForecastFragment().newInstance(areaID);
         FragmentManager manager = navActivity.getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.fragment_layout, fragment, fragment.getTag()).commit();
+        manager.beginTransaction().replace(R.id.fragmentLayout, fragment, fragment.getTag()).commit();
     }
-
 
     public static void openLoadingScreen(){
         LoadingFragment fragment = new LoadingFragment().newInstance();
         FragmentManager manager = navActivity.getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.fragment_layout, fragment, fragment.getTag()).commit();
+        manager.beginTransaction().replace(R.id.fragmentLayout, fragment, fragment.getTag()).commit();
     }
 
 

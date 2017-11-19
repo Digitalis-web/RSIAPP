@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void manualCancelAlarm(View v) {
-        //Alarm.cancelAlarm(this);
+        Alarm.cancelAlarm(this);
     }
 
     public void manualStartAlarm(View v){
