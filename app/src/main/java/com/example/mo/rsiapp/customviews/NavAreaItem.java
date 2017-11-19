@@ -11,6 +11,7 @@ import android.widget.PopupWindow;
 import com.example.mo.rsiapp.NavActivity;
 import com.example.mo.rsiapp.R;
 import com.example.mo.rsiapp.datamanaging.FetchingManager;
+import com.example.mo.rsiapp.datamanaging.Forecast;
 import com.example.mo.rsiapp.datamanaging.JSONFetcher;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;

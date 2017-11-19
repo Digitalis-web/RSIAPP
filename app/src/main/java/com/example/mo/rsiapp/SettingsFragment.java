@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 
 import com.example.mo.rsiapp.customviews.SettingsItem;
@@ -29,7 +31,7 @@ import java.util.Set;
  * Use the {@link SettingsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SettingsFragment extends Fragment  {
+public class SettingsFragment extends Fragment  implements CheckBox.OnCheckedChangeListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     //private static final String ARG_PARAM1 = "param1";
@@ -39,10 +41,12 @@ public class SettingsFragment extends Fragment  {
 
     private ViewGroup rootViewGroup;
     private View inflatedView;
+    private CheckBox enableNofticationsCheckBox;
 
     ArrayList<SettingsItem> settingsItems = new ArrayList<>();
     private OnFragmentInteractionListener mListener;
     private Set<String> savedSettings;
+    private boolean notificationsEnabled = true;
 
 
     public SettingsFragment() {
@@ -78,6 +82,8 @@ public class SettingsFragment extends Fragment  {
         initCategorySettings();
         Button saveButton = inflatedView.findViewById(R.id.save_settings_button);
 
+        setupEnableNotificationsCheckBox();
+
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,32 +92,13 @@ public class SettingsFragment extends Fragment  {
         });
     }
 
-    public void getSavedSettings(){
+    public void setupEnableNotificationsCheckBox(){
+        enableNofticationsCheckBox = inflatedView.findViewById(R.id.enable_notifications);
+        enableNofticationsCheckBox.setOnCheckedChangeListener(this);
 
-       savedSettings = StorageManager.getSettings();
+        boolean enabled = StorageManager.getNotificationsEnabled(NavActivity.navActivity);
+        enableNofticationsCheckBox.setChecked(enabled);
 
-/*        for(String savedStr : savedSettings){
-            Log.d(TAG, "setupSavedSettings: " + savedStr);
-            String[] split = savedStr.split(",");
-
-            String name = "";
-            boolean enabled = false;
-            int value = 0;
-
-            if(split.length >= 3) {
-                name = split[0];
-                enabled = split[1].equals("1");
-                value = Integer.parseInt(split[2]);
-            }
-
-            //SettingsItem item = getSettingsItemByName(name);
-
-*//*            if(item != null){
-                item.setEnabled(enabled);
-                item.setSliderValue(value);
-            }*//*
-
-        }*/
     }
 
     public void saveSettings(){
@@ -123,20 +110,16 @@ public class SettingsFragment extends Fragment  {
         for (int i = 0; i < settingsItems.size(); i++){
             SettingsItem item = settingsItems.get(i);
 
-            Log.d(TAG, "--------------------");
-            Log.d(TAG, "saveSettings: name: " + item.getName());
-            Log.d(TAG, "saveSettings: enabled: " + item.isEnabled());
-            Log.d(TAG, "saveSettings: value: " + item.getSliderValue());
             String name = item.getName();
             String enabled = item.isEnabled() ? "1" : "0";
             String value = String.valueOf(item.getSliderValue());
             String saveString = name + "," + enabled + "," + value;
-            Log.d(TAG, "saveSettings: saveString: " + saveString);
 
             settingsSet.add(saveString);
         }
 
         StorageManager.saveSettings(settingsSet);
+        StorageManager.saveNotificationsEnabled(notificationsEnabled);
 
     }
 
@@ -176,6 +159,11 @@ public class SettingsFragment extends Fragment  {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        this.notificationsEnabled = b;
     }
 
     public interface OnFragmentInteractionListener {

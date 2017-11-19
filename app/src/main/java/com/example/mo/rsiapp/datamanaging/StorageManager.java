@@ -18,10 +18,22 @@ public class StorageManager {
     public static final String WATCHED_AREAS_KEY =  "watchedAreas";
     public static final String LAST_CONTROLLED_FORECAST_KEY =  "lastForecast";
     public static final String SETTINGS_KEY =  "settings";
+    public static final String NOTIFICATIONS_ENABLED_KEY =  "notifications";
     public static final String TAG =  "StorageManager";
 
     public static final String PREF_NAME =  "areasData";
 
+
+    public static boolean getNotificationsEnabled(Context context){
+        String enabledStr = getString(NOTIFICATIONS_ENABLED_KEY, context);
+        boolean enabled = enabledStr.equals("1");
+        return enabled;
+    }
+
+    public static void saveNotificationsEnabled(boolean enabled){
+        String str = enabled ? "1" : "0";
+        saveString(NOTIFICATIONS_ENABLED_KEY, str);
+    }
 
     public static boolean areaIsWatched(String areaID) {
         Set<String> set = getWatchedAreas();
@@ -124,10 +136,14 @@ public class StorageManager {
         editor.apply();
     }
 
-    public static String getString(String key) {
-        SharedPreferences sharedPref = NavActivity.navActivity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+    public static String getString(String key, Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         //int defaultValue = getResources().getInteger(R.string.saved_high_score_default);
         String value = sharedPref.getString(key, "");
         return value;
+    }
+
+    public static String getString(String key) {
+        return getString(key, NavActivity.navActivity);
     }
 }

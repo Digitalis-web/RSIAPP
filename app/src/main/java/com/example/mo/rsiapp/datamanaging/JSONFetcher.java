@@ -28,6 +28,7 @@ public class JSONFetcher extends AsyncTask<String, Void, JSONObject> {
     public static final short FETCH_AREAS_IN_BACKGROUND = 2;
     public static final short FETCH_FORECAST_IN_BACKGROUND = 3;
 
+
     public JSONFetcher(int fetchMode){
         //Log.d(TAG, "JSONFetcher: creating object " + updateUI);
         this.fetchMode = fetchMode;
@@ -38,6 +39,7 @@ public class JSONFetcher extends AsyncTask<String, Void, JSONObject> {
 
         //this.urlStr = url;
     }
+
 
 
     protected void onPreExecute() {
@@ -90,7 +92,9 @@ public class JSONFetcher extends AsyncTask<String, Void, JSONObject> {
         //Log.d(TAG, "onPPostExecute: " + result.toString().substring(result.toString().length()-59));
         Log.d(TAG, "onPPostExecute: " + fetchMode);
         if (fetchMode == FETCH_FORECAST) {
-            FetchingManager.parseForecastData(result, true);
+            //FetchingManager.parseForecastData(result, true);
+            Forecast forecast = new Forecast();
+            forecast.parseData(result, true);
         }
         else if (fetchMode == FETCH_AREAS) {
             FetchingManager.parseAreasData(result, true);
@@ -99,7 +103,9 @@ public class JSONFetcher extends AsyncTask<String, Void, JSONObject> {
             FetchingManager.parseAreasData(result, false);
         }
         else if (fetchMode == FETCH_FORECAST_IN_BACKGROUND) {
-            FetchingManager.parseAreasData(result, false);
+            //FetchingManager.parseForecastData(result, false);
+            Forecast forecast = new Forecast();
+            forecast.parseData(result, false);
         }
 
     }

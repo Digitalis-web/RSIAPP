@@ -22,21 +22,21 @@ import android.widget.TextView;
 import com.example.mo.rsiapp.customviews.WatchAreaButton;
 import com.example.mo.rsiapp.datamanaging.DisplayInfoManager;
 import com.example.mo.rsiapp.datamanaging.FetchingManager;
+import com.example.mo.rsiapp.datamanaging.Forecast;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static com.example.mo.rsiapp.datamanaging.DisplayInfoManager.getCategoryLabel;
-import static com.example.mo.rsiapp.datamanaging.DisplayInfoManager.roadConditionInfo;
 
 
 /**
@@ -52,9 +52,12 @@ public class ForecastFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM3 = "param3";
     //private static final String ARG_PARAM2 = "param2";
 
     private static final String TAG = "Forecast";
+
+    public static Forecast viewedForecast;
 
 
     PieChart chartOne;
@@ -107,9 +110,9 @@ public class ForecastFragment extends Fragment {
         // FetchingManager.categories contains the "categories" that the chosen area has data about.
         // The viewCategories are the categories that should always be viewable when they are available
         // availableCategories are the categories that the user will be able to choose from
-        for (int i = 0; i < FetchingManager.categories.size(); i++) {
-            String category = FetchingManager.categories.get(i);
-            Log.d(TAG, "initCategoryButtons: " + FetchingManager.categories.get(i));
+        for (int i = 0; i < viewedForecast.categories.size(); i++) {
+            String category = viewedForecast.categories.get(i);
+            Log.d(TAG, "initCategoryButtons: " + viewedForecast.categories.get(i));
 
 
             // if the category is to be viewable
@@ -167,11 +170,42 @@ public class ForecastFragment extends Fragment {
 
     }
 
+    public  HashMap<String, Long> getDataPoint(String category, long time){
+
+        HashMap<String, Long> values = new HashMap<>();
+        try {
+            JSONObject data = viewedForecast.getDataForCategory(category);
+            JSONArray seriesArray = data.getJSONArray("series");
+
+            for(int i = 0; i < seriesArray.length(); i++){
+                JSONObject seriesItem = seriesArray.getJSONObject(i);
+                String name = seriesItem.getString("name");
+                JSONArray seriesData = seriesItem.getJSONArray("data");
+
+                for(int n = 0; n < seriesData.length(); n++){
+                    JSONObject timePointObj = seriesData.getJSONObject(n);
+                    long pointTime = timePointObj.getLong("x");
+                    Long value = timePointObj.getLong("y");
+
+                    if(pointTime == time){
+                        values.put(name, value);
+                    }
+
+                }
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return values;
+    }
+
     public void updateCharts(String category, View inflatedView){
         //String category = categories.get(0);
-        HashMap<String, Long> chart1Values = FetchingManager.getDataPoint(category, FetchingManager.chartOneTime);
-        HashMap<String, Long> chart2Values = FetchingManager.getDataPoint(category, FetchingManager.chartTwoTime);
-        HashMap<String, Long> chart3Values = FetchingManager.getDataPoint(category, FetchingManager.chartThreeTime);
+        HashMap<String, Long> chart1Values = viewedForecast.getDataPoint(category, FetchingManager.chartOneTime);
+        HashMap<String, Long> chart2Values = viewedForecast.getDataPoint(category, FetchingManager.chartTwoTime);
+        HashMap<String, Long> chart3Values = viewedForecast.getDataPoint(category, FetchingManager.chartThreeTime);
 
         Log.d(TAG, "onCreateView: starting create chart");
         LinearLayout chart1InfoLayout = (LinearLayout) inflatedView.findViewById(R.id.chartInfoOne);
@@ -213,7 +247,7 @@ public class ForecastFragment extends Fragment {
         initPieChart(chartTwo);
         initPieChart(chartThree);
 
-        updateCharts(FetchingManager.categories.get(0), inflatedView);
+        updateCharts(viewedForecast.categories.get(0), inflatedView);
 
         final WatchAreaButton watchButton = (WatchAreaButton) inflatedView.findViewById(R.id.watch_area_button);
         watchButton.init(areaID);

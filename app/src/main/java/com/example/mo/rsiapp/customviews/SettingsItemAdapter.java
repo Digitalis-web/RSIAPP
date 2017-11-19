@@ -78,7 +78,7 @@ public class SettingsItemAdapter extends BaseAdapter  {
         settingsItem.setEnabled(settingsItem.isEnabled());
 
         if(firstInit){
-            settingsItem.setSavedSettings(savedSettings);
+            settingsItem.initFromSavedSettings(savedSettings);
         }
 
         //parent.setupSavedSettings();

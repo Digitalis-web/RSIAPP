@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.mo.rsiapp.NavActivity;
 import com.example.mo.rsiapp.R;
 import com.example.mo.rsiapp.datamanaging.FetchingManager;
+import com.example.mo.rsiapp.datamanaging.Forecast;
 import com.example.mo.rsiapp.datamanaging.JSONFetcher;
 
 import java.util.ArrayList;

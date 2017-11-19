@@ -1,11 +1,9 @@
 package com.example.mo.rsiapp.customviews;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
-import android.widget.TextView;
 
 import com.example.mo.rsiapp.R;
 import com.example.mo.rsiapp.datamanaging.DisplayInfoManager;
@@ -36,7 +34,7 @@ public class SettingsItem implements SeekBar.OnSeekBarChangeListener, CheckBox.O
     }
 
 
-    public void setSavedSettings(Set<String> savedSettings){
+    public void initFromSavedSettings(Set<String> savedSettings){
         for(String savedStr : savedSettings){
             String[] split = savedStr.split(",");
 
@@ -103,7 +101,6 @@ public class SettingsItem implements SeekBar.OnSeekBarChangeListener, CheckBox.O
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         sliderValue = progress;
-        Log.d(TAG, "onProgressChanged: prog: " + progress + " user: " + fromUser);
         //slider.setProgress(progress);
         updateLabel();
     }

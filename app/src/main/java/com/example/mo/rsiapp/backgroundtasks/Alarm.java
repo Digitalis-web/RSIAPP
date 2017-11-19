@@ -30,7 +30,7 @@ public class Alarm extends BroadcastReceiver
         Log.d(TAG, "onReceive: makeing toast");
 
         Toast.makeText(context, "Alarm !!!!!!!!!!", Toast.LENGTH_LONG).show(); // For example
-        FetchingManager.fetchAndControlData();
+        FetchingManager.fetchAndControlData(context);
 
 
         wl.release();
@@ -42,7 +42,7 @@ public class Alarm extends BroadcastReceiver
         Intent i = new Intent(context, Alarm.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
         am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60, pi); // Millisec * Second * Minute
-        Log.i("debugging", "setting repeating in set alarm");
+        //Log.i("debugging", "setting repeating in set alarm");
     }
 
 /*    public static void cancelAlarm(Context context)

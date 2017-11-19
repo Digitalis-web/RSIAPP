@@ -1,5 +1,6 @@
 package com.example.mo.rsiapp;
 
+import android.app.Notification;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -16,11 +17,13 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.example.mo.rsiapp.backgroundtasks.Alarm;
+import com.example.mo.rsiapp.backgroundtasks.Notifications;
 import com.example.mo.rsiapp.customviews.InstantAutoComplete;
 import com.example.mo.rsiapp.customviews.NavAreaItem;
 import com.example.mo.rsiapp.customviews.NavAreaItemAdapter;
 import com.example.mo.rsiapp.datamanaging.DisplayInfoManager;
 import com.example.mo.rsiapp.datamanaging.FetchingManager;
+import com.example.mo.rsiapp.datamanaging.Forecast;
 import com.example.mo.rsiapp.datamanaging.JSONFetcher;
 import com.example.mo.rsiapp.datamanaging.StorageManager;
 
@@ -65,7 +68,12 @@ public class NavActivity extends AppCompatActivity
 
         //StorageManager.clearWatchedAreas();
         FetchingManager.fetchAreas(JSONFetcher.FETCH_AREAS);
+        Alarm.setAlarm(this);
 
+    }
+
+    public void testNofitication(View view){
+        Notifications.sendNotification(view, this);
     }
 
     public void closeNav(){
@@ -140,7 +148,9 @@ public class NavActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public static void openForecast(String areaID, int routeLength){
+    public static void openForecast(String areaID, int routeLength, Forecast forecast){
+        ForecastFragment.viewedForecast = forecast; // passed staticly is ok here cause there will only ever be one instance of ForecastFragment at the time
+        Log.d(TAG, "openForecast: ");
         ForecastFragment fragment = new ForecastFragment().newInstance(areaID, routeLength);
         FragmentManager manager = navActivity.getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.fragment_layout, fragment, fragment.getTag()).commit();
