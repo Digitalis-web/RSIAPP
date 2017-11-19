@@ -34,8 +34,6 @@ public class Notifications {
         mBuilder.build().flags |= Notification.FLAG_AUTO_CANCEL;
 
 
-
-
         // Gets an instance of the NotificationManager service//
 
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
