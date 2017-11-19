@@ -10,23 +10,4 @@
     <color name="colorLightBlue">#99ccff</color>
     <color name="colorBlue">#6aace6</color>
     <color name="colorYellow">#EEEE00</color>
-
-    <!-- rod -->
-    <color name="colorTorrt">#d7deb2</color>
-    <color name="colorFuktigt">#addd8e</color>
-    <color name="colorVatt">#5aba73</color>
-    <color name="colorLattsno">#41b6c4</color>
-    <color name="colorSno">#41b6c4</color>
-    <color name="colorHalka">#2265a8</color>
-
-    <!-- Temp -->
-    <color name="colorTempMax">#3d2d0f</color>
-    <color name="colorTempMedel">#090909</color>
-    <color name="colorTempMin">#3d2d0f</color>
-
-    <!-- Salt -->
-    <color name="colorSalt3g">#d0e0ed</color>
-    <color name="colorSalt4g">#bfd3e6</color>
-    <color name="colorSalt5g">#afc8e0</color>
-    <color name="colorSalt7g">#95a9d0</color>
 </resources>
