@@ -12,12 +12,14 @@
     <color name="colorYellow">#EEEE00</color>
 
     <!-- rod -->
-    <color name="colorTorrt">#d7deb2</color>
-    <color name="colorFuktigt">#addd8e</color>
-    <color name="colorVatt">#5aba73</color>
-    <color name="colorLattsno">#41b6c4</color>
-    <color name="colorSno">#41b6c4</color>
-    <color name="colorHalka">#2265a8</color>
+    <color name="colorDry">#d7deb2</color>
+    <color name="colorMoist">#addd8e</color>
+    <color name="colorWet">#5aba73</color>
+    <color name="colorLightSnow">#41b6c4</color>
+    <color name="colorSnow">#41b6c4</color>
+    <color name="colorDriftingSnow">#254794</color>
+    <color name="colorSlipperiness">#2265a8</color>
+    <color name="colorHazardous">#FC4E2A</color>
 
     <!-- Temp -->
     <color name="colorTempMax">#3d2d0f</color>

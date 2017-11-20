@@ -97,28 +97,29 @@ public class DisplayInfoManager {
 
         HashMap<String, String> map = new HashMap<>();
 
-        String Torrt = String.valueOf(ResourcesCompat.getColor(NavActivity.navActivity.getResources(), R.color.colorTorrt, null));
-        String Fuktigt = String.valueOf(ResourcesCompat.getColor(NavActivity.navActivity.getResources(), R.color.colorFuktigt, null));
-        String Vatt = String.valueOf(ResourcesCompat.getColor(NavActivity.navActivity.getResources(), R.color.colorVatt, null));
-        String LattSno = String.valueOf(ResourcesCompat.getColor(NavActivity.navActivity.getResources(), R.color.colorLattsno, null));
-        String Sno = String.valueOf(ResourcesCompat.getColor(NavActivity.navActivity.getResources(), R.color.colorSno, null));
-        String Halka = String.valueOf(ResourcesCompat.getColor(NavActivity.navActivity.getResources(), R.color.colorHalka, null));
-        Log.d(TAG, "initRoadConditionInfoArray: Torrt: "  + Torrt);
+        String dry = String.valueOf(ResourcesCompat.getColor(NavActivity.navActivity.getResources(), R.color.colorDry, null));
+        String moist = String.valueOf(ResourcesCompat.getColor(NavActivity.navActivity.getResources(), R.color.colorMoist, null));
+        String wet = String.valueOf(ResourcesCompat.getColor(NavActivity.navActivity.getResources(), R.color.colorWet, null));
+        String lightSnow = String.valueOf(ResourcesCompat.getColor(NavActivity.navActivity.getResources(), R.color.colorLightSnow, null));
+        String snow = String.valueOf(ResourcesCompat.getColor(NavActivity.navActivity.getResources(), R.color.colorSnow, null));
+        String driftingSnow = String.valueOf(ResourcesCompat.getColor(NavActivity.navActivity.getResources(), R.color.colorDriftingSnow, null));
+        String slipperiness = String.valueOf(ResourcesCompat.getColor(NavActivity.navActivity.getResources(), R.color.colorSlipperiness, null));
+        String hazardous = String.valueOf(ResourcesCompat.getColor(NavActivity.navActivity.getResources(), R.color.colorHazardous, null));
 
         map.put("name", "Dry");
-        map.put("color", Torrt);
+        map.put("color", dry);
         map.put("label", "Torrt");
         roadConditionInfo.add(map);
 
         map = new HashMap<>();
         map.put("name", "Moist");
-        map.put("color", Fuktigt);
+        map.put("color", moist);
         map.put("label", "Fuktigt");
         roadConditionInfo.add(map);
 
         map = new HashMap<>();
         map.put("name", "Wet");
-        map.put("color", Vatt);
+        map.put("color", wet);
         map.put("label", "Vått");
         roadConditionInfo.add(map);
 
@@ -133,31 +134,31 @@ public class DisplayInfoManager {
 
         map = new HashMap<>();
         map.put("name", "LightSnow");
-        map.put("color", LattSno);
+        map.put("color", lightSnow);
         map.put("label", "Lätt snö");
         roadConditionInfo.add(map);
 
         map = new HashMap<>();
         map.put("name", "Snow");
-        map.put("color", Sno);
+        map.put("color", snow);
         map.put("label", "Snö");
         roadConditionInfo.add(map);
 
         map = new HashMap<>();
         map.put("name", "DriftingSnow");
-        map.put("color", "#156262");
+        map.put("color", driftingSnow);
         map.put("label", "Snö drev");
         roadConditionInfo.add(map);
 
         map = new HashMap<>();
         map.put("name", "Slipperiness");
-        map.put("color", Halka);
+        map.put("color", slipperiness);
         map.put("label", "Halka");
         roadConditionInfo.add(map);
 
         map = new HashMap<>();
         map.put("name", "Hazardous");
-        map.put("color", "#e96605");
+        map.put("color", hazardous);
         map.put("label", "Svår halka");
         roadConditionInfo.add(map);
 
