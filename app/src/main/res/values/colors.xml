@@ -11,7 +11,13 @@
     <color name="colorBlue">#6aace6</color>
     <color name="colorYellow">#EEEE00</color>
 
-    <!-- rod -->
+
+    <!--  -->
+    <color name="colorGraph1">#1e1e1e</color>
+    <color name="colorGraph2">#404040</color>
+    <color name="colorGraph3">#7F7F7F</color>
+
+    <!-- road -->
     <color name="colorDry">#d7deb2</color>
     <color name="colorMoist">#addd8e</color>
     <color name="colorWet">#5aba73</color>
@@ -23,7 +29,7 @@
 
     <!-- Temp -->
     <color name="colorTempMax">#3d2d0f</color>
-    <color name="colorTempMedel">#090909</color>
+    <color name="colorTempAverage">#090909</color>
     <color name="colorTempMin">#3d2d0f</color>
 
     <!-- Salt -->
