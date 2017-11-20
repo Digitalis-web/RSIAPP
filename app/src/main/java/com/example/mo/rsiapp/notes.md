@@ -19,3 +19,6 @@
 -[ ] Visa inte områden som det inte finns data över
 -[ ] Ta bort aktivera notiser checkbox och andvänd swichen istället
 -[ ] Ta bort Alla kategorier förutom Väglag och ytremperatur.
+-[ ] Skriva ut mängden km som är tex torrt när du trycker på pi diagramet
+-[ ] Sätta in en Ordentlig Logga
+-[ ] Namnge appen ordentligt
