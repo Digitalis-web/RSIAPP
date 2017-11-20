@@ -330,9 +330,9 @@ public class ForecastFragment extends Fragment {
                 if (value > 0) {
                     yEntries.add(new PieEntry(value, i));
                 //xEntries.add(key);
-                    String hexColor = DisplayInfoManager.getRoadConditionInfoByName(key, "color");
+                    int color = Integer.parseInt(DisplayInfoManager.getRoadConditionInfoByName(key, "color"));
                     String label = DisplayInfoManager.getRoadConditionInfoByName(key, "label");
-                    int color = Color.parseColor(hexColor);
+                    //int color = Color.parseColor(hexColor);
                     colors.add(color);
                     addInfoListItem(label, color, infoLayout);
                 }

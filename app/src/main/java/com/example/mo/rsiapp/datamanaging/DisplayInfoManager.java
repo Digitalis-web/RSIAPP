@@ -103,6 +103,7 @@ public class DisplayInfoManager {
         String LattSno = String.valueOf(ResourcesCompat.getColor(NavActivity.navActivity.getResources(), R.color.colorLattsno, null));
         String Sno = String.valueOf(ResourcesCompat.getColor(NavActivity.navActivity.getResources(), R.color.colorSno, null));
         String Halka = String.valueOf(ResourcesCompat.getColor(NavActivity.navActivity.getResources(), R.color.colorHalka, null));
+        Log.d(TAG, "initRoadConditionInfoArray: Torrt: "  + Torrt);
 
         map.put("name", "Dry");
         map.put("color", Torrt);
