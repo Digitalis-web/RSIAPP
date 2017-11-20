@@ -9,20 +9,15 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mo.rsiapp.NavActivity;
 import com.example.mo.rsiapp.R;
 import com.example.mo.rsiapp.datamanaging.FetchingManager;
-import com.example.mo.rsiapp.datamanaging.Forecast;
 import com.example.mo.rsiapp.datamanaging.JSONFetcher;
 
 import java.util.ArrayList;
-
-import static android.R.id.list;
-import static com.example.mo.rsiapp.R.id.textView;
 
 /**
  * Created by mo on 07/09/17.
@@ -48,17 +43,16 @@ public class InstantAutoComplete extends android.support.v7.widget.AppCompatAuto
 
     public void setupView(){
         //this.setDropDownBackgroundResource(R.color.colorWhite);
-        Log.d(TAG, "InstantAutoComplete: ");
         this.setThreshold(0);
        // this.clearFocus();
 
-        setOnFocusChangeListener(new OnFocusChangeListener() {
+/*        setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 Log.d(TAG, "onFocusChange2: focus: " + b);
 
             }
-        });
+        });*/
 
 
         setOnEditorActionListener(this); // listen for enter button

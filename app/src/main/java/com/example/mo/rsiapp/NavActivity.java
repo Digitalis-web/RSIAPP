@@ -1,23 +1,21 @@
 package com.example.mo.rsiapp;
 
-import android.app.Notification;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 
 import com.example.mo.rsiapp.backgroundtasks.Alarm;
-import com.example.mo.rsiapp.backgroundtasks.Notifications;
 import com.example.mo.rsiapp.customviews.InstantAutoComplete;
 import com.example.mo.rsiapp.customviews.NavAreaItem;
 import com.example.mo.rsiapp.customviews.NavAreaItemAdapter;
@@ -73,7 +71,13 @@ public class NavActivity extends AppCompatActivity
     }
 
     public void testNofitication(View view){
-        Notifications.sendNotification(view, this);
+        //Notifications.sendNotification(this);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState){
+        //outState.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
+        //super.onSaveInstanceState(outState);
     }
 
     public void closeNav(){

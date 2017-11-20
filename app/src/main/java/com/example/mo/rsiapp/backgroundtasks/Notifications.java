@@ -6,7 +6,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
-import android.view.View;
 
 import com.example.mo.rsiapp.NavActivity;
 import com.example.mo.rsiapp.R;
@@ -16,16 +15,19 @@ import com.example.mo.rsiapp.R;
  */
 
 public class Notifications {
-    public static void sendNotification(View view, Context context) {
+    public static void sendNotification(Context context, String title, String contentText) {
 
         //Get an instance of NotificationManager//
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.ic_menu_camera)
-                        .setContentTitle("My notification")
-                        .setContentText("Hello World!")
+                        .setContentTitle(title)
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText(contentText))
+                        .setContentText(contentText)
                         .setAutoCancel(true)
+
+
                 ;
 
         Intent resultIntent = new Intent(context, NavActivity.class);

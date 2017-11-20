@@ -1,7 +1,6 @@
 package com.example.mo.rsiapp.datamanaging;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 
 import com.example.mo.rsiapp.NavActivity;
@@ -10,8 +9,8 @@ import com.example.mo.rsiapp.backgroundtasks.Alarm;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Set;
 
 
@@ -53,6 +52,8 @@ public class FetchingManager {
 
     public static void parseAreasData(JSONObject data, boolean updateUI) {
         Log.d(TAG, "parseAreasData: " + data.toString());
+        areasID.clear();
+        areasName.clear();
         try {
 
             JSONArray areasArr = data.getJSONArray("areas");

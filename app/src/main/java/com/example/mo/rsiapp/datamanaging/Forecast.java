@@ -4,12 +4,12 @@ import android.util.Log;
 
 import com.example.mo.rsiapp.NavActivity;
 import com.example.mo.rsiapp.backgroundtasks.Alarm;
+import com.example.mo.rsiapp.backgroundtasks.Notifications;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -209,6 +209,8 @@ public class Forecast {
         try {
             JSONObject data = getDataForCategory(category);
             JSONArray seriesArray = data.getJSONArray("series");
+            ArrayList<String> notifyLayers = new ArrayList<>(); // the layers that are over the threshold
+
 
             for(int i = 0; i < seriesArray.length(); i++){
                 JSONObject seriesItem = seriesArray.getJSONObject(i);
@@ -231,12 +233,22 @@ public class Forecast {
                             if(value >= maxValue){
                                 Log.d(TAG, "controlData: ALAAAAAAAAAAAAARM !!!!!!!! " + areaID);
                                 Log.d(TAG, "controlData: " + layer + " har stigit över " + maxValue + " och är " + value);
+                                notifyLayers.add(layer);
+                                break;
                             }
                             //values.put(name, value);
                         }
 
                     }
                 }
+            }
+            if(notifyLayers.size() > 0) {
+                String message = "";
+                String areaName = FetchingManager.getAreaNameFromID(areaID);
+                for(String layer : notifyLayers){
+                    message += layer + " på " + " 10% \n";
+                }
+                Notifications.sendNotification(Alarm.currentAlarmContext, "Ny prognos för " + areaName + "visar", message);
             }
 
         } catch (JSONException e) {
