@@ -1,11 +1,13 @@
 package com.example.mo.rsiapp.datamanaging;
 
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
+
+import com.example.mo.rsiapp.NavActivity;
+import com.example.mo.rsiapp.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import static java.nio.file.Paths.get;
 
 /**
  * Created by mo on 13/11/17.
@@ -95,20 +97,27 @@ public class DisplayInfoManager {
 
         HashMap<String, String> map = new HashMap<>();
 
+        String Torrt = String.valueOf(ResourcesCompat.getColor(NavActivity.navActivity.getResources(), R.color.colorTorrt, null));
+        String Fuktigt = String.valueOf(ResourcesCompat.getColor(NavActivity.navActivity.getResources(), R.color.colorFuktigt, null));
+        String Vatt = String.valueOf(ResourcesCompat.getColor(NavActivity.navActivity.getResources(), R.color.colorVatt, null));
+        String LattSno = String.valueOf(ResourcesCompat.getColor(NavActivity.navActivity.getResources(), R.color.colorLattsno, null));
+        String Sno = String.valueOf(ResourcesCompat.getColor(NavActivity.navActivity.getResources(), R.color.colorSno, null));
+        String Halka = String.valueOf(ResourcesCompat.getColor(NavActivity.navActivity.getResources(), R.color.colorHalka, null));
+
         map.put("name", "Dry");
-        map.put("color", "#d7deb2");
+        map.put("color", Torrt);
         map.put("label", "Torrt");
         roadConditionInfo.add(map);
 
         map = new HashMap<>();
         map.put("name", "Moist");
-        map.put("color", "#addd8e");
+        map.put("color", Fuktigt);
         map.put("label", "Fuktigt");
         roadConditionInfo.add(map);
 
         map = new HashMap<>();
         map.put("name", "Wet");
-        map.put("color", "#5aba73");
+        map.put("color", Vatt);
         map.put("label", "Vått");
         roadConditionInfo.add(map);
 
@@ -123,13 +132,13 @@ public class DisplayInfoManager {
 
         map = new HashMap<>();
         map.put("name", "LightSnow");
-        map.put("color", "#41b6c4");
+        map.put("color", LattSno);
         map.put("label", "Lätt snö");
         roadConditionInfo.add(map);
 
         map = new HashMap<>();
         map.put("name", "Snow");
-        map.put("color", "#41b6c4");
+        map.put("color", Sno);
         map.put("label", "Snö");
         roadConditionInfo.add(map);
 
@@ -141,7 +150,7 @@ public class DisplayInfoManager {
 
         map = new HashMap<>();
         map.put("name", "Slipperiness");
-        map.put("color", "#2265a8");
+        map.put("color", Halka);
         map.put("label", "Halka");
         roadConditionInfo.add(map);
 
