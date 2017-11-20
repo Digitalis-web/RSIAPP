@@ -25,10 +25,7 @@ public class Notifications {
                         .setContentTitle(title)
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(contentText))
                         .setContentText(contentText)
-                        .setAutoCancel(true)
-
-
-                ;
+                        .setAutoCancel(true);
 
         Intent resultIntent = new Intent(context, NavActivity.class);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);

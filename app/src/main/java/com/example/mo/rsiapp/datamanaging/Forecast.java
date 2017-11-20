@@ -146,7 +146,7 @@ public class Forecast {
 
     }
 
-    public int getTotalLengthForRoute(JSONObject data, int routeID) {
+    public int getTotalLengthForRoute(int routeID) {
 
         try {
             JSONArray routeArr = data.getJSONArray("routes");
@@ -179,6 +179,8 @@ public class Forecast {
         String category = "roadcondition";
         Log.d(TAG, "controlData: controlling data");
 
+        int routeLength = getTotalLengthForRoute(0);
+
         Set<String> savedSettings = StorageManager.getSettings(Alarm.currentAlarmContext);
         HashMap<String, Integer> trackedAreasValue = new HashMap<>();
 
@@ -210,6 +212,7 @@ public class Forecast {
             JSONObject data = getDataForCategory(category);
             JSONArray seriesArray = data.getJSONArray("series");
             ArrayList<String> notifyLayers = new ArrayList<>(); // the layers that are over the threshold
+            ArrayList<Integer> notifyValues = new ArrayList<>();
 
 
             for(int i = 0; i < seriesArray.length(); i++){
@@ -234,6 +237,7 @@ public class Forecast {
                                 Log.d(TAG, "controlData: ALAAAAAAAAAAAAARM !!!!!!!! " + areaID);
                                 Log.d(TAG, "controlData: " + layer + " har stigit över " + maxValue + " och är " + value);
                                 notifyLayers.add(layer);
+                                //notifyValues.add(value);
                                 break;
                             }
                             //values.put(name, value);
@@ -245,8 +249,11 @@ public class Forecast {
             if(notifyLayers.size() > 0) {
                 String message = "";
                 String areaName = FetchingManager.getAreaNameFromID(areaID);
-                for(String layer : notifyLayers){
-                    message += layer + " på " + " 10% \n";
+                for(int i = 0; i < notifyLayers.size(); i++){
+                    String layer = notifyLayers.get(i);
+                    //int value =
+
+                    message += layer + " över " + " 10% \n";
                 }
                 Notifications.sendNotification(Alarm.currentAlarmContext, "Ny prognos för " + areaName + " visar", message);
             }
@@ -275,7 +282,7 @@ public class Forecast {
                 Log.d(TAG, "parseForecastData: data finns");
                 //String d = data.get("data").toString();
 
-                routeLength = getTotalLengthForRoute(data, 0);
+                routeLength = getTotalLengthForRoute(0);
 
                 ArrayList<JSONObject> routeData = getAllDataByRouteID(data, 0); // picks out the relevant data
                 categories = findAllCategories(routeData);
