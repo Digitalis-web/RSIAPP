@@ -10,7 +10,6 @@
         android:orientation="vertical"
         tools:context="com.example.mo.rsiapp.ForecastFragment">
 
-
         <TextView
             android:id="@+id/forecast_header"
             android:layout_width="match_parent"
@@ -39,7 +38,7 @@
                     style="@style/ChartListHeader"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nu"
+                    android:text="Om 0h"
                     android:textColor="@color/colorWhite" />
             </LinearLayout>
 

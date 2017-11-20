@@ -17,23 +17,17 @@
     <color name="colorGraph3">#7F7F7F</color>
 
     <!-- road -->
-    <color name="colorDry">#d7deb2</color>
-    <color name="colorMoist">#addd8e</color>
-    <color name="colorWet">#5aba73</color>
-    <color name="colorLightSnow">#41b6c4</color>
-    <color name="colorSnow">#41b6c4</color>
+    <color name="colorDry">#D7DEB2</color>
+    <color name="colorMoist">#ADDD8E</color>
+    <color name="colorWet">#5ABA73</color>
+    <color name="colorLightSnow">#41B6C4</color>
+    <color name="colorSnow">#2265A8</color>
     <color name="colorDriftingSnow">#254794</color>
-    <color name="colorSlipperiness">#2265a8</color>
+    <color name="colorSlipperiness">#FDAB3C</color>
     <color name="colorHazardous">#FC4E2A</color>
 
     <!-- Temp -->
     <color name="colorTempMax">#3d2d0f</color>
     <color name="colorTempAverage">#090909</color>
     <color name="colorTempMin">#3d2d0f</color>
-
-    <!-- Salt -->
-    <color name="colorSalt3g">#d0e0ed</color>
-    <color name="colorSalt4g">#bfd3e6</color>
-    <color name="colorSalt5g">#afc8e0</color>
-    <color name="colorSalt7g">#95a9d0</color>
 </resources>

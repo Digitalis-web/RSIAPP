@@ -3,12 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.mo.rsiapp.ForecastFragment"
-    android:paddingTop="@dimen/container_spacing" >
+    android:paddingTop="@dimen/container_spacing"
+    tools:context="com.example.mo.rsiapp.ForecastFragment">
 
     <Switch
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginLeft="@dimen/container_spacing"
+        android:layout_marginRight="@dimen/container_spacing"
         android:checked="false"
         android:drawableLeft="@drawable/ic_notifications"
         android:splitTrack="false"
@@ -23,23 +25,22 @@
         android:layout_gravity="center_horizontal"
         android:text="Aktivera notiser"
         android:textSize="20dp" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Notifiera mig om andelen: "
         android:layout_marginTop="@dimen/container_spacing"
-        android:textColor="@color/colorBlack"
-        android:textSize="22sp"
+        android:text="Notifiera mig om andelen: "
         android:textAlignment="center"
-        />
+        android:textColor="@color/colorBlack"
+        android:textSize="22sp" />
+
     <ListView
         android:id="@+id/categories_settings_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical"
-        >
-    </ListView>
+        android:orientation="vertical"></ListView>
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/save_settings_button"
