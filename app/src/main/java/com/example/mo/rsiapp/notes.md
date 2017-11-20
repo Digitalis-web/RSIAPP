@@ -7,10 +7,15 @@
 ## To do
 -[ ] hitta på något annat än piechart för yttemperatur
 -[ ] laddnings animation
--[ ] ange nyckel
+-[ ] Inlogning med RSI Nykel
 -[ ] visa tid istället för "om 4h"
 -[ ] ta bort focus från sökbaren när man öppnar nav
 -[ ] tillbaka knapp
 -[ ] ändra texten i sökfältet när man öppnar område via naven
 -[ ] default setting
--[ ] inställningar knappen syns inte när listan av bevakande områden blir för lång, måste fixas
+-[ ] inställningar knappen syns inte när listan av bevakande områden blir för lång  (Kan fixas genom man kan skrolla bland områderna)
+-[ ] Ändra färg på sluta bevaka knappen
+-[ ] Kunna ta bort bevakade områden från naven.
+-[ ] Visa inte områden som det inte finns data över
+-[ ] Ta bort aktivera notiser checkbox och andvänd swichen istället
+-[ ] Ta bort Alla kategorier förutom Väglag och ytremperatur.
