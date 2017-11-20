@@ -6,14 +6,23 @@
     tools:context="com.example.mo.rsiapp.ForecastFragment"
     android:paddingTop="@dimen/container_spacing" >
 
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:checked="false"
+        android:drawableLeft="@drawable/ic_notifications"
+        android:splitTrack="false"
+        android:text="Notiser"
+        android:textSize="22sp"
+        tools:checked="false" />
+
     <CheckBox
         android:id="@+id/enable_notifications"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Aktivera notiser"
-        android:textSize="20dp"
         android:layout_gravity="center_horizontal"
-        />
+        android:text="Aktivera notiser"
+        android:textSize="20dp" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,9 +45,9 @@
         android:id="@+id/save_settings_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorDarkGrey"
         android:layout_gravity="bottom"
+        android:background="@color/colorDarkGrey"
         android:text="Spara"
-        />
+        android:textSize="15sp" />
 
 </LinearLayout>
