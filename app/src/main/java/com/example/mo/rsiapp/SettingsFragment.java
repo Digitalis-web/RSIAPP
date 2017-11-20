@@ -18,7 +18,6 @@ import com.example.mo.rsiapp.customviews.SettingsItemAdapter;
 import com.example.mo.rsiapp.datamanaging.StorageManager;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,7 +44,6 @@ public class SettingsFragment extends Fragment  implements CheckBox.OnCheckedCha
 
     ArrayList<SettingsItem> settingsItems = new ArrayList<>();
     private OnFragmentInteractionListener mListener;
-    private Set<String> savedSettings;
     private boolean notificationsEnabled = true;
 
 
@@ -115,6 +113,12 @@ public class SettingsFragment extends Fragment  implements CheckBox.OnCheckedCha
             String value = String.valueOf(item.getSliderValue());
             String saveString = name + "," + enabled + "," + value;
 
+/*            Log.d(TAG, "-------------------------------");
+            Log.d(TAG, "saveSettings: name: " + name);
+            Log.d(TAG, "saveSettings: enabled: " + enabled);
+            Log.d(TAG, "saveSettings: value: " + value);
+            Log.d(TAG, "saveSettings: save: " + saveString);*/
+
             settingsSet.add(saveString);
         }
 
@@ -124,13 +128,13 @@ public class SettingsFragment extends Fragment  implements CheckBox.OnCheckedCha
     }
 
     public void initCategorySettings(){
+        settingsItems.add(new SettingsItem("Slipperiness"));
+        settingsItems.add(new SettingsItem("Hazardous"));
         settingsItems.add(new SettingsItem("Moist"));
         settingsItems.add(new SettingsItem("Wet"));
         settingsItems.add(new SettingsItem("LightSnow"));
         settingsItems.add(new SettingsItem("Snow"));
         settingsItems.add(new SettingsItem("DriftingSnow"));
-        settingsItems.add(new SettingsItem("Slipperiness"));
-        settingsItems.add(new SettingsItem("Hazardous"));
 
         ListView categoriesView = inflatedView.findViewById(R.id.categories_settings_view);
         categoriesView.setAdapter(new SettingsItemAdapter(inflatedView.getContext(), settingsItems, categoriesView));

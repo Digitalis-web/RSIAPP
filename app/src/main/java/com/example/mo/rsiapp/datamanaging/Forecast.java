@@ -248,7 +248,7 @@ public class Forecast {
                 for(String layer : notifyLayers){
                     message += layer + " på " + " 10% \n";
                 }
-                Notifications.sendNotification(Alarm.currentAlarmContext, "Ny prognos för " + areaName + "visar", message);
+                Notifications.sendNotification(Alarm.currentAlarmContext, "Ny prognos för " + areaName + " visar", message);
             }
 
         } catch (JSONException e) {

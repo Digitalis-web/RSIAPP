@@ -25,6 +25,7 @@ public class SettingsItem implements SeekBar.OnSeekBarChangeListener, CheckBox.O
     private SeekBar slider;
     private CheckBox checkbox;
     private boolean enabled = false; // if notifications for this layer is enabled
+    private boolean savedSettingsSet = false;
 
 
     public SettingsItem(String name)
@@ -33,25 +34,27 @@ public class SettingsItem implements SeekBar.OnSeekBarChangeListener, CheckBox.O
         this.labelName = DisplayInfoManager.getRoadConditionInfoByName(name, "label");
     }
 
-
     public void initFromSavedSettings(Set<String> savedSettings){
-        for(String savedStr : savedSettings){
-            String[] split = savedStr.split(",");
+        if(!savedSettingsSet) {
+            savedSettingsSet = true;
+            for (String savedStr : savedSettings) {
+                String[] split = savedStr.split(",");
 
-            String name;
-            boolean enabled;
-            int value;
+                String name;
+                boolean enabled;
+                int value;
 
-            if(split.length >= 3) {
-                name = split[0];
-                if(name.equals(getName())){
-                    enabled = split[1].equals("1");
-                    value = Integer.parseInt(split[2]);
-                    setEnabled(enabled);
-                    setSliderValue(value);
+                if (split.length >= 3) {
+                    name = split[0];
+                    if (name.equals(getName())) {
+                        enabled = split[1].equals("1");
+                        value = Integer.parseInt(split[2]);
+                        setEnabled(enabled);
+                        setSliderValue(value);
+                    }
                 }
-            }
 
+            }
         }
     }
 

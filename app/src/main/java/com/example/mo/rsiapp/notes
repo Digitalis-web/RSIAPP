@@ -15,4 +15,4 @@ ta bort focus från sökbaren när man öppnar nav
 tillbaka knapp
 ändra texten i sökfältet när man öppnar område via naven
 default setting
-
+inställningar knappen syns inte när listan av bevakande områden blir för lång, måste fixas

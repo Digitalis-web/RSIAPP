@@ -7,10 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.mo.rsiapp.R;
-import com.example.mo.rsiapp.SettingsFragment;
 import com.example.mo.rsiapp.datamanaging.StorageManager;
 
 import java.util.ArrayList;
@@ -32,6 +30,7 @@ public class SettingsItemAdapter extends BaseAdapter  {
     public SettingsItemAdapter(Context c, ArrayList<SettingsItem> list, ListView listView) {
         settingsItems = list;
         savedSettings = StorageManager.getSettings();
+        Log.d(TAG, "SettingsItemAdapter: SAVED: " + savedSettings);
 
         this.c = c;
         //listView.setOnItemClickListener(this);
@@ -61,13 +60,10 @@ public class SettingsItemAdapter extends BaseAdapter  {
         View row = null;
         LayoutInflater inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        boolean firstInit = false;
         if (convertView == null) {
             row = inflater.inflate(R.layout.settings_item, parent, false);
-            firstInit = true;
         } else {
             row = convertView;
-            firstInit = false;
         }
 
         SettingsItem settingsItem = settingsItems.get(position);
@@ -76,10 +72,7 @@ public class SettingsItemAdapter extends BaseAdapter  {
         // to prevent listview recycling issue
         settingsItem.setSliderValue(settingsItem.getSliderValue());
         settingsItem.setEnabled(settingsItem.isEnabled());
-
-        if(firstInit){
-            settingsItem.initFromSavedSettings(savedSettings);
-        }
+        settingsItem.initFromSavedSettings(savedSettings);
 
         //parent.setupSavedSettings();
 
