@@ -1,10 +1,8 @@
 # RLS:
 
-## Areas:
-`http://163.172.101.14:8000/api//forecasts`
+[Areas](http://163.172.101.14:8000/api//forecasts)
 
-## Info om område:
-`http://163.172.101.14:8000/api//area/1427@1497772800`
+[Info Areas](http://163.172.101.14:8000/api//area/1427@1497772800)
 
 ## To do
 -[ ] hitta på något annat än piechart för yttemperatur
