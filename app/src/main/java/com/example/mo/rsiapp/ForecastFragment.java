@@ -74,7 +74,7 @@ public class ForecastFragment extends Fragment {
     ArrayList<String> availableCategories = new ArrayList<>();
     ArrayList<String> availableCategoriesLabels = new ArrayList<>();
 
-
+    //
     public ForecastFragment() {
         // Required empty public constructor
     }
@@ -95,6 +95,7 @@ public class ForecastFragment extends Fragment {
         return fragment;
     }
 
+    //
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,7 +106,7 @@ public class ForecastFragment extends Fragment {
         }
     }
 
-
+    //
     public void findAvailableCategories(){
         // FetchingManager.categories contains the "categories" that the chosen area has data about.
         // The viewCategories are the categories that should always be viewable when they are available
@@ -153,7 +154,7 @@ public class ForecastFragment extends Fragment {
         }
     }*/
 
-
+    //
     public void openSelectCategoryMenu(){
         CharSequence categories[] = availableCategoriesLabels.toArray(new String[availableCategoriesLabels.size()]);
 
@@ -170,6 +171,7 @@ public class ForecastFragment extends Fragment {
 
     }
 
+    //
     public  HashMap<String, Long> getDataPoint(String category, long time){
 
         HashMap<String, Long> values = new HashMap<>();
@@ -201,6 +203,7 @@ public class ForecastFragment extends Fragment {
         return values;
     }
 
+    //
     public void updateCharts(String category, View inflatedView){
         //String category = categories.get(0);
         HashMap<String, Long> chart1Values = viewedForecast.getDataPoint(category, FetchingManager.chartOneTime);
@@ -237,6 +240,7 @@ public class ForecastFragment extends Fragment {
 
     }
 
+    //
     public void initComponents(View inflatedView){
 
         chartOne   = inflatedView.findViewById(R.id.piChartOne);
@@ -269,6 +273,7 @@ public class ForecastFragment extends Fragment {
 
     }
 
+    //
     private void initPieChart(PieChart chart){
         Description desc = new Description();
         desc.setText("");
@@ -308,6 +313,8 @@ public class ForecastFragment extends Fragment {
 
 
     }
+
+    //
     private void addDataSet(String category, PieChart chart, HashMap<String, Long> values, LinearLayout infoLayout) {
         Log.d(TAG, "addDataSet: RUNNING ADD DATA");
         Log.d(TAG, "addDataSet: started");
@@ -408,6 +415,7 @@ public class ForecastFragment extends Fragment {
         }
     }
 
+    //
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -419,6 +427,7 @@ public class ForecastFragment extends Fragment {
         }
     }
 
+    //
     @Override
     public void onDetach() {
         super.onDetach();
