@@ -5,7 +5,7 @@
 [Info Areas](http://163.172.101.14:8000/api//area/1427@1497772800)
 
 ## To do
--[ ] hitta på något annat än piechart för yttemperatur
+-[ ] Det ska vara pi chart för temperatur
 -[ ] laddnings animation
 -[ ] Inlogning med RSI Nykel
 -[ ] visa tid istället för "om 4h"
@@ -19,6 +19,5 @@
 -[ ] Visa inte områden som det inte finns data över
 -[ ] Ta bort aktivera notiser checkbox och andvänd swichen istället
 -[ ] Ta bort Alla kategorier förutom Väglag och ytremperatur.
--[ ] Skriva ut mängden km som är tex torrt när du trycker på pi diagramet
 -[ ] Sätta in en Ordentlig Logga
 -[ ] Namnge appen ordentligt

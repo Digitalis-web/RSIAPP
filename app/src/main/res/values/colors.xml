@@ -28,7 +28,7 @@
     <color name="colorHazardous">#FC4E2A</color>
 
     <!-- Temp -->
-    <color name="colorTempMax">#3d2d0f</color>
-    <color name="colorTempAverage">#090909</color>
-    <color name="colorTempMin">#3d2d0f</color>
+    <color name="colorTemp1">#FC4E2A</color>
+    <color name="colorTemp2">#5ABA73</color>
+    <color name="colorTemp3">#99ccff</color>
 </resources>
