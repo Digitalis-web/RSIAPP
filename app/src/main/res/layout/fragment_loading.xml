@@ -3,17 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.mo.rsiapp.ForecastFragment">
+    tools:context="com.example.mo.rsiapp.ForecastFragment"
+    android:gravity="center" >
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/textHeader"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:textAlignment="center"
         android:gravity="center"
         android:textSize="25dp"
         android:textColor="@color/colorWhite"
         android:text="Laddar data..."
         android:visibility="visible" />
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true" />
 
 </LinearLayout>
