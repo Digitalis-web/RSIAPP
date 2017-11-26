@@ -18,13 +18,20 @@
             android:textAlignment="center"
             android:textColor="@color/colorWhite"
             android:textSize="29sp" />
-
-        <LinearLayout
-            android:id="@+id/chartContainerOne"
-            style="@style/AppTheme.ChartContainer"
+        <TextView
+            android:id="@+id/forecast_category_header"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/container_height"
-            android:background="@color/colorGraph1">
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp" />
+
+            <LinearLayout
+                android:id="@+id/chartContainerOne"
+                style="@style/AppTheme.ChartContainer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/container_height"
+                android:background="@color/colorGraph1">
 
             <LinearLayout
                 android:id="@+id/chartInfoOne"
@@ -35,6 +42,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/chartOneHeader"
                     style="@style/ChartListHeader"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -65,6 +73,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/chartTwoHeader"
                     style="@style/ChartListHeader"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -95,6 +104,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/chartThreeHeader"
                     style="@style/ChartListHeader"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

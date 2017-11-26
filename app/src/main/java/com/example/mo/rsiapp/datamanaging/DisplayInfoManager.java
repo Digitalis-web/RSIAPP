@@ -19,10 +19,10 @@ public class DisplayInfoManager {
     // The categories that are to be viewable in the app, other categories will not be shown
     public static ArrayList<String> viewCategories = new ArrayList<String>(){{
         add("roadcondition");
-        add("roadfriction");
+        //add("roadfriction");
         add("roadtemperature");
-        add("slipincidents");
-        add("roadtreatment");
+        //add("slipincidents");
+        //add("roadtreatment");
     }};
 
     public static ArrayList<HashMap<String, String>> roadConditionInfo = new ArrayList<>();

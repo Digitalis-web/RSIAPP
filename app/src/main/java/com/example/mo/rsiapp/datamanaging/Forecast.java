@@ -304,9 +304,6 @@ public class Forecast {
         }
 
         FetchingManager.closestHourTime = FetchingManager.getClosestHourTime();
-        FetchingManager.chartOneTime = FetchingManager.closestHourTime;
-        FetchingManager.chartTwoTime = FetchingManager.closestHourTime + 4*3600;
-        FetchingManager.chartThreeTime = FetchingManager.closestHourTime + 8*3600;
 
         if(updateUI) {
             NavActivity.openForecast(areaID, routeLength, this);

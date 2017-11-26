@@ -38,7 +38,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -58,11 +57,16 @@ public class ForecastFragment extends Fragment {
     private static final String TAG = "Forecast";
 
     public static Forecast viewedForecast;
+    private View inflatedView;
 
 
     PieChart chartOne;
     PieChart chartTwo;
     PieChart chartThree;
+
+    LinearLayout chartOneContainer;
+    LinearLayout chartTwoContainer;
+    LinearLayout chartThreeContainer;
 
     // TODO: Rename and change types of parameters
     private String areaID;
@@ -95,7 +99,6 @@ public class ForecastFragment extends Fragment {
         return fragment;
     }
 
-    //
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,8 +110,8 @@ public class ForecastFragment extends Fragment {
     }
 
     //
-    public void findAvailableCategories(){
-        // FetchingManager.categories contains the "categories" that the chosen area has data about.
+    public void findAvailableCategories() {
+        // viewedForecast.categories contains the "categories" that the chosen area has data about.
         // The viewCategories are the categories that should always be viewable when they are available
         // availableCategories are the categories that the user will be able to choose from
         for (int i = 0; i < viewedForecast.categories.size(); i++) {
@@ -132,6 +135,7 @@ public class ForecastFragment extends Fragment {
         View inflatedView = inflater.inflate(R.layout.fragment_forecast, container,false);
         rootViewGroup = container;
 
+        this.inflatedView = inflatedView;
         initComponents(inflatedView);
         findAvailableCategories();
 
@@ -247,9 +251,17 @@ public class ForecastFragment extends Fragment {
         chartTwo   = inflatedView.findViewById(R.id.piChartTwo);
         chartThree = inflatedView.findViewById(R.id.piChartThree);
 
+
         initPieChart(chartOne);
         initPieChart(chartTwo);
         initPieChart(chartThree);
+
+        TextView chartOneHeader = inflatedView.findViewById(R.id.chartOneHeader);
+        TextView chartTwoHeader = inflatedView.findViewById(R.id.chartTwoHeader);
+        TextView chartThreeHeader = inflatedView.findViewById(R.id.chartThreeHeader);
+        chartOneHeader.setText(FetchingManager.chartOneTimeLabel);
+        chartTwoHeader.setText(FetchingManager.chartTwoTimeLabel);
+        chartThreeHeader.setText(FetchingManager.chartThreeTimeLabel);
 
         updateCharts(viewedForecast.categories.get(0), inflatedView);
 
@@ -275,6 +287,7 @@ public class ForecastFragment extends Fragment {
 
     //
     private void initPieChart(PieChart chart){
+
         Description desc = new Description();
         desc.setText("");
         chart.setDescription(desc);
@@ -314,12 +327,18 @@ public class ForecastFragment extends Fragment {
 
     }
 
+    private void setCategoryHeader(String category){
+        String categoryLabel = DisplayInfoManager.getCategoryLabel(category);
+        TextView categoryHeader = inflatedView.findViewById(R.id.forecast_category_header);
+        categoryHeader.setText(categoryLabel);
+    }
+
     //
     private void addDataSet(String category, PieChart chart, HashMap<String, Long> values, LinearLayout infoLayout) {
         Log.d(TAG, "addDataSet: RUNNING ADD DATA");
         Log.d(TAG, "addDataSet: started");
+        setCategoryHeader(category);
         ArrayList<PieEntry> yEntries = new ArrayList<>();
-        //ArrayList<String> xEntries = new ArrayList<>();
 
         ArrayList<Integer> colors = new ArrayList<>();
 

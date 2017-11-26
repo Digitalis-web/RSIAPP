@@ -10,9 +10,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Set;
-
+import java.util.TimeZone;
 
 
 /**
@@ -33,13 +35,17 @@ public class FetchingManager {
     public static long chartOneTime = 0;
     public static long chartTwoTime = 0;
     public static long chartThreeTime = 0;
+    public static String chartOneTimeLabel = "";
+    public static String chartTwoTimeLabel= "";
+    public static String chartThreeTimeLabel  = "";
 
 
     public static void fetchAreas(int fetchMode) {
-        Log.d(TAG, "fetchAndControlData: fetching data");
         clearOldData();
         JSONFetcher JF = new JSONFetcher(fetchMode);
         JF.execute(areasUrl);
+
+
     }
 
     public static void fetchForecast(String areaID, long time, int fetchMode) {
@@ -116,9 +122,24 @@ public class FetchingManager {
         }
         //Log.d(TAG, "getClosestHourTime: cloests: " + closestHourTime);
 
+        chartOneTime = closestHourTime;
+        chartTwoTime = closestHourTime + 4*3600;
+        chartThreeTime = closestHourTime + 8*3600;
+
+        chartOneTimeLabel = unixToHumanTime(chartOneTime);
+        chartTwoTimeLabel = unixToHumanTime(chartTwoTime);
+        chartThreeTimeLabel = unixToHumanTime(chartThreeTime);
 
         return closestHourTime;
+    }
 
+    public static String unixToHumanTime(long unixTime){
+        Date date = new Date(unixTime*1000L);
+        SimpleDateFormat dateFormat =  new SimpleDateFormat("HH:mm");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Stockholm"));
+        String humanTime = dateFormat.format(date);
+
+        return humanTime;
     }
 
 
