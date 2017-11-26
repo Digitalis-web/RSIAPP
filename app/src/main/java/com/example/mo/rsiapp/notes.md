@@ -26,12 +26,14 @@
 -[ ] 
 
 ### Temperature page
+-[ ] Syla Temperaturen efter `Dropbox\_Digital peguin solutions\_Kunder\_Current\RSI\_App\_exports\5.0\Temp`
 -[ ] Pi chart för temperaturen
 -[ ] 3 färger för temperatur  Färg1. >2 Färg2. <0>  färg3. -2>
 
 ### Settings
--[ ] Ta bort aktivera notiser checkbox och andvänd swichen istället 
+-[ ] Syla inststäningarna efter `Dropbox\_Digital peguin solutions\_Kunder\_Current\RSI\_App\_exports\5.0\settings`
+-[ ] Ta bort aktivera notiser checkbox och andvänd swichen istället
+-[ ] När notis swichen är aktiverad så kommer alla andra inställningarna fram och inte innan dess.
 
 ##Testing
 -[ ] Be folket på RSI att titta på appen och testa den lite.
--[ ] 

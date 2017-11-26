@@ -2,9 +2,66 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     android:orientation="vertical"
     android:paddingTop="@dimen/container_spacing"
     tools:context="com.example.mo.rsiapp.ForecastFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/container_spacing"
+        android:layout_marginRight="@dimen/container_spacing"
+        android:layout_marginTop="5dp"
+        android:text="Mitt konto"
+        android:textColor="@color/colorBlue"
+        android:textSize="25sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_marginLeft="@dimen/container_spacing"
+        android:layout_marginRight="@dimen/container_spacing"
+        android:background="@color/colorBlue" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/container_spacing"
+        android:layout_marginRight="@dimen/container_spacing"
+        android:layout_marginTop="5dp"
+        android:text="RSI-Nykel"
+        android:textColor="@color/colorGraph1"
+        android:textSize="22sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/container_spacing"
+        android:layout_marginRight="@dimen/container_spacing"
+        android:layout_marginTop="5dp"
+        android:text="RSI-Nykel"
+        android:textColor="@color/colorGraph3"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/container_spacing"
+        android:layout_marginRight="@dimen/container_spacing"
+        android:layout_marginTop="5dp"
+        android:text="Notiser"
+        android:textColor="@color/colorBlue"
+        android:textSize="25sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_marginLeft="@dimen/container_spacing"
+        android:layout_marginRight="@dimen/container_spacing"
+        android:background="@color/colorBlue" />
+
 
     <Switch
         android:id="@+id/enable_notifications"
@@ -12,13 +69,12 @@
         android:layout_height="50dp"
         android:layout_marginLeft="@dimen/container_spacing"
         android:layout_marginRight="@dimen/container_spacing"
+        android:layout_marginTop="4dp"
         android:checked="false"
-        android:drawableLeft="@drawable/ic_notifications"
         android:splitTrack="false"
-        android:trackTint="@color/colorBlue"
         android:text="Aktivera notiser"
-        android:textSize="22sp"
-         />
+        android:colorControlActivated="@color/colorBlue"
+        android:textSize="22sp" />
 
     <!--<CheckBox
         android:id="@+id/enable_notifications"
@@ -28,31 +84,22 @@
         android:text="Aktivera notiser"
         android:textSize="20dp" />-->
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/container_spacing"
-        android:text="Notifiera mig om andelen: "
-        android:textAlignment="center"
-        android:textColor="@color/colorBlack"
-        android:textSize="22sp" />
-
     <ListView
         android:id="@+id/categories_settings_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical"></ListView>
+        android:orientation="vertical" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/save_settings_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="15dp"
         android:layout_marginLeft="60dp"
         android:layout_marginRight="60dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:background="@color/colorRed"
         android:text="Spara"
         android:textColor="@color/colorWhite"
