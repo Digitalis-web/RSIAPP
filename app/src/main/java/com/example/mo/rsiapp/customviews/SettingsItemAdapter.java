@@ -1,7 +1,6 @@
 package com.example.mo.rsiapp.customviews;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import com.example.mo.rsiapp.R;
-import com.example.mo.rsiapp.datamanaging.StorageManager;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 /**
  * Created by mo on 12/10/17.
@@ -25,12 +22,9 @@ public class SettingsItemAdapter extends BaseAdapter  {
     Context c;
     private final String TAG = "NavAdapter";
 
-    Set<String> savedSettings;
 
     public SettingsItemAdapter(Context c, ArrayList<SettingsItem> list, ListView listView) {
         settingsItems = list;
-        savedSettings = StorageManager.getSettings();
-        Log.d(TAG, "SettingsItemAdapter: SAVED: " + savedSettings);
 
         this.c = c;
         //listView.setOnItemClickListener(this);
@@ -67,12 +61,11 @@ public class SettingsItemAdapter extends BaseAdapter  {
         }
 
         SettingsItem settingsItem = settingsItems.get(position);
-        settingsItem.initComponents(row);
 
+        settingsItem.initComponents(row);
         // to prevent listview recycling issue
-        settingsItem.setSliderValue(settingsItem.getSliderValue());
         settingsItem.setEnabled(settingsItem.isEnabled());
-        settingsItem.initFromSavedSettings(savedSettings);
+        settingsItem.setSliderValue(settingsItem.getSliderValue());
 
         //parent.setupSavedSettings();
 

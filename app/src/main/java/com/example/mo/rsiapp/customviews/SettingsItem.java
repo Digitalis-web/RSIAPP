@@ -4,11 +4,10 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
+import android.widget.Switch;
 
 import com.example.mo.rsiapp.R;
 import com.example.mo.rsiapp.datamanaging.DisplayInfoManager;
-
-import java.util.Set;
 
 /**
  * Created by mo on 12/10/17.
@@ -23,9 +22,12 @@ public class SettingsItem implements SeekBar.OnSeekBarChangeListener, CheckBox.O
 
     private String labelBase = "%s överstiger %d%%";
     private SeekBar slider;
-    private CheckBox checkbox;
+    private Switch checkbox;
     private boolean enabled = false; // if notifications for this layer is enabled
     private boolean savedSettingsSet = false;
+
+    private boolean savedEnabled = false;
+    private int savedSliderValue = 0;
 
 
     public SettingsItem(String name)
@@ -34,28 +36,17 @@ public class SettingsItem implements SeekBar.OnSeekBarChangeListener, CheckBox.O
         this.labelName = DisplayInfoManager.getRoadConditionInfoByName(name, "label");
     }
 
-    public void initFromSavedSettings(Set<String> savedSettings){
+    public void setFromSavedSettings(){
         if(!savedSettingsSet) {
             savedSettingsSet = true;
-            for (String savedStr : savedSettings) {
-                String[] split = savedStr.split(",");
-
-                String name;
-                boolean enabled;
-                int value;
-
-                if (split.length >= 3) {
-                    name = split[0];
-                    if (name.equals(getName())) {
-                        enabled = split[1].equals("1");
-                        value = Integer.parseInt(split[2]);
-                        setEnabled(enabled);
-                        setSliderValue(value);
-                    }
-                }
-
-            }
+            this.sliderValue = savedSliderValue;
+            this.enabled = savedEnabled;
         }
+    }
+
+    public void setSavedValues(boolean enabled, int savedSliderValue){
+        this.savedEnabled = enabled;
+        this.savedSliderValue = savedSliderValue;
     }
 
 
@@ -93,6 +84,7 @@ public class SettingsItem implements SeekBar.OnSeekBarChangeListener, CheckBox.O
         slider.setOnSeekBarChangeListener(this);
         checkbox.setOnCheckedChangeListener(this);
         updateLabel();
+        setFromSavedSettings();
     }
 
     public void updateLabel(){

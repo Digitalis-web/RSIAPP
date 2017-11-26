@@ -7,6 +7,7 @@
     tools:context="com.example.mo.rsiapp.ForecastFragment">
 
     <Switch
+        android:id="@+id/enable_notifications"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="@dimen/container_spacing"
@@ -14,17 +15,18 @@
         android:checked="false"
         android:drawableLeft="@drawable/ic_notifications"
         android:splitTrack="false"
-        android:text="Notiser"
+        android:trackTint="@color/colorBlue"
+        android:text="Aktivera notiser"
         android:textSize="22sp"
-        tools:checked="false" />
+         />
 
-    <CheckBox
+    <!--<CheckBox
         android:id="@+id/enable_notifications"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="Aktivera notiser"
-        android:textSize="20dp" />
+        android:textSize="20dp" />-->
 
     <TextView
         android:layout_width="match_parent"
@@ -47,10 +49,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="60dp"
         android:layout_marginRight="60dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:background="@color/colorRed"
         android:text="Spara"
         android:textColor="@color/colorWhite"

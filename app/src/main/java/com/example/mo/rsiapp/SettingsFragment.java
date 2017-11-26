@@ -12,12 +12,14 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.Switch;
 
 import com.example.mo.rsiapp.customviews.SettingsItem;
 import com.example.mo.rsiapp.customviews.SettingsItemAdapter;
 import com.example.mo.rsiapp.datamanaging.StorageManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -40,11 +42,29 @@ public class SettingsFragment extends Fragment  implements CheckBox.OnCheckedCha
 
     private ViewGroup rootViewGroup;
     private View inflatedView;
-    private CheckBox enableNofticationsCheckBox;
+    private Switch enableNofticationsCheckBox;
 
     ArrayList<SettingsItem> settingsItems = new ArrayList<>();
     private OnFragmentInteractionListener mListener;
     private boolean notificationsEnabled = true;
+
+    private ArrayList<String> availableLayers = new ArrayList<String>(){{
+        add("Slipperiness");
+        add("Hazardous");
+        add("Moist");
+        add("Wet");
+        add("LightSnow");
+        add("Snow");
+        add("DriftingSnow");
+/*        settingsItems.add(new SettingsItem("Slipperiness"));
+        settingsItems.add(new SettingsItem("Hazardous"));
+        settingsItems.add(new SettingsItem("Moist"));
+        settingsItems.add(new SettingsItem("Wet"));
+        settingsItems.add(new SettingsItem("LightSnow"));
+        settingsItems.add(new SettingsItem("Snow"));
+        settingsItems.add(new SettingsItem("DriftingSnow"));*/
+
+    }};
 
 
     public SettingsFragment() {
@@ -88,6 +108,7 @@ public class SettingsFragment extends Fragment  implements CheckBox.OnCheckedCha
                 saveSettings();
             }
         });
+
     }
 
     public void setupEnableNotificationsCheckBox(){
@@ -95,6 +116,7 @@ public class SettingsFragment extends Fragment  implements CheckBox.OnCheckedCha
         enableNofticationsCheckBox.setOnCheckedChangeListener(this);
 
         boolean enabled = StorageManager.getNotificationsEnabled(NavActivity.navActivity);
+        notificationsEnabled = enabled;
         enableNofticationsCheckBox.setChecked(enabled);
 
     }
@@ -128,13 +150,37 @@ public class SettingsFragment extends Fragment  implements CheckBox.OnCheckedCha
     }
 
     public void initCategorySettings(){
-        settingsItems.add(new SettingsItem("Slipperiness"));
-        settingsItems.add(new SettingsItem("Hazardous"));
-        settingsItems.add(new SettingsItem("Moist"));
-        settingsItems.add(new SettingsItem("Wet"));
-        settingsItems.add(new SettingsItem("LightSnow"));
-        settingsItems.add(new SettingsItem("Snow"));
-        settingsItems.add(new SettingsItem("DriftingSnow"));
+        HashMap<String, SettingsItem> settingsItemMap = new HashMap<>();
+        Set<String> savedSettings = StorageManager.getSettings();
+
+        for(String layerName : availableLayers){
+            SettingsItem item = new SettingsItem(layerName);
+            settingsItems.add(item);
+            settingsItemMap.put(layerName, item);
+            Log.d(TAG, "initCategorySettings: adding " + layerName);
+        }
+
+        for(String savedStr : savedSettings) {
+
+            String[] split = savedStr.split(",");
+
+            String name;
+            boolean enabled;
+            int value;
+
+            if (split.length >= 3) {
+                name = split[0];
+                enabled = split[1].equals("1");
+                value = Integer.parseInt(split[2]);
+                SettingsItem item = settingsItemMap.get(name);
+                Log.d(TAG, "initCategorySettings: getting + " + name);
+                item.setSavedValues(enabled, value);
+/*                savedEnabled = enabled;
+                savedSliderValue = value;*/
+            }
+
+
+        }
 
         ListView categoriesView = inflatedView.findViewById(R.id.categories_settings_view);
         categoriesView.setAdapter(new SettingsItemAdapter(inflatedView.getContext(), settingsItems, categoriesView));
