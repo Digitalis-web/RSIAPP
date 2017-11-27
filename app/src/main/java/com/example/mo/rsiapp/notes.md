@@ -1,8 +1,8 @@
 # RLS:
 
-[Areas](http://163.172.101.14:8000/api//forecasts)
+[**Areas**](http://163.172.101.14:8000/api//forecasts)
 
-[Info Areas](http://163.172.101.14:8000/api//area/1427@1497772800)
+[**Info Areas**](http://163.172.101.14:8000/api//area/1427@1497772800)
 
 ## To do
 -[x] Visa vad det är man har uppe om det är temperatur eller väglag
@@ -37,3 +37,4 @@
 
 ##Testing
 -[ ] Be folket på RSI att titta på appen och testa den lite.
+-[ ] Ha en länk där folk kan ladda ner appen och testa den
