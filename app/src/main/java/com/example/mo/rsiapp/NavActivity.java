@@ -1,5 +1,7 @@
 package com.example.mo.rsiapp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -9,7 +11,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,7 +32,7 @@ import java.util.Set;
 import static com.example.mo.rsiapp.R.menu.nav;
 
 public class NavActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ForecastFragment.OnFragmentInteractionListener, LoadingFragment.OnFragmentInteractionListener , SettingsFragment.OnFragmentInteractionListener    {
+        implements NavigationView.OnNavigationItemSelectedListener, DrawerLayout.DrawerListener, ForecastFragment.OnFragmentInteractionListener, LoadingFragment.OnFragmentInteractionListener , SettingsFragment.OnFragmentInteractionListener {
 
     public static InstantAutoComplete searchBar;
     private static final String TAG = "NavActivity";
@@ -47,12 +48,15 @@ public class NavActivity extends AppCompatActivity
         setContentView(R.layout.activity_nav);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        
 
         navDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, navDrawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        navDrawer.setDrawerListener(toggle);
+        navDrawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        navDrawer.addDrawerListener(this);
 
         //Log.d(TAG, "onCreate: watched areas: " + StorageManager.getWatchedAreas().toString());
 
@@ -70,25 +74,25 @@ public class NavActivity extends AppCompatActivity
 
     }
 
-    public void testNofitication(View view){
+    public void testNofitication(View view) {
         //Notifications.sendNotification(this);
     }
 
-    @Override
+/*    @Override
     public void onSaveInstanceState(Bundle outState){
         //outState.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
         //super.onSaveInstanceState(outState);
-    }
+    }*/
 
-    public void closeNav(){
+    public void closeNav() {
         navDrawer.closeDrawers();
     }
 
-    public void updateNavItems(){
+    public void updateNavItems() {
         Set<String> watchedAreas = StorageManager.getWatchedAreas();
         ArrayList<NavAreaItem> navAreaItems = new ArrayList<>();
 
-        for(String areaID : watchedAreas){
+        for (String areaID : watchedAreas) {
             String areaName = FetchingManager.getAreaNameFromID(areaID);
             navAreaItems.add(new NavAreaItem(areaName, areaID));
         }
@@ -97,6 +101,21 @@ public class NavActivity extends AppCompatActivity
         navDrawerList.setAdapter(new NavAreaItemAdapter(this, navAreaItems, navDrawerList));
     }
 
+    public void displayError(String errorTitle, String errorMessage) {
+
+        AlertDialog builder;
+        builder = new AlertDialog.Builder(this).create();
+
+        builder.setTitle(errorTitle);
+        builder.setMessage(errorMessage);
+        builder.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int index){
+                dialog.dismiss();
+            }
+        });
+        builder.setIcon(android.R.drawable.ic_menu_info_details);
+        builder.show();
+    }
 
     @Override
     public void onBackPressed() {
@@ -154,7 +173,6 @@ public class NavActivity extends AppCompatActivity
 
     public static void openForecast(String areaID, int routeLength, Forecast forecast){
         ForecastFragment.viewedForecast = forecast; // passed staticly is ok here cause there will only ever be one instance of ForecastFragment at the time
-        Log.d(TAG, "openForecast: ");
         ForecastFragment fragment = new ForecastFragment().newInstance(areaID, routeLength);
         FragmentManager manager = navActivity.getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.fragment_layout, fragment, fragment.getTag()).commit();
@@ -179,7 +197,7 @@ public class NavActivity extends AppCompatActivity
         } else if (id == R.id.nav_settings) {
 
         }
-       // else if (id == R.id.nav_slideshow) {
+        // else if (id == R.id.nav_slideshow) {
         //}
         /*
         if (id == R.id.nav_camera) {
@@ -204,6 +222,29 @@ public class NavActivity extends AppCompatActivity
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+
+    }
+
+    @Override
+    public void onDrawerSlide(View drawerView, float slideOffset) {
+        if(slideOffset != 0){
+            searchBar.removeFocusAndKeyboard();
+        }
+
+    }
+
+    @Override
+    public void onDrawerOpened(View drawerView) {
+
+    }
+
+    @Override
+    public void onDrawerClosed(View drawerView) {
+
+    }
+
+    @Override
+    public void onDrawerStateChanged(int newState) {
 
     }
 }

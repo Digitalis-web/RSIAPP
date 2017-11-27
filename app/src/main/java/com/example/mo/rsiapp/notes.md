@@ -5,13 +5,13 @@
 [Info Areas](http://163.172.101.14:8000/api//area/1427@1497772800)
 
 ## To do
--[ ] Visa vad det är man har uppe om det är temperatur eller väglag
+-[x] Visa vad det är man har uppe om det är temperatur eller väglag
 -[x] laddnings animation
 -[ ] Inlogning med RSI Nykel
--[ ] visa tid istället för "om 4h"
--[ ] ta bort focus från sökbaren när man öppnar nav
+-[x] visa tid istället för "om 4h"
+-[x] ta bort focus från sökbaren när man öppnar nav
 -[ ] tillbaka knapp
--[ ] ändra texten i sökfältet när man öppnar område via naven
+-[x] ändra texten i sökfältet när man öppnar område via naven
 -[ ] default setting
 -[ ] inställningar knappen syns inte när listan av bevakande områden blir för lång
   (Kan fixas genom man kan skrolla bland områderna)
@@ -23,7 +23,7 @@
 -[ ] Namnge appen ordentligt
 -[ ] När man klikcar på någon del av pai 
     digramet så kommer det upp hur mycket äv vägen som är tex tor
--[ ] 
+-[ ] error när man inte är ansluten till internet eller servern inte går att nå
 
 ### Temperature page
 -[ ] Syla Temperaturen efter `Dropbox\_Digital peguin solutions\_Kunder\_Current\RSI\_App\_exports\5.0\Temp`
@@ -32,7 +32,7 @@
 
 ### Settings
 -[ ] Syla inststäningarna efter `Dropbox\_Digital peguin solutions\_Kunder\_Current\RSI\_App\_exports\5.0\settings`
--[ ] Ta bort aktivera notiser checkbox och andvänd swichen istället
+-[x] Ta bort aktivera notiser checkbox och andvänd swichen istället
 -[ ] När notis swichen är aktiverad så kommer alla andra inställningarna fram och inte innan dess.
 
 ##Testing

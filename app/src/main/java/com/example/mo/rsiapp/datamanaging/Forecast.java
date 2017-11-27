@@ -296,7 +296,11 @@ public class Forecast {
 
             }
             else {
+                if(NavActivity.navActivity != null) {
+                    NavActivity.navActivity.displayError("Kunde inte hämta område", "Data ej tillgängligt för valt område");
+                }
                 Log.d(TAG, "parseForecastData: data finns INTE");
+                return;
             }
 
         } catch (JSONException e) {

@@ -65,7 +65,6 @@ public class InstantAutoComplete extends android.support.v7.widget.AppCompatAuto
 
         // Create the adapter and set it to the AutoCompleteTextView
         ArrayAdapter<String> adapter =
-                //new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, areas);
                 new ArrayAdapter<String>(getContext(), R.layout.autocomplete_list_item, areas);
         this.setAdapter(adapter);
 
@@ -96,7 +95,6 @@ public class InstantAutoComplete extends android.support.v7.widget.AppCompatAuto
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getWindowToken(), 0);
         clearFocus();
-
     }
 
     @Override
@@ -125,6 +123,10 @@ public class InstantAutoComplete extends android.support.v7.widget.AppCompatAuto
         String areaID = FetchingManager.areasID.get(index);
         NavActivity.openLoadingScreen();
         FetchingManager.fetchForecast(areaID, FetchingManager.latestForecastTime, JSONFetcher.FETCH_FORECAST);
+    }
+
+    public void clearText() {
+        setText("");
     }
 
     @Override

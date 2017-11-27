@@ -44,8 +44,6 @@ public class FetchingManager {
         clearOldData();
         JSONFetcher JF = new JSONFetcher(fetchMode);
         JF.execute(areasUrl);
-
-
     }
 
     public static void fetchForecast(String areaID, long time, int fetchMode) {
@@ -73,14 +71,17 @@ public class FetchingManager {
                 //Log.d(TAG, "parseAreasData: name: " + obj.get("name"));
             }
 
-            JSONArray forecastsObj = data.getJSONArray("forecasts"); for(int i = 0; i < forecastsObj.length(); i++) {
+            JSONArray forecastsObj = data.getJSONArray("forecasts");
+
+            JSONObject obj = forecastsObj.getJSONObject(0);
+            latestForecastTime = Long.parseLong(obj.get("creation_time").toString());
+/*            for(int i = 0; i < forecastsObj.length(); i++) {
                 JSONObject obj = forecastsObj.getJSONObject(i);
 
                 latestForecastTime = Long.parseLong(obj.get("creation_time").toString());
                 //latestForecastTime = 1485680400; // TEMP DEBUG
                 Log.d(TAG, "parseAreasData: lastforecast: " + latestForecastTime);
-
-            }
+            }*/
 
         } catch (JSONException e) {
             e.printStackTrace();
