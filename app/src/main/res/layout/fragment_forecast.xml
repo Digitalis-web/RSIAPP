@@ -126,7 +126,6 @@
             android:layout_height="wrap_content"
             android:background="@color/colorWhite"
             android:text="Mer"
-
             />
 
         <com.example.mo.rsiapp.customviews.WatchAreaButton
