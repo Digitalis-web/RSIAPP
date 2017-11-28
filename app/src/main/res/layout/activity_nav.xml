@@ -27,46 +27,65 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:paddingTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/colorWhite"
         >
-
-        <TextView
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Bevakade områden"
-            android:textColor="@color/colorBlack"
-            android:textSize="20sp"
-            android:textAlignment="center"
-            />
-
-        <ListView
-            android:id="@+id/nav_view"
-            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="10dp"
-            android:layout_height="wrap_content"
-            android:divider="@android:color/transparent"
+            android:layout_weight="1"
             >
-        </ListView>
-        <LinearLayout
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/nav_item_spacing"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="Bevakade områden"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="27sp"
+                    android:textAlignment="center"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/nav_view"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content"
+                    android:divider="@android:color/transparent"
+                    >
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+        <!--<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            >
-            <android.support.v7.widget.AppCompatButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorBlue"
-                android:text="Inställningar"
-                android:textColor="@color/colorBlack"
-                android:layout_gravity="bottom"
-                android:onClick="openSettings"
-                />
-        </LinearLayout>
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:background="@color/colorBlack"
+            >-->
+        <android.support.v7.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/colorBlue"
+            android:text="Inställningar"
+            android:textColor="@color/colorBlack"
+            android:layout_gravity="bottom"
+            android:onClick="openSettings"
+            android:layout_weight="1.5"
+            android:textSize="19sp"
+            />
+        <!--</LinearLayout>-->
 
     </LinearLayout>
 

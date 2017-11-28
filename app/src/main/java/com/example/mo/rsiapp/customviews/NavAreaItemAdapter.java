@@ -1,29 +1,10 @@
 package com.example.mo.rsiapp.customviews;
 
-import android.content.Context;
-import android.support.v4.content.res.ResourcesCompat;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import com.example.mo.rsiapp.R;
-
-import java.util.ArrayList;
-
-import static android.R.attr.name;
-
 /**
  * Created by mo on 12/10/17.
  */
 
-
+/*
 public class NavAreaItemAdapter extends BaseAdapter implements ListView.OnItemClickListener {
     // ArrayList<String> name, company, email, id, status;
     ArrayList<NavAreaItem> navItemsList;
@@ -78,5 +59,5 @@ public class NavAreaItemAdapter extends BaseAdapter implements ListView.OnItemCl
         Log.d(TAG, "onItemClick: clicked: " +  i + " l " + l);
         clickedItem.onClick(view, c);
 
-    }
-}
+    }*/
+//}

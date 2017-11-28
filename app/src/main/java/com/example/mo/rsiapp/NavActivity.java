@@ -11,15 +11,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.mo.rsiapp.backgroundtasks.Alarm;
 import com.example.mo.rsiapp.customviews.InstantAutoComplete;
 import com.example.mo.rsiapp.customviews.NavAreaItem;
-import com.example.mo.rsiapp.customviews.NavAreaItemAdapter;
 import com.example.mo.rsiapp.datamanaging.DisplayInfoManager;
 import com.example.mo.rsiapp.datamanaging.FetchingManager;
 import com.example.mo.rsiapp.datamanaging.Forecast;
@@ -37,7 +38,7 @@ public class NavActivity extends AppCompatActivity
     public static InstantAutoComplete searchBar;
     private static final String TAG = "NavActivity";
     public static NavActivity navActivity;
-    private ListView navDrawerList;
+    private LinearLayout navDrawerList;
     private DrawerLayout navDrawer;
 
     @Override
@@ -97,8 +98,19 @@ public class NavActivity extends AppCompatActivity
             navAreaItems.add(new NavAreaItem(areaName, areaID));
         }
 
-        navDrawerList = (ListView) findViewById(R.id.nav_view);
-        navDrawerList.setAdapter(new NavAreaItemAdapter(this, navAreaItems, navDrawerList));
+        navDrawerList = (LinearLayout) findViewById(R.id.nav_view);
+        navDrawerList.removeAllViews();
+        //navDrawerList.setAdapter(new NavAreaItemAdapter(this, navAreaItems, navDrawerList));
+        LayoutInflater inflater = LayoutInflater.from(this);
+
+        for (NavAreaItem navItem : navAreaItems) {
+            View row  = inflater.inflate(R.layout.nav_area_item, navDrawerList, false);
+
+            TextView name = (TextView) row.findViewById(R.id.nav_item_header);
+            name.setText(navItem.getName());
+            navDrawerList.addView(row);
+            row.setOnClickListener(navItem);
+        }
     }
 
     public void displayError(String errorTitle, String errorMessage) {
