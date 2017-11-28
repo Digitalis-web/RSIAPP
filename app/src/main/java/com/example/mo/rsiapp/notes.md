@@ -14,15 +14,16 @@
 -[x] Namnge appen ordentligt
 -[x] inställningar knappen syns inte när listan av bevakande områden blir för lång
   (Kan fixas genom man kan skrolla bland områderna)
+-[x] Visa inte områden som det inte finns data över området
+-[x] Syla Inlogning 
 -[ ] Inlogning med RSI Nykel
 -[ ] tillbaka knapp
 -[ ] default setting
--[ ] Kunna ta bort bevakade områden från naven.
--[ ] Visa inte områden som det inte finns data över området
 -[ ] Sätta in en Ordentlig Logga
 -[ ] När man klikcar på någon del av pai 
     digramet så kommer det upp hur mycket äv vägen som är tex tor
 -[ ] error när man inte är ansluten till internet eller servern inte går att nå
+-[ ] Kunna ta bort bevakade områden från naven.
 
 ### Settings
 -[x] Gör att hela settings sidan går att skrolla i inte bara notiser

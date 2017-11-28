@@ -12,12 +12,8 @@
         <item name="actionBarSize">75dp</item>
     </style>
 
-    <!-- Switches -->
-    <style name="Switch" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:textColor">@color/colorBlack</item>
-        <item name="colorControlActivated">@color/colorRed</item>
-        <item name="colorSwitchThumbNormal">@color/colorYellow</item>
-        <item name="android:colorForeground">@color/colorDry</item>
+    <style name="Switch">
+        <item name="android:textColor">@color/colorGraph1</item>
     </style>
 
     <style name="AppTheme.NoTitle" parent="AppTheme">
