@@ -210,9 +210,9 @@ public class ForecastFragment extends Fragment {
     //
     public void updateCharts(String category, View inflatedView){
         //String category = categories.get(0);
-        HashMap<String, Long> chart1Values = viewedForecast.getDataPoint(category, FetchingManager.chartOneTime);
-        HashMap<String, Long> chart2Values = viewedForecast.getDataPoint(category, FetchingManager.chartTwoTime);
-        HashMap<String, Long> chart3Values = viewedForecast.getDataPoint(category, FetchingManager.chartThreeTime);
+        HashMap<String, Long> chart1Values = viewedForecast.getDataPoint(category, FetchingManager.chartOneTime, null);
+        HashMap<String, Long> chart2Values = viewedForecast.getDataPoint(category, FetchingManager.chartTwoTime, null);
+        HashMap<String, Long> chart3Values = viewedForecast.getDataPoint(category, FetchingManager.chartThreeTime, null);
 
         Log.d(TAG, "onCreateView: starting create chart");
         LinearLayout chart1InfoLayout = (LinearLayout) inflatedView.findViewById(R.id.chartInfoOne);

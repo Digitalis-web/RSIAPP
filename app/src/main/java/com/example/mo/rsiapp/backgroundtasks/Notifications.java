@@ -15,7 +15,7 @@ import com.example.mo.rsiapp.R;
  */
 
 public class Notifications {
-    public static void sendNotification(Context context, String title, String contentText) {
+    public static void sendNotification(Context context, String title, String contentText, int ID) {
 
         //Get an instance of NotificationManager//
 
@@ -42,7 +42,7 @@ public class Notifications {
         //NotificationManager.notify().
 
 
-        mNotificationManager.notify(001, mBuilder.build());
+        mNotificationManager.notify(ID, mBuilder.build());
     }
 
 }

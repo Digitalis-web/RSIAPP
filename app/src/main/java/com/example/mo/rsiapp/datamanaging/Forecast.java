@@ -58,7 +58,8 @@ public class Forecast {
         return matchedData;
     }
 
-    public HashMap<String, Long> getDataPoint(String category, long time){
+    // requestedLayers specifies which layers that should be returned. If null all layers will be returned
+    public HashMap<String, Long> getDataPoint(String category, long time, Set<String> requestedLayers){
 
         HashMap<String, Long> values = new HashMap<>();
         try {
@@ -76,7 +77,13 @@ public class Forecast {
                     Long value = timePointObj.getLong("y");
 
                     if(pointTime == time){
-                        values.put(name, value);
+
+                        if(requestedLayers == null) {
+                            values.put(name, value);
+                        }
+                        else if(requestedLayers.contains(name)){
+                            values.put(name, value);
+                        }
                     }
 
                 }
@@ -182,7 +189,7 @@ public class Forecast {
         int routeLength = getTotalLengthForRoute(0);
 
         Set<String> savedSettings = StorageManager.getSettings(Alarm.currentAlarmContext);
-        HashMap<String, Integer> trackedAreasValue = new HashMap<>();
+        HashMap<String, Integer> trackedAreasValues = new HashMap<>();
 
         for(String savedStr : savedSettings){
             String[] split = savedStr.split(",");
@@ -195,71 +202,127 @@ public class Forecast {
                 enabled = split[1].equals("1");
                 value = Integer.parseInt(split[2]);
                 if(enabled){
-                    trackedAreasValue.put(layer, value);
+                    trackedAreasValues.put(layer, value);
                 }
             }
 
 
-            Log.d(TAG, "controlData: layer: " + layer);
+/*            Log.d(TAG, "controlData: layer: " + layer);
             Log.d(TAG, "controlData: enabled: " + enabled);
-            Log.d(TAG, "controlData: value: " + value);
+            Log.d(TAG, "controlData: value: " + value);*/
 
         }
 
         long currentTime = FetchingManager.getClosestHourTime();
         //HashMap<String, Long> values = new HashMap<>();
-        try {
-            JSONObject data = getDataForCategory(category);
-            JSONArray seriesArray = data.getJSONArray("series");
-            ArrayList<String> notifyLayers = new ArrayList<>(); // the layers that are over the threshold
-            ArrayList<Integer> notifyValues = new ArrayList<>();
 
 
-            for(int i = 0; i < seriesArray.length(); i++){
-                JSONObject seriesItem = seriesArray.getJSONObject(i);
-                String layer = seriesItem.getString("name");
-                JSONArray seriesData = seriesItem.getJSONArray("data");
-
-                Set<String> trackedLayers = trackedAreasValue.keySet();
+        ArrayList<String> notifyLayers = new ArrayList<>(); // the layers that are over the threshold
+        ArrayList<Integer> notifyValues = new ArrayList<>();
 
 
-                // if current layer is tracked
-                if(trackedLayers.contains(layer)) {
-                    int maxValue = trackedAreasValue.get(layer);
+        ArrayList<Long> controlTimes = new ArrayList<Long>(){{
+            add(FetchingManager.chartOneTime);
+            add(FetchingManager.chartTwoTime);
+            add(FetchingManager.chartThreeTime);
+        }};
 
-                    for (int n = 0; n < seriesData.length(); n++) {
-                        JSONObject timePointObj = seriesData.getJSONObject(n);
-                        long pointTime = timePointObj.getLong("x");
-                        Long value = timePointObj.getLong("y");
 
-                        if (pointTime >= currentTime) { // only checks the future
-                            if(value >= maxValue){
-                                Log.d(TAG, "controlData: ALAAAAAAAAAAAAARM !!!!!!!! " + areaID);
-                                Log.d(TAG, "controlData: " + layer + " har stigit över " + maxValue + " och är " + value);
-                                notifyLayers.add(layer);
-                                //notifyValues.add(value);
-                                break;
-                            }
-                            //values.put(name, value);
+        outerLoop:
+        for(int n = 0; n < controlTimes.size(); n++) {
+            long time = controlTimes.get(n);
+            HashMap<String, Long> dataPoints =  getDataPoint("roadcondition", time, trackedAreasValues.keySet());
+/*            Log.d(TAG, "controlData: datapoints: " + dataPoints.toString());
+            Log.d(TAG, "controlData: --------------------------------" + time);*/
+
+            Set<String> dataPointsKeys = dataPoints.keySet();
+
+            for(String layer : dataPointsKeys){
+                Long value = dataPoints.get(layer);
+                int percent = (int) (((value*1.0) / routeLength)*100);
+                int maxValue = trackedAreasValues.get(layer);
+                if(percent > 0){
+                    if(percent >= maxValue){
+                        if(!notifyLayers.contains(layer)) {
+                            notifyLayers.add(layer);
+                            notifyValues.add(percent);
                         }
-
                     }
                 }
-            }
-            if(notifyLayers.size() > 0) {
-                String message = "";
-                String areaName = FetchingManager.getAreaNameFromID(areaID);
-                for(int i = 0; i < notifyLayers.size(); i++){
-                    String layer = notifyLayers.get(i);
-                    //int value =
 
-                    message += layer + " över " + " 10% \n";
-                }
-                Notifications.sendNotification(Alarm.currentAlarmContext, "Ny prognos för " + areaName + " visar", message);
+/*                Log.d(TAG, "controlData: kör123");
+                Log.d(TAG, "controlData: value2: " + value );
+                Log.d(TAG, "controlData: layer: " + layer );
+                Log.d(TAG, "controlData: percent: " + percent );
+                Log.d(TAG, "controlData: area: " + areaID );*/
+
             }
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+
+
+        }
+/*            for(int i = 0; i < seriesArray.length(); i++){
+            JSONObject seriesItem = seriesArray.getJSONObject(i);
+            String layer = seriesItem.getString("name");
+            JSONArray seriesData = seriesItem.getJSONArray("data");
+
+            Set<String> trackedLayers = trackedAreasValues.keySet();
+
+
+            // if current layer is tracked
+            if(trackedLayers.contains(layer)) {
+                int maxValue = trackedAreasValues.get(layer);
+
+
+*//*                    for (int n = 0; n < seriesData.length(); n++) {
+                    JSONObject timePointObj = seriesData.getJSONObject(n);
+                    long pointTime = timePointObj.getLong("x");
+
+                    if (pointTime >= currentTime) { // only checks the future
+                        Long value = timePointObj.getLong("y");
+                        double percent = ((value*1.0) / routeLength)*100;
+
+                        Log.d(TAG, "controlData: ------------------------------");
+                        Log.d(TAG, "controlData: layer: " + layer);
+                        Log.d(TAG, "controlData: value: " + value);
+                        Log.d(TAG, "controlData: routeLength: " + routeLength);
+                        Log.d(TAG, "controlData: percent: " + percent);
+                        Log.d(TAG, "controlData: area: " + areaID);
+                        Log.d(TAG, "controlData: maxValue: " + maxValue);
+                        Log.d(TAG, "controlData: time: " + pointTime);
+                        Log.d(TAG, "controlData: time: " + FetchingManager.unixToHumanTime(pointTime));
+
+                        if(percent >= maxValue){
+                            Log.d(TAG, "controlData: ALAAAAAAAAAAAAARM !!!!!!!! " + areaID);
+                            Log.d(TAG, "controlData: " + layer + " har stigit över " + maxValue + " och är " + percent);
+                            notifyLayers.add(layer);
+                            notifyValues.add((int)percent);
+                            //notifyValues.add(value);
+                            Log.d(TAG, "controlData: BREAKING LOOP");
+                            break;
+                        }
+*//**//*                            else {
+                            Log.d(TAG, "controlData: not breaking");
+                        }*//**//*
+                        //values.put(name, value);
+                    }
+
+                }*//*
+            }
+        }*/
+
+        if(notifyLayers.size() > 0) {
+            String message = "";
+            String areaName = FetchingManager.getAreaNameFromID(areaID);
+            for(int i = 0; i < notifyLayers.size(); i++){
+                String layer = notifyLayers.get(i);
+                int percent = notifyValues.get(i);
+
+                String label = DisplayInfoManager.getLayerLabel(layer);
+                message +=  label + " har nått " + percent + "%\n";
+            }
+            Notifications.sendNotification(Alarm.currentAlarmContext, "Ny prognos för " + areaName + " visar", message, Integer.parseInt(areaID));
+            Log.d(TAG, "controlData: sending notification for " + areaName);
         }
 
 

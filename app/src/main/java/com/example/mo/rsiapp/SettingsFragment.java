@@ -41,7 +41,7 @@ public class SettingsFragment extends Fragment  implements CheckBox.OnCheckedCha
 
     private ViewGroup rootViewGroup;
     private View inflatedView;
-    private Switch enableNofticationsCheckBox;
+    private Switch enableNotificationsheckBox;
 
     ArrayList<SettingsItem> settingsItems = new ArrayList<>();
     private OnFragmentInteractionListener mListener;
@@ -111,12 +111,12 @@ public class SettingsFragment extends Fragment  implements CheckBox.OnCheckedCha
     }
 
     public void setupEnableNotificationsCheckBox(){
-        enableNofticationsCheckBox = inflatedView.findViewById(R.id.enable_notifications);
-        enableNofticationsCheckBox.setOnCheckedChangeListener(this);
+        enableNotificationsheckBox = inflatedView.findViewById(R.id.enable_notifications);
+        enableNotificationsheckBox.setOnCheckedChangeListener(this);
 
         boolean enabled = StorageManager.getNotificationsEnabled(NavActivity.navActivity);
         notificationsEnabled = enabled;
-        enableNofticationsCheckBox.setChecked(enabled);
+        enableNotificationsheckBox.setChecked(enabled);
 
     }
 
