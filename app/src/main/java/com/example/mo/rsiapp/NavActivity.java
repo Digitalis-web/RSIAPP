@@ -33,7 +33,7 @@ import java.util.Set;
 import static com.example.mo.rsiapp.R.menu.nav;
 
 public class NavActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, DrawerLayout.DrawerListener, ForecastFragment.OnFragmentInteractionListener, LoadingFragment.OnFragmentInteractionListener , SettingsFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, DrawerLayout.DrawerListener, LoginFragment.OnFragmentInteractionListener, ForecastFragment.OnFragmentInteractionListener, LoadingFragment.OnFragmentInteractionListener , SettingsFragment.OnFragmentInteractionListener {
 
     public static InstantAutoComplete searchBar;
     private static final String TAG = "NavActivity";
@@ -71,7 +71,10 @@ public class NavActivity extends AppCompatActivity
 
         //StorageManager.clearWatchedAreas();
         FetchingManager.fetchAreas(JSONFetcher.FETCH_AREAS);
-        Alarm.setAlarm(this);
+
+        Alarm.setAlarm(this); // starts the background task
+
+        openLogin();
 
     }
 
@@ -186,6 +189,12 @@ public class NavActivity extends AppCompatActivity
     public static void openForecast(String areaID, int routeLength, Forecast forecast){
         ForecastFragment.viewedForecast = forecast; // passed staticly is ok here cause there will only ever be one instance of ForecastFragment at the time
         ForecastFragment fragment = new ForecastFragment().newInstance(areaID, routeLength);
+        FragmentManager manager = navActivity.getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.fragment_layout, fragment, fragment.getTag()).commit();
+    }
+
+    public static void openLogin(){
+        LoginFragment fragment = new LoginFragment().newInstance();
         FragmentManager manager = navActivity.getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.fragment_layout, fragment, fragment.getTag()).commit();
     }

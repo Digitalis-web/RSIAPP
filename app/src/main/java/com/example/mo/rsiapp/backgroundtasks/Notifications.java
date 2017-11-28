@@ -18,6 +18,7 @@ public class Notifications {
     public static void sendNotification(Context context, String title, String contentText, int ID) {
 
         //Get an instance of NotificationManager//
+        String channelID = "RSI notifications";
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
@@ -25,7 +26,9 @@ public class Notifications {
                         .setContentTitle(title)
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(contentText))
                         .setContentText(contentText)
-                        .setAutoCancel(true);
+                        .setAutoCancel(true)
+                        .setChannel(channelID)
+                ;
 
         Intent resultIntent = new Intent(context, NavActivity.class);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
