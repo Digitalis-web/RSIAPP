@@ -16,14 +16,14 @@ import java.util.ArrayList;
  */
 
 
-public class SettingsItemAdapter extends BaseAdapter  {
+public class SettingsItemAdapterOld extends BaseAdapter  {
     // ArrayList<String> name, company, email, id, status;
     ArrayList<SettingsItem> settingsItems;
     Context c;
     private final String TAG = "NavAdapter";
 
 
-    public SettingsItemAdapter(Context c, ArrayList<SettingsItem> list, ListView listView) {
+    public SettingsItemAdapterOld(Context c, ArrayList<SettingsItem> list, ListView listView) {
         settingsItems = list;
 
         this.c = c;

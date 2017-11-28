@@ -1,5 +1,6 @@
 package com.example.mo.rsiapp.customviews;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -37,10 +38,13 @@ public class SettingsItem implements SeekBar.OnSeekBarChangeListener, CheckBox.O
     }
 
     public void setFromSavedSettings(){
+        Log.d(TAG, "setSavedValues: settings from saved + " +savedSliderValue);
         if(!savedSettingsSet) {
             savedSettingsSet = true;
             this.sliderValue = savedSliderValue;
             this.enabled = savedEnabled;
+            setEnabled(enabled);
+            setSliderValue(sliderValue);
         }
     }
 

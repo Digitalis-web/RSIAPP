@@ -11,11 +11,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 
 import com.example.mo.rsiapp.customviews.SettingsItem;
-import com.example.mo.rsiapp.customviews.SettingsItemAdapter;
 import com.example.mo.rsiapp.datamanaging.StorageManager;
 
 import java.util.ArrayList;
@@ -182,8 +181,25 @@ public class SettingsFragment extends Fragment  implements CheckBox.OnCheckedCha
 
         }
 
-        ListView categoriesView = inflatedView.findViewById(R.id.categories_settings_view);
-        categoriesView.setAdapter(new SettingsItemAdapter(inflatedView.getContext(), settingsItems, categoriesView));
+        LinearLayout categoriesView = inflatedView.findViewById(R.id.categories_settings_view);
+        //categoriesView.setAdapter(new SettingsItemAdapterOld(inflatedView.getContext(), settingsItems, categoriesView));
+
+        //    navDrawerList = (LinearLayout) findViewById(R.id.nav_view);
+        categoriesView.removeAllViews();
+        //navDrawerList.setAdapter(new NavAreaItemAdapter(this, navAreaItems, navDrawerList));
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+
+        for (SettingsItem settingsItem : settingsItems) {
+            View row  = inflater.inflate(R.layout.settings_item, categoriesView, false);
+
+/*            TextView name = (TextView) row.findViewById(R.id.nav_item_header);
+            name.setText(settingsItem.getName());
+            navDrawerList.addView(row);
+            row.setOnClickListener(navItem);*/
+            settingsItem.initComponents(row);
+            settingsItem.setFromSavedSettings();
+            categoriesView.addView(row);
+        }
 
     }
 
