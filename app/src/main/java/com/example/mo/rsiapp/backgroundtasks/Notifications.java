@@ -1,6 +1,7 @@
 package com.example.mo.rsiapp.backgroundtasks;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -17,8 +18,7 @@ import com.example.mo.rsiapp.R;
 public class Notifications {
     public static void sendNotification(Context context, String title, String contentText, int ID) {
 
-        //Get an instance of NotificationManager//
-        String channelID = "RSI notifications";
+        String channelID = NotificationChannel.DEFAULT_CHANNEL_ID;
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
