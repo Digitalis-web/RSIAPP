@@ -163,6 +163,7 @@ public class FetchingManager {
         if (true) { // tmp
             //fetchForecast();
             Set<String> watchedAreas = StorageManager.getWatchedAreas(Alarm.currentAlarmContext);
+            Log.d(TAG, "checkForNewForecast: control:  " + watchedAreas.toString());
             for(String area : watchedAreas){
                 Log.d(TAG, "fetchAndControlData: area: " + area);
                 fetchForecast(area, latestForecastTime, JSONFetcher.FETCH_FORECAST_IN_BACKGROUND);
@@ -176,6 +177,7 @@ public class FetchingManager {
     public static void fetchAndControlData(Context context){
         Log.d(TAG, "fetchAndControlData: running");
         if(StorageManager.getNotificationsEnabled(context)) {
+            Log.d(TAG, "fetchAndControlData: notifications are enabled");
             fetchAreas(JSONFetcher.FETCH_AREAS_IN_BACKGROUND);
         }
     }

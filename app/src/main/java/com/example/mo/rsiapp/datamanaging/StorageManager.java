@@ -54,6 +54,7 @@ public class StorageManager {
 
     public static Set<String> getWatchedAreas(Context context) {
         Set<String> set = getStringSet(WATCHED_AREAS_KEY, context);
+        Log.d(TAG, "getWatchedAreas: watched: " + set.toString());
         return set;
     }
 
@@ -67,6 +68,7 @@ public class StorageManager {
 
     public static Set<String> getWatchedAreas() {
         Set<String> set = getStringSet(WATCHED_AREAS_KEY);
+        Log.d(TAG, "getWatchedAreas: watched: " + set.toString());
         return set;
     }
 
@@ -92,7 +94,7 @@ public class StorageManager {
     }
 
     public static void saveStringSet(String key, Set<String> set) {
-        SharedPreferences settings = NavActivity.navActivity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences settings = NavActivity.navActivity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE | Context.MODE_MULTI_PROCESS);
         SharedPreferences.Editor editor = settings.edit();
         editor.remove(key);
         editor.apply();
@@ -101,7 +103,7 @@ public class StorageManager {
     }
 
     public static Set<String> getStringSet(String key, Context context) {
-        SharedPreferences sharedPref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE | Context.MODE_MULTI_PROCESS);
         //int defaultValue = getResources().getInteger(R.string.saved_high_score_default);
         Set<String> set = sharedPref.getStringSet(key, new HashSet<String>());
         return set;
