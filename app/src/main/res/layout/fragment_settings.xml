@@ -83,8 +83,10 @@
                 android:layout_marginRight="@dimen/container_spacing"
                 android:background="@color/colorBlue" />
 
+
             <Switch
                 android:id="@+id/enable_notifications"
+                style="@style/Switch"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="@dimen/container_spacing"
@@ -92,12 +94,9 @@
                 android:layout_marginTop="10dp"
                 android:splitTrack="false"
                 android:text="@string/enable_notifications"
-                android:textColor="@color/colorBlack"
                 android:textSize="22sp"
-                android:thumb="@color/colorRed"
-                android:track="@color/colorBlue"
-                 />
-
+                android:checked="true"
+                />
 
             <LinearLayout
                 android:id="@+id/categories_settings_view"

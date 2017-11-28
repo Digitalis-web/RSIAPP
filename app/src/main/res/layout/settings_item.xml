@@ -15,6 +15,7 @@
 
         <Switch
             android:id="@+id/settings_item_check"
+            style="@style/Switch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="19sp"
@@ -30,6 +31,7 @@
 
 
         <SeekBar
+            style="@style/Switch"
             android:id="@+id/settings_slider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

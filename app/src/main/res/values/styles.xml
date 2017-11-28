@@ -12,6 +12,10 @@
         <item name="actionBarSize">75dp</item>
     </style>
 
+    <style name="Switch">
+        <item name="android:textColor">@color/colorGraph1</item>
+    </style>
+
     <style name="AppTheme.NoTitle" parent="AppTheme">
         <item name="windowNoTitle">true</item>
     </style>

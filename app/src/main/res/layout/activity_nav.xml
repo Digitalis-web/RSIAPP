@@ -32,6 +32,7 @@
         android:layout_gravity="start"
         android:background="@color/colorWhite"
         >
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -45,9 +46,37 @@
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/nav_item_spacing"
                 >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:background="@color/colorBlue"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
+
+                    <ImageView
+                        android:id="@+id/rsi_logo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:scaleType="fitStart"
+                        app:srcCompat="@android:drawable/sym_def_app_icon"
+                        />
+                    <ImageView
+                        android:id="@+id/klimator_logo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:scaleType="fitStart"
+                        app:srcCompat="@android:drawable/sym_def_app_icon" />
+                </LinearLayout>
+
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="10dp"
                     android:layout_height="wrap_content"
                     android:text="Bevakade områden"
                     android:textColor="@color/colorBlack"
@@ -64,6 +93,7 @@
                     android:divider="@android:color/transparent"
                     >
                 </LinearLayout>
+
             </LinearLayout>
         </ScrollView>
         <!--<LinearLayout
