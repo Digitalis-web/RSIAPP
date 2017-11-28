@@ -17,8 +17,8 @@
   (Kan fixas genom man kan skrolla bland områderna)
 -[ ] Ändra färg på sluta bevaka knappen
 -[ ] Kunna ta bort bevakade områden från naven.
--[ ] Visa inte områden som det inte finns data över
--[ ] Ta bort Alla kategorier förutom Väglag och ytremperatur.
+-[ ] Visa inte områden som det inte finns data över området
+-[x] Ta bort Alla kategorier förutom Väglag och ytremperatur.
 -[ ] Sätta in en Ordentlig Logga
 -[ ] Namnge appen ordentligt
 -[ ] När man klikcar på någon del av pai 
@@ -31,9 +31,10 @@
 -[ ] 3 färger för temperatur  Färg1. >2 Färg2. <0>  färg3. -2>
 
 ### Settings
--[ ] Syla inststäningarna efter `Dropbox\_Digital peguin solutions\_Kunder\_Current\RSI\_App\_exports\5.0\settings`
+-[x] Syla inststäningarna efter `Dropbox\_Digital peguin solutions\_Kunder\_Current\RSI\_App\_exports\5.0\settings`
 -[x] Ta bort aktivera notiser checkbox och andvänd swichen istället
--[ ] När notis swichen är aktiverad så kommer alla andra inställningarna fram och inte innan dess.
+-[ ] när notification swichen är deaktiverad blir de andra instälningarna gråa och går inte att klicka på.
+-[ ] Gör att hela settings sidan går att skrolla i inte bara notiser
 
 ##Testing
 -[ ] Be folket på RSI att titta på appen och testa den lite.
