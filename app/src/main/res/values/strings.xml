@@ -6,7 +6,22 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <!-- Settings strig -->
+    <string name="save">Spara</string>
+    <string name="account">Mitt konto</string>
+    <string name="accountKey">RSI-Nykel</string>
+    <string name="notification">Notiser</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="enable_notifications">Aktivera notiser</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="error_invalid_email">Rsi-nykel finns inte</string>
+    <string name="error_field_required">Det här fältet är obligatoriskt</string>
+    <string name="logga_in">Logga in</string>
+    <string name="logga_ut">Logga ut</string>
+    <string name="ange_din_rsi_nykel">Ange din Rsi-nykel</string>
+    <string name="rsi_nykel">RSI-Nykel</string>
 </resources>

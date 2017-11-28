@@ -85,7 +85,7 @@
                 android:id="@+id/piChartTwo"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="3"></com.github.mikephil.charting.charts.PieChart>
+                android:layout_weight="3"/>
         </LinearLayout>
 
         <LinearLayout
@@ -116,7 +116,7 @@
                 android:id="@+id/piChartThree"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="3"></com.github.mikephil.charting.charts.PieChart>
+                android:layout_weight="3"/>
         </LinearLayout>
 
         <android.support.v7.widget.AppCompatButton
@@ -133,8 +133,21 @@
             android:id="@+id/watch_area_button"
             style="@style/ForecastButton"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/button_RSI"
+            style="@style/ForecastButton"
+            android:background="@color/colorBlue"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/container_spacing" />
+            android:text="Mer detailjerad data"
+            android:layout_marginBottom="@dimen/container_spacing"
+            android:clickable="true"
+            android:focusable="true"
+            android:linksClickable="true"
+            android:onClick="goToRSI"
+            />
 
     </LinearLayout>
 </ScrollView>
