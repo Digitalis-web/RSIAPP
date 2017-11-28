@@ -76,6 +76,13 @@
                 android:textColor="@color/colorBlue"
                 android:textSize="25sp" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginLeft="@dimen/container_spacing"
+                android:layout_marginRight="@dimen/container_spacing"
+                android:background="@color/colorBlue" />
+
             <Switch
                 android:id="@+id/enable_notifications"
                 android:layout_width="match_parent"
@@ -91,12 +98,6 @@
                 android:track="@color/colorBlue"
                  />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginLeft="@dimen/container_spacing"
-                android:layout_marginRight="@dimen/container_spacing"
-                android:background="@color/colorBlue" />
 
             <LinearLayout
                 android:id="@+id/categories_settings_view"

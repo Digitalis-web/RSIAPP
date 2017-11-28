@@ -13,7 +13,7 @@
 -[ ] tillbaka knapp
 -[x] ändra texten i sökfältet när man öppnar område via naven
 -[ ] default setting
--[ ] inställningar knappen syns inte när listan av bevakande områden blir för lång
+-[x] inställningar knappen syns inte när listan av bevakande områden blir för lång
   (Kan fixas genom man kan skrolla bland områderna)
 -[ ] Ändra färg på sluta bevaka knappen
 -[ ] Kunna ta bort bevakade områden från naven.
