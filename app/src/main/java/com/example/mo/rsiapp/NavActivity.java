@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.mo.rsiapp.backgroundtasks.Alarm;
+import com.example.mo.rsiapp.backgroundtasks.Notifications;
 import com.example.mo.rsiapp.customviews.InstantAutoComplete;
 import com.example.mo.rsiapp.customviews.NavAreaItem;
 import com.example.mo.rsiapp.datamanaging.DisplayInfoManager;
@@ -73,6 +74,8 @@ public class NavActivity extends AppCompatActivity
         FetchingManager.fetchAreas(JSONFetcher.FETCH_AREAS);
 
         Alarm.setAlarm(this); // starts the background task
+
+        Notifications.initNotificationsChannel(this);
 
         openLogin();
 

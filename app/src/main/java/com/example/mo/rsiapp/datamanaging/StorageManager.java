@@ -115,13 +115,13 @@ public class StorageManager {
     }
 
     public static long getLong(String key, Context context) {
-        SharedPreferences sharedPref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE | Context.MODE_MULTI_PROCESS);
         long value = sharedPref.getLong(key, 0);
         return value;
     }
 
     public static void saveLong(String key, long value, Context context) {
-        SharedPreferences settings = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences settings = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE | Context.MODE_MULTI_PROCESS);
         SharedPreferences.Editor editor = settings.edit();
         editor.remove(key);
         editor.apply();
@@ -130,7 +130,7 @@ public class StorageManager {
     }
 
     public static void saveString(String key, String value) {
-        SharedPreferences settings = NavActivity.navActivity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences settings = NavActivity.navActivity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE | Context.MODE_MULTI_PROCESS);
         SharedPreferences.Editor editor = settings.edit();
         editor.remove(key);
         editor.apply();
@@ -139,7 +139,7 @@ public class StorageManager {
     }
 
     public static String getString(String key, Context context) {
-        SharedPreferences sharedPref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE | Context.MODE_MULTI_PROCESS);
         //int defaultValue = getResources().getInteger(R.string.saved_high_score_default);
         String value = sharedPref.getString(key, "");
         return value;
