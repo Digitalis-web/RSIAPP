@@ -15,7 +15,9 @@
 -[x] inställningar knappen syns inte när listan av bevakande områden blir för lång
   (Kan fixas genom man kan skrolla bland områderna)
 -[x] Visa inte områden som det inte finns data över området
--[x] Syla Inlogning 
+-[x] Syla Inlogning
+-[x] Notificatione icon
+-[x] Sätta in en Ordentlig Logga
 -[ ] Notificatione
 -[ ] När man trycker på spara knappen i instääningar kommer man tillbaka till naven.
 -[ ] tillbaka knapp
@@ -23,7 +25,6 @@
 -[ ] När man öppnar appen för första gången är det innlognings rutan
 -[ ] När man har öppnat appen mer än en gång så visas det översta bevakade områdets väglag som första skärm
 -[ ] default setting Varna för alt förutom tort som är över 50%
--[ ] Sätta in en Ordentlig Logga
 -[ ] När man klikcar på någon del av pai 
     digramet så kommer det upp hur mycket äv vägen som är tex tor
 -[ ] error när man inte är ansluten till internet eller servern inte går att nå
