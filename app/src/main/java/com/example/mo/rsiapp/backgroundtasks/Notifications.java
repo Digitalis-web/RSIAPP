@@ -6,7 +6,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.NotificationCompat;
+import android.os.Build;
+import android.util.Log;
 
 import com.example.mo.rsiapp.NavActivity;
 import com.example.mo.rsiapp.R;
@@ -16,36 +17,85 @@ import com.example.mo.rsiapp.R;
  */
 
 public class Notifications {
+
+    public static final String TAG = "Notifications";
+
+    public static final String NOTIFICATIONS_CHANNEL = "RSI_NOTIFICATIONS";
+
+
     public static void sendNotification(Context context, String title, String contentText, int ID) {
 
-        String channelID = NotificationChannel.DEFAULT_CHANNEL_ID;
+        //String channelID = NotificationChannel.DEFAULT_CHANNEL_ID;
 
-        NotificationCompat.Builder mBuilder =
+        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        //NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context).setChannel(NOTIFICATIONS_CHANNEL);
+        Notification.Builder builder = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            builder = new Notification.Builder(context, NOTIFICATIONS_CHANNEL);
+/*                .setSmallIcon(R.drawable.ic_rsi_snowflake_2)
+                .setContentTitle(title)
+                .setStyle(new Notification.BigTextStyle().bigText(contentText))
+                .setAutoCancel(true).build();*/
+        }
+        else {
+            builder = new Notification.Builder(context);
+        }
+
+        initNotification(builder, title, contentText, context);
+        Notification notification = builder.build();
+
+/*        NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.ic_menu_camera)
                         .setContentTitle(title)
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(contentText))
                         .setContentText(contentText)
                         .setAutoCancel(true)
-                        .setChannel(channelID)
-                ;
+                ;*/
 
-        Intent resultIntent = new Intent(context, NavActivity.class);
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.setContentIntent(resultPendingIntent);
-        mBuilder.build().flags |= Notification.FLAG_AUTO_CANCEL;
+        //mBuilder.build().flags |= Notification.FLAG_AUTO_CANCEL;
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Log.d(TAG, "initNotificationsChannel: " + mNotificationManager.getNotificationChannel(NOTIFICATIONS_CHANNEL).getId());
+        }
 
         // Gets an instance of the NotificationManager service//
-
-        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-        //When you issue multiple notifications about the same type of event, it’s best practice for your app to try to update an existing notification with this new information, rather than immediately creating a new notification. If you want to update this notification at a later date, you need to assign it an ID. You can then use this ID whenever you issue a subsequent notification. If the previous notification is still visible, the system will update this existing notification, rather than create a new one. In this example, the notification’s ID is 001//
-
-        //NotificationManager.notify().
-
-
-        mNotificationManager.notify(ID, mBuilder.build());
+        mNotificationManager.notify(ID, notification);
     }
+
+    public static void initNotification(Notification.Builder builder, String title, String contentText, Context context){
+            Intent resultIntent = new Intent(context, NavActivity.class);
+            PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            builder.setContentIntent(resultPendingIntent);
+            builder.setSmallIcon(R.drawable.ic_rsi_snowflake_2);
+            builder.setContentTitle(title);
+            builder.setStyle(new Notification.BigTextStyle().bigText(contentText));
+            builder.setContentText(contentText);
+            builder.setTicker(title);
+            builder.setAutoCancel(true).build();
+    }
+
+    public static void initNotificationsChannel(Context context){
+        Log.d(TAG, "sendNotification: runnings");
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // The user-visible name of the channel.
+            CharSequence name = "RSI notifications";
+            // The user-visible description of the channel.
+            String description = "Notifications for RSI application";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+
+            NotificationChannel mChannel = new NotificationChannel(NOTIFICATIONS_CHANNEL, name, importance);
+            mChannel.setDescription(description);
+            //mChannel.enableLights(true);
+/*            mChannel.setLightColor(Color.RED);
+            mChannel.enableVibration(true);
+            mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});*/
+            NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+            mNotificationManager.createNotificationChannel(mChannel);
+        }
+    }
+
 
 }
