@@ -76,7 +76,6 @@ public class NavActivity extends AppCompatActivity
         Alarm.setAlarm(this); // starts the background task
 
         Notifications.initNotificationsChannel(this);
-        Notifications.sendNotification(this, "test", "test", 0);
 
         openLogin();
 
