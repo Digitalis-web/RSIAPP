@@ -16,7 +16,6 @@
   (Kan fixas genom man kan skrolla bland områderna)
 -[x] Visa inte områden som det inte finns data över området
 -[x] Syla Inlogning
--[x] Notificatione icon
 -[x] Sätta in en Ordentlig Logga
 -[ ] Notificatione [Icon](https://stackoverflow.com/questions/30795431/icon-not-displaying-in-notification-white-square-shown-instead)
 -[ ] tillbaka knapp för alla sidor
