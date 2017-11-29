@@ -22,7 +22,7 @@ public class Notifications {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.ic_menu_camera)
+                        .setSmallIcon(R.drawable.ic_notifications)
                         .setContentTitle(title)
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(contentText))
                         .setContentText(contentText)

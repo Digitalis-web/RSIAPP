@@ -2,6 +2,7 @@ package com.example.mo.rsiapp;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -467,4 +468,10 @@ public class ForecastFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    public void webWisit (View uri) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.roadstatus.info/app"));
+        startActivity(browserIntent);
+    }
+
 }
