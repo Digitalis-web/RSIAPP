@@ -2,41 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center"
     android:focusableInTouchMode="true"
-    >
+    android:gravity="center">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/container_spacing"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <Switch
             android:id="@+id/settings_item_check"
             style="@style/Switch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="19sp"
-             />
-
-        <!--<android.support.v7.widget.AppCompatCheckBox
-            android:id="@+id/settings_item_check"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="19sp"
-            android:textColor="@color/colorBlack"
-            />-->
-
+            android:textSize="19sp" />
 
         <SeekBar
-            style="@style/Switch"
             android:id="@+id/settings_slider"
+            style="@style/Switch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:max="100"
-            />
+            android:max="100" />
 
     </LinearLayout>
 

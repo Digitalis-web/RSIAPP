@@ -12,10 +12,24 @@
     <string name="accountKey">RSI-Nykel</string>
     <string name="notification">Notiser</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="enable_notifications">Aktivera notiser</string>
     <string name="title_activity_login">Sign in</string>
+
+    <string name="Logo">Logo</string>
+    <string name="Area">Bevakade områden</string>
+    <string name="settings">Inställningar</string>
+    <string name="search">Sök efter område</string>
+
+
+    <string name="nu">om 0h</string>
+    <string name="fore">om 4h</string>
+    <string name="eight">om 8h</string>
+    <string name="more">mer</string>
+    <string name="web">Mer detailjerad data</string>
+
+
+    <string name="loading">Laddar data...</string>
 
     <!-- Strings related to login -->
     <string name="error_invalid_email">Rsi-nykel finns inte</string>

@@ -14,7 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
@@ -22,7 +22,7 @@
                 android:layout_marginLeft="@dimen/container_spacing"
                 android:layout_marginRight="@dimen/container_spacing"
                 android:layout_marginTop="5dp"
-                android:text="Mitt konto"
+                android:text="@string/account"
                 android:textColor="@color/colorBlue"
                 android:textSize="25sp" />
 
@@ -39,7 +39,7 @@
                 android:layout_marginLeft="@dimen/container_spacing"
                 android:layout_marginRight="@dimen/container_spacing"
                 android:layout_marginTop="10dp"
-                android:text="RSI-Nykel"
+                android:text="@string/rsi_nykel"
                 android:textColor="@color/colorGraph1"
                 android:textSize="22sp" />
 
@@ -49,7 +49,7 @@
                 android:layout_marginLeft="@dimen/container_spacing"
                 android:layout_marginRight="@dimen/container_spacing"
                 android:layout_marginTop="5dp"
-                android:text="RSI-Nykel"
+                android:text="@string/rsi_nykel"
                 android:textColor="@color/colorGraph3"
                 android:textSize="18sp" />
 
@@ -62,7 +62,7 @@
                 android:layout_marginTop="10dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:text="Logga ut"
+                android:text="@string/logga_ut"
                 android:textColor="@color/colorGraph1"
                 android:textSize="22sp" />
 
@@ -72,7 +72,7 @@
                 android:layout_marginLeft="@dimen/container_spacing"
                 android:layout_marginRight="@dimen/container_spacing"
                 android:layout_marginTop="15dp"
-                android:text="Notiser"
+                android:text="@string/notification"
                 android:textColor="@color/colorBlue"
                 android:textSize="25sp" />
 
@@ -92,11 +92,10 @@
                 android:layout_marginLeft="@dimen/container_spacing"
                 android:layout_marginRight="@dimen/container_spacing"
                 android:layout_marginTop="10dp"
+                android:checked="true"
                 android:splitTrack="false"
                 android:text="@string/enable_notifications"
-                android:textSize="22sp"
-                android:checked="true"
-                />
+                android:textSize="22sp" />
 
             <LinearLayout
                 android:id="@+id/categories_settings_view"
@@ -115,7 +114,7 @@
                 android:layout_marginRight="60dp"
                 android:layout_marginTop="5dp"
                 android:background="@color/colorRed"
-                android:text="Spara"
+                android:text="@string/save"
                 android:textColor="@color/colorWhite"
                 android:textSize="15sp" />
         </LinearLayout>

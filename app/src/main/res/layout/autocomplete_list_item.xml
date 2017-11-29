@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/autocomplete_list_item"
     android:layout_width="match_parent"
     android:layout_height="44dp"
-    android:gravity="center_vertical"
 
-    android:ellipsize="end"
-    android:textColor="@color/colorBlack"
     android:background="@color/colorBlue"
-    android:id="@+id/autocomplete_list_item"
-    android:textSize="22sp"
+    android:ellipsize="end"
+    android:gravity="center_vertical"
     android:paddingLeft="24dp"
-    />
+    android:textColor="@color/colorBlack"
+    android:textSize="22sp" />
