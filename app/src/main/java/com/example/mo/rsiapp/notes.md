@@ -1,4 +1,4 @@
-# RLS:
+# RSI
 
 [**Areas**](http://163.172.101.14:8000/api//forecasts)
 

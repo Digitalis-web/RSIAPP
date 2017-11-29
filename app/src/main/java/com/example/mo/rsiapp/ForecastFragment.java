@@ -2,7 +2,6 @@ package com.example.mo.rsiapp;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -83,6 +82,7 @@ public class ForecastFragment extends Fragment {
     public ForecastFragment() {
         // Required empty public constructor
     }
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -129,11 +129,12 @@ public class ForecastFragment extends Fragment {
         }
 
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //setText("right");
-        View inflatedView = inflater.inflate(R.layout.fragment_forecast, container,false);
+        View inflatedView = inflater.inflate(R.layout.fragment_forecast, container, false);
         rootViewGroup = container;
 
         this.inflatedView = inflatedView;
@@ -160,7 +161,7 @@ public class ForecastFragment extends Fragment {
     }*/
 
     //
-    public void openSelectCategoryMenu(){
+    public void openSelectCategoryMenu() {
         CharSequence categories[] = availableCategoriesLabels.toArray(new String[availableCategoriesLabels.size()]);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -177,24 +178,24 @@ public class ForecastFragment extends Fragment {
     }
 
     //
-    public  HashMap<String, Long> getDataPoint(String category, long time){
+    public HashMap<String, Long> getDataPoint(String category, long time) {
 
         HashMap<String, Long> values = new HashMap<>();
         try {
             JSONObject data = viewedForecast.getDataForCategory(category);
             JSONArray seriesArray = data.getJSONArray("series");
 
-            for(int i = 0; i < seriesArray.length(); i++){
+            for (int i = 0; i < seriesArray.length(); i++) {
                 JSONObject seriesItem = seriesArray.getJSONObject(i);
                 String name = seriesItem.getString("name");
                 JSONArray seriesData = seriesItem.getJSONArray("data");
 
-                for(int n = 0; n < seriesData.length(); n++){
+                for (int n = 0; n < seriesData.length(); n++) {
                     JSONObject timePointObj = seriesData.getJSONObject(n);
                     long pointTime = timePointObj.getLong("x");
                     Long value = timePointObj.getLong("y");
 
-                    if(pointTime == time){
+                    if (pointTime == time) {
                         values.put(name, value);
                     }
 
@@ -209,7 +210,7 @@ public class ForecastFragment extends Fragment {
     }
 
     //
-    public void updateCharts(String category, View inflatedView){
+    public void updateCharts(String category, View inflatedView) {
         //String category = categories.get(0);
         HashMap<String, Long> chart1Values = viewedForecast.getDataPoint(category, FetchingManager.chartOneTime, null);
         HashMap<String, Long> chart2Values = viewedForecast.getDataPoint(category, FetchingManager.chartTwoTime, null);
@@ -246,12 +247,11 @@ public class ForecastFragment extends Fragment {
     }
 
     //
-    public void initComponents(View inflatedView){
+    public void initComponents(View inflatedView) {
 
-        chartOne   = inflatedView.findViewById(R.id.piChartOne);
-        chartTwo   = inflatedView.findViewById(R.id.piChartTwo);
+        chartOne = inflatedView.findViewById(R.id.piChartOne);
+        chartTwo = inflatedView.findViewById(R.id.piChartTwo);
         chartThree = inflatedView.findViewById(R.id.piChartThree);
-
 
         initPieChart(chartOne);
         initPieChart(chartTwo);
@@ -278,7 +278,6 @@ public class ForecastFragment extends Fragment {
         });
         //initCategoryButtons(inflatedView);
 
-
         String areaName = FetchingManager.getAreaNameFromID(areaID);
         TextView headerView = (TextView) inflatedView.findViewById(R.id.forecast_header);
         headerView.setText(areaName);
@@ -287,7 +286,7 @@ public class ForecastFragment extends Fragment {
     }
 
     //
-    private void initPieChart(PieChart chart){
+    private void initPieChart(PieChart chart) {
 
         Description desc = new Description();
         desc.setText("");
@@ -302,22 +301,21 @@ public class ForecastFragment extends Fragment {
     }
 
     // Removes the info items that explain the charts. Removes everything but the first element which is the title
-    private void removeAllInfoListItems(LinearLayout infoLayout){
+    private void removeAllInfoListItems(LinearLayout infoLayout) {
         //infoLayout.getView();
         int elementCount = infoLayout.getChildCount();
         Log.d(TAG, "removeAllInfoListItems: elementCount: " + elementCount);
         Log.d(TAG, "removeAllInfoListItems: layout: " + infoLayout);
-        for(int i = elementCount-1; i > 0; i--){
+        for (int i = elementCount - 1; i > 0; i--) {
             infoLayout.removeViewAt(i);
         }
     }
 
     // Adds a value to the list next to a chart that explains what each color on the chart represents
-    private void addInfoListItem(String label, int color, LinearLayout infoLayout){
+    private void addInfoListItem(String label, int color, LinearLayout infoLayout) {
         TextView labelView = (TextView) View.inflate(getContext(), R.layout.chart_list_item, null);
         labelView.setText(" " + label);
         infoLayout.addView(labelView);
-
 
 
         Drawable icon = ContextCompat.getDrawable(getActivity(), R.drawable.ic_circle).mutate();
@@ -328,7 +326,7 @@ public class ForecastFragment extends Fragment {
 
     }
 
-    private void setCategoryHeader(String category){
+    private void setCategoryHeader(String category) {
         String categoryLabel = DisplayInfoManager.getCategoryLabel(category);
         TextView categoryHeader = inflatedView.findViewById(R.id.forecast_category_header);
         categoryHeader.setText(categoryLabel);
@@ -348,25 +346,24 @@ public class ForecastFragment extends Fragment {
         int totalLength = this.routeLength;
 
         int i = 0;
-        for(String key : values.keySet()){
+        for (String key : values.keySet()) {
             long value = values.get(key);
 
             Log.d(TAG, "addDataSet: value : " + value);
             Log.d(TAG, "addDataSet: key : " + key);
-            if(category.equals("roadcondition")){
+            if (category.equals("roadcondition")) {
                 if (value > 0) {
                     yEntries.add(new PieEntry(value, i));
-                //xEntries.add(key);
+                    //xEntries.add(key);
                     int color = Integer.parseInt(DisplayInfoManager.getRoadConditionInfoByName(key, "color"));
                     String label = DisplayInfoManager.getRoadConditionInfoByName(key, "label");
                     //int color = Color.parseColor(hexColor);
                     colors.add(color);
                     addInfoListItem(label, color, infoLayout);
                 }
-            }
-            else if(category.equals("roadtreatment")) {
+            } else if (category.equals("roadtreatment")) {
                 // Juding from current application, the "Plough" layer is always 0 and is hidden
-                if(!key.equals("Plough") && value > 0) {
+                if (!key.equals("Plough") && value > 0) {
                     yEntries.add(new PieEntry(value, i));
                     totalLength -= value; // Calculates the remaining length for the route that have not been salted
                     String hexColor = DisplayInfoManager.getSaltColor(key);
@@ -375,10 +372,9 @@ public class ForecastFragment extends Fragment {
                     colors.add(color);
                     addInfoListItem(key, color, infoLayout);
                 }
-            }
-            else if(category.equals("roadtemperature")) {
+            } else if (category.equals("roadtemperature")) {
                 //Log.d(TAG, "addDataSet: key: " + key);
-                if(!key.equals("StdDev")){
+                if (!key.equals("StdDev")) {
                     addInfoListItem(key + ": " + value, Color.BLACK, infoLayout);
                 }
 
@@ -386,7 +382,7 @@ public class ForecastFragment extends Fragment {
             i++;
         }
 
-        if(category.equals("roadtreatment")) {
+        if (category.equals("roadtreatment")) {
             yEntries.add(new PieEntry(totalLength, i));
             int color = Color.YELLOW;
             colors.add(color);
@@ -402,7 +398,7 @@ public class ForecastFragment extends Fragment {
         PieData pieData = new PieData(pieDataSet);
         chart.setData(pieData);
 
-       // chart.setData(generateCenterText());
+        // chart.setData(generateCenterText());
 
         Legend legend = chart.getLegend();
         legend.setEnabled(false);
@@ -467,11 +463,6 @@ public class ForecastFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    public void webWisit (View uri) {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.roadstatus.info/app"));
-        startActivity(browserIntent);
     }
 
 }

@@ -135,7 +135,8 @@
             android:layout_height="wrap_content"/>
 
         <Button
-            android:id="@+id/button_RSI"
+            android:id="@+id/webBtn"
+            android:autoLink="web"
             style="@style/ForecastButton"
             android:background="@color/colorBlue"
             android:layout_width="match_parent"
@@ -145,7 +146,7 @@
             android:clickable="true"
             android:focusable="true"
             android:linksClickable="true"
-            android:onClick="webWisit"
+            android:onClick="launchRSI"
             />
 
     </LinearLayout>
