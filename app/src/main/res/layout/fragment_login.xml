@@ -1,6 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.mo.rsiapp.LoginFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="120dp"
@@ -8,7 +7,8 @@
     android:layout_marginRight="50dp"
     android:layout_marginTop="120dp"
     android:background="@color/colorWhite"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.example.mo.rsiapp.LoginFragment">
 
 
     <TextView
@@ -17,7 +17,7 @@
         android:layout_gravity="center"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="@string/ange_din_rsi_nyckel"
+        android:text="@string/submitRsi_Key"
         android:textColor="@color/colorGraph1"
         android:textSize="22sp" />
 
@@ -31,13 +31,12 @@
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/input_key"
-            android:inputType="text"
-            android:maxLines="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/rsi_nyckel"
+            android:hint="@string/rsi_Key"
             android:imeOptions="actionDone"
-            />
+            android:inputType="text"
+            android:maxLines="1" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -51,7 +50,7 @@
         android:layout_marginRight="60dp"
         android:layout_marginTop="5dp"
         android:background="@color/colorRed"
-        android:text="@string/logga_in"
+        android:text="@string/log_in"
         android:textColor="@color/colorWhite"
         android:textSize="15sp" />
 

@@ -47,7 +47,7 @@
                     style="@style/ChartListHeader"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/nu"
+                    android:text="@string/now"
                     android:textColor="@color/colorWhite" />
             </LinearLayout>
 
