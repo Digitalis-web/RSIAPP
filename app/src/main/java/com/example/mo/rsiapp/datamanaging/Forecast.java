@@ -321,7 +321,7 @@ public class Forecast {
                 String label = DisplayInfoManager.getLayerLabel(layer);
                 message +=  label + " har nått " + percent + "%\n";
             }
-            Notifications.sendNotification(Alarm.currentAlarmContext, "Ny prognos för " + areaName + " visar", message, Integer.parseInt(areaID));
+            Notifications.sendNotification(Alarm.currentAlarmContext, "Ny prognos för " + areaName + " visar", message, areaID);
             Log.d(TAG, "controlData: sending notification for " + areaName);
         }
 

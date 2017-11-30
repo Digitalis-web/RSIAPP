@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.example.mo.rsiapp.NavActivity;
 import com.example.mo.rsiapp.R;
+import com.example.mo.rsiapp.datamanaging.FetchingManager;
 
 /**
  * Created by mo on 19/11/17.
@@ -23,7 +24,7 @@ public class Notifications {
     public static final String NOTIFICATIONS_CHANNEL = "RSI_NOTIFICATIONS";
 
 
-    public static void sendNotification(Context context, String title, String contentText, int ID) {
+    public static void sendNotification(Context context, String title, String contentText, String areaID) {
 
         //String channelID = NotificationChannel.DEFAULT_CHANNEL_ID;
 
@@ -42,7 +43,7 @@ public class Notifications {
             builder = new Notification.Builder(context);
         }
 
-        initNotification(builder, title, contentText, context);
+        initNotification(builder, title, contentText, context, areaID);
         Notification notification = builder.build();
 
 /*        NotificationCompat.Builder mBuilder =
@@ -58,12 +59,16 @@ public class Notifications {
 
 
         // Gets an instance of the NotificationManager service//
-        mNotificationManager.notify(ID, notification);
+        mNotificationManager.notify(Integer.parseInt(areaID), notification);
     }
 
-    public static void initNotification(Notification.Builder builder, String title, String contentText, Context context){
+    public static void initNotification(Notification.Builder builder, String title, String contentText, Context context, String area_id){
         Intent resultIntent = new Intent(context, NavActivity.class);
+
+        resultIntent.putExtra("area_id", area_id);
+        resultIntent.putExtra("latest_forecast_time", FetchingManager.latestForecastTime);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
         builder.setContentIntent(resultPendingIntent);
         builder.setSmallIcon(R.drawable.ic_rsi_snowflake_2);
         builder.setContentTitle(title);

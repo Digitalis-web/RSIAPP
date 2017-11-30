@@ -24,8 +24,8 @@ import java.util.TimeZone;
 public class FetchingManager {
 
     private static String url = "http://163.172.101.14:8000/api/ogJu1VCu09HpHD6VbHX34jChdoKz2fR5/area/1427@1497772800";
-    private static String forecastUrl = "http://163.172.101.14:8000/api/ogJu1VCu09HpHD6VbHX34jChdoKz2fR5/area/";
-    //private static String forecastUrl = "http://163.172.101.14:8000/api/area/";
+    //private static String forecastUrl = "http://163.172.101.14:8000/api/ogJu1VCu09HpHD6VbHX34jChdoKz2fR5/area/";
+    private static String forecastUrl = "http://163.172.101.14:8000/api/area/";
     private static String areasUrl = "http://163.172.101.14:8000/api//forecasts";
     private static String TAG = "FetchingManager";
     public static ArrayList<String> areasName = new ArrayList<>();

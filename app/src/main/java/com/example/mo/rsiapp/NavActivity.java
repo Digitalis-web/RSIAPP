@@ -83,6 +83,15 @@ public class NavActivity extends AppCompatActivity
             openLogin();
         }
 
+        Intent intent = getIntent();
+        // if the application is opened by clicking on a notification
+        if(intent.hasExtra("area_id") && intent.hasExtra("latest_forecast_time")){
+            String areaID = intent.getStringExtra("area_id");
+            long forecastTime = intent.getLongExtra("latest_forecast_time", FetchingManager.latestForecastTime);
+            FetchingManager.fetchForecast(areaID, forecastTime, JSONFetcher.FETCH_FORECAST);
+
+        }
+
 
     }
 

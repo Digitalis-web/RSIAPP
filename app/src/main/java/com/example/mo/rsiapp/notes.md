@@ -18,10 +18,10 @@
 -[x] Syla Inlogning
 -[x] Sätta in en Ordentlig Logga
 -[x] Inlogning med RSI nyckel
+-[x] När man öppnar appen för första gången är det innlognings rutan
 -[ ] Verfiera NSI nyckel
 -[ ] Notificatione [Icon](https://stackoverflow.com/questions/30795431/icon-not-displaying-in-notification-white-square-shown-instead)
 -[ ] tillbaka knapp för alla sidor
--[ ] När man öppnar appen för första gången är det innlognings rutan
 -[ ] När man har öppnat appen mer än en gång så visas det översta bevakade områdets väglag som första skärm
 -[ ] default setting Varna för alt förutom tort som är över 50%
 -[ ] error när man inte är ansluten till internet eller servern inte går att nå
