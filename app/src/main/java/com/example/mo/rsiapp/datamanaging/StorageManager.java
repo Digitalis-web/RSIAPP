@@ -19,7 +19,7 @@ public class StorageManager {
     public static final String LAST_CONTROLLED_FORECAST_KEY =  "lastForecast";
     public static final String SETTINGS_KEY =  "settings";
     public static final String NOTIFICATIONS_ENABLED_KEY =  "notifications";
-    public static final String RSI_KEY_KEY =  "notifications";
+    public static final String RSI_KEY_KEY =  "rsi_key";
     public static final String TAG =  "StorageManager";
 
     public static final String PREF_NAME =  "areasData";

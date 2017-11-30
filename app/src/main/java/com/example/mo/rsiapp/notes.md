@@ -17,9 +17,10 @@
 -[x] Visa inte områden som det inte finns data över området
 -[x] Syla Inlogning
 -[x] Sätta in en Ordentlig Logga
+-[x] Inlogning med RSI nyckel
+-[ ] Verfiera NSI nyckel
 -[ ] Notificatione [Icon](https://stackoverflow.com/questions/30795431/icon-not-displaying-in-notification-white-square-shown-instead)
 -[ ] tillbaka knapp för alla sidor
--[ ] Inlogning med RSI Nykel
 -[ ] När man öppnar appen för första gången är det innlognings rutan
 -[ ] När man har öppnat appen mer än en gång så visas det översta bevakade områdets väglag som första skärm
 -[ ] default setting Varna för alt förutom tort som är över 50%
@@ -29,7 +30,7 @@
 -[ ] När man klickar på notis så öppnas prognosen för det området
 -[ ] Göra så inställningar sparas utan att man behöver klicka spara
 -[ ] Tiderna på prognos
--[ ] Startsida?
+
 
 ### Settings
 -[x] Gör att hela settings sidan går att skrolla i inte bara notiser

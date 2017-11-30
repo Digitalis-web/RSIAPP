@@ -25,6 +25,7 @@ public class FetchingManager {
 
     private static String url = "http://163.172.101.14:8000/api/ogJu1VCu09HpHD6VbHX34jChdoKz2fR5/area/1427@1497772800";
     private static String forecastUrl = "http://163.172.101.14:8000/api/ogJu1VCu09HpHD6VbHX34jChdoKz2fR5/area/";
+    //private static String forecastUrl = "http://163.172.101.14:8000/api/area/";
     private static String areasUrl = "http://163.172.101.14:8000/api//forecasts";
     private static String TAG = "FetchingManager";
     public static ArrayList<String> areasName = new ArrayList<>();
@@ -107,12 +108,12 @@ public class FetchingManager {
         }
     }
 
-
-
     public static long getClosestHourTime(){
-        //long unixTime = System.currentTimeMillis() / 1000L;
-        long unixTime = latestForecastTime+3600;
+        long unixTime = System.currentTimeMillis() / 1000L;
+        //long unixTime = latestForecastTime+3600;
         //Log.d(TAG, "getClosestHourTime: unixTime: " + unixTime);
+        Log.d(TAG, "getClosestHourTime: time: " + unixTime );
+        Log.d(TAG, "getClosestHourTime: time: " + unixToHumanTime(unixTime));
 
         long hourRest = unixTime % 3600;
         long closestHourTime = unixTime - hourRest; // Floored hour
@@ -130,6 +131,9 @@ public class FetchingManager {
         chartOneTimeLabel = unixToHumanTime(chartOneTime);
         chartTwoTimeLabel = unixToHumanTime(chartTwoTime);
         chartThreeTimeLabel = unixToHumanTime(chartThreeTime);
+
+        Log.d(TAG, "getClosestHourTime: usingtime: " + unixToHumanTime(closestHourTime));
+        Log.d(TAG, "getClosestHourTime: usingtime: " + (closestHourTime));
 
         return closestHourTime;
     }
