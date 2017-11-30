@@ -11,4 +11,5 @@
     <dimen name="chart_list_item_spacing">50dp</dimen>
     <dimen name="nav_item_spacing">20dp</dimen>
     <dimen name="category_button_spacing">2dp</dimen>
+    <dimen name="piChart_spacing">10dp</dimen>
 </resources>

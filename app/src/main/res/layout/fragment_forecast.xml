@@ -55,6 +55,7 @@
                 android:id="@+id/piChartOne"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_margin="@dimen/piChart_spacing"
                 android:layout_weight="3" />
         </LinearLayout>
 
@@ -86,6 +87,7 @@
                 android:id="@+id/piChartTwo"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_margin="@dimen/piChart_spacing"
                 android:layout_weight="3" />
         </LinearLayout>
 
@@ -117,6 +119,7 @@
                 android:id="@+id/piChartThree"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_margin="@dimen/piChart_spacing"
                 android:layout_weight="3" />
         </LinearLayout>
 

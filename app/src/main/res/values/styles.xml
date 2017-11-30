@@ -12,6 +12,14 @@
         <item name="actionBarSize">75dp</item>
     </style>
 
+    <style name="start_Fragment">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+    </style>
+
     <style name="Switch">
         <item name="android:textColor">@color/colorGraph1</item>
     </style>

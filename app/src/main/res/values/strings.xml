@@ -21,13 +21,15 @@
     <string name="settings">Inställningar</string>
     <string name="search">Sök efter område</string>
 
+    <string name="welcome">Välkommen till RSI</string>
+    <string name="NoArea">Du bevakar inga områden. Sök efter ett nytt område att bevaka</string>
+
 
     <string name="now">om 0h</string>
     <string name="fore">om 4h</string>
     <string name="eight">om 8h</string>
     <string name="more">Mer</string>
     <string name="web">Mer detailjerad data</string>
-
 
     <string name="loading">Laddar data...</string>
 
