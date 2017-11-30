@@ -31,8 +31,7 @@
 -[ ] Verfiera NSI nyckel
 -[ ] Uppdatera tiden för senaste prognos om man haft appen uppe länge
 -[ ] Fixa något för yttemperatur
-
-
+-[ ] göra så man kan organisera om bevakade områden.
 
 ### Settings
 -[x] Gör att hela settings sidan går att skrolla i inte bara notiser
