@@ -39,22 +39,23 @@
                 android:layout_marginLeft="@dimen/container_spacing"
                 android:layout_marginRight="@dimen/container_spacing"
                 android:layout_marginTop="10dp"
-                android:text="@string/rsi_nykel"
+                android:text="@string/rsi_nyckel"
                 android:textColor="@color/colorGraph1"
                 android:textSize="22sp" />
 
             <TextView
+                android:id="@+id/rsi_key_settings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/container_spacing"
                 android:layout_marginRight="@dimen/container_spacing"
                 android:layout_marginTop="5dp"
-                android:text="@string/rsi_nykel"
+                android:text="@string/rsi_nyckel"
                 android:textColor="@color/colorGraph3"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/logout"
+                android:id="@+id/change_rsi_key"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/container_spacing"
@@ -62,7 +63,7 @@
                 android:layout_marginTop="10dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:text="@string/logga_ut"
+                android:text="@string/change_rsi_key"
                 android:textColor="@color/colorGraph1"
                 android:textSize="22sp" />
 

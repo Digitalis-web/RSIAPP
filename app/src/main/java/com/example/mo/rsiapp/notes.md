@@ -26,6 +26,10 @@
 -[ ] error när man inte är ansluten till internet eller servern inte går att nå
 -[ ] Ta bort alarm rutan
 -[ ] hämta data varje 20de minut istället för varje minut
+-[ ] När man klickar på notis så öppnas prognosen för det området
+-[ ] Göra så inställningar sparas utan att man behöver klicka spara
+-[ ] Tiderna på prognos
+-[ ] Startsida?
 
 ### Settings
 -[x] Gör att hela settings sidan går att skrolla i inte bara notiser

@@ -16,8 +16,8 @@
     <string name="enable_notifications">Aktivera notiser</string>
     <string name="title_activity_login">Sign in</string>
 
-    <string name="Logo">Logo</string>
-    <string name="Area">Bevakade områden</string>
+    <string name="logo">Logo</string>
+    <string name="area">Bevakade områden</string>
     <string name="settings">Inställningar</string>
     <string name="search">Sök efter område</string>
 
@@ -25,17 +25,18 @@
     <string name="nu">om 0h</string>
     <string name="fore">om 4h</string>
     <string name="eight">om 8h</string>
-    <string name="more">mer</string>
+    <string name="more">Mer</string>
     <string name="web">Mer detailjerad data</string>
 
 
     <string name="loading">Laddar data...</string>
 
     <!-- Strings related to login -->
-    <string name="error_invalid_email">Rsi-nykel finns inte</string>
+    <string name="error_invalid_email">Rsi-ncykel finns inte</string>
     <string name="error_field_required">Det här fältet är obligatoriskt</string>
     <string name="logga_in">Logga in</string>
     <string name="logga_ut">Logga ut</string>
-    <string name="ange_din_rsi_nykel">Ange din Rsi-nykel</string>
-    <string name="rsi_nykel">RSI-Nykel</string>
+    <string name="ange_din_rsi_nyckel">Ange din RSI-nyckel</string>
+    <string name="change_rsi_key">Ändra nyckel</string>
+    <string name="rsi_nyckel">RSI-Nyckel</string>
 </resources>

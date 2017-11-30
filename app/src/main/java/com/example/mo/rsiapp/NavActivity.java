@@ -113,7 +113,7 @@ public class NavActivity extends AppCompatActivity
         for (NavAreaItem navItem : navAreaItems) {
             View row  = inflater.inflate(R.layout.nav_area_item, navDrawerList, false);
 
-            TextView name = (TextView) row.findViewById(R.id.nav_item_header);
+            TextView name = row.findViewById(R.id.nav_item_header);
             name.setText(navItem.getName());
             navDrawerList.addView(row);
             row.setOnClickListener(navItem);

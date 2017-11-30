@@ -125,9 +125,7 @@ public class ForecastFragment extends Fragment {
                 availableCategories.add(category);
                 availableCategoriesLabels.add(DisplayInfoManager.getCategoryLabel(category));
             }
-
         }
-
     }
 
     @Override
@@ -266,7 +264,7 @@ public class ForecastFragment extends Fragment {
 
         updateCharts(viewedForecast.categories.get(0), inflatedView);
 
-        final WatchAreaButton watchButton = (WatchAreaButton) inflatedView.findViewById(R.id.watch_area_button);
+        final WatchAreaButton watchButton = inflatedView.findViewById(R.id.watch_area_button);
         watchButton.init(areaID);
 
         final Button categoriesButton = (Button) inflatedView.findViewById(R.id.select_category_button);

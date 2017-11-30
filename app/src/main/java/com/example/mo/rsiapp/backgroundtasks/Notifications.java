@@ -56,24 +56,21 @@ public class Notifications {
 
         //mBuilder.build().flags |= Notification.FLAG_AUTO_CANCEL;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Log.d(TAG, "initNotificationsChannel: " + mNotificationManager.getNotificationChannel(NOTIFICATIONS_CHANNEL).getId());
-        }
 
         // Gets an instance of the NotificationManager service//
         mNotificationManager.notify(ID, notification);
     }
 
     public static void initNotification(Notification.Builder builder, String title, String contentText, Context context){
-            Intent resultIntent = new Intent(context, NavActivity.class);
-            PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            builder.setContentIntent(resultPendingIntent);
-            builder.setSmallIcon(R.drawable.ic_rsi_snowflake_2);
-            builder.setContentTitle(title);
-            builder.setStyle(new Notification.BigTextStyle().bigText(contentText));
-            builder.setContentText(contentText);
-            builder.setTicker(title);
-            builder.setAutoCancel(true).build();
+        Intent resultIntent = new Intent(context, NavActivity.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(resultPendingIntent);
+        builder.setSmallIcon(R.drawable.ic_rsi_snowflake_2);
+        builder.setContentTitle(title);
+        builder.setStyle(new Notification.BigTextStyle().bigText(contentText));
+        builder.setContentText(contentText);
+        builder.setTicker(title);
+        builder.setAutoCancel(true).build();
     }
 
     public static void initNotificationsChannel(Context context){

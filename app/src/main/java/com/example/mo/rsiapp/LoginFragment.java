@@ -3,10 +3,15 @@ package com.example.mo.rsiapp;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.example.mo.rsiapp.datamanaging.StorageManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +30,11 @@ public class LoginFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
+
+    private static final String TAG = "LoginFragment";
+
+    private View inflatedView;
+    private TextInputEditText inputField;
 
     private OnFragmentInteractionListener mListener;
 
@@ -61,8 +71,12 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View inflatedView = inflater.inflate(R.layout.fragment_login, container, false);
+        this.inflatedView = inflatedView;
+        initComponents();
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        return inflatedView;
     }
 
     public void onButtonPressed(Uri uri) {
@@ -80,6 +94,29 @@ public class LoginFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    public void initComponents(){
+        Button loginBtn = inflatedView.findViewById(R.id.login_btn);
+        this.inputField = inflatedView.findViewById(R.id.input_key);
+
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                loginClicked();
+            }
+        });
+    }
+
+    public void loginClicked() {
+        String key = String.valueOf(inputField.getText());
+        Log.d(TAG, "loginClicked: " + key);
+
+        if(!key.isEmpty()) {
+            StorageManager.saveRSIKey(key);
+        }
+
     }
 
     @Override

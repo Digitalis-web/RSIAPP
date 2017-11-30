@@ -13,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.example.mo.rsiapp.customviews.SettingsItem;
 import com.example.mo.rsiapp.datamanaging.StorageManager;
@@ -105,6 +106,17 @@ public class SettingsFragment extends Fragment  implements CheckBox.OnCheckedCha
             @Override
             public void onClick(View view) {
                 saveSettings();
+            }
+        });
+
+        TextView RSIKeyText = inflatedView.findViewById(R.id.rsi_key_settings);
+        RSIKeyText.setText(StorageManager.getRSIKey());
+
+        TextView changeRsiKeyText = inflatedView.findViewById(R.id.change_rsi_key);
+        changeRsiKeyText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavActivity.navActivity.openLogin();
             }
         });
 

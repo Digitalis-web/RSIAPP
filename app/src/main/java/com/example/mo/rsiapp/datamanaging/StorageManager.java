@@ -19,6 +19,7 @@ public class StorageManager {
     public static final String LAST_CONTROLLED_FORECAST_KEY =  "lastForecast";
     public static final String SETTINGS_KEY =  "settings";
     public static final String NOTIFICATIONS_ENABLED_KEY =  "notifications";
+    public static final String RSI_KEY_KEY =  "notifications";
     public static final String TAG =  "StorageManager";
 
     public static final String PREF_NAME =  "areasData";
@@ -28,6 +29,13 @@ public class StorageManager {
         String enabledStr = getString(NOTIFICATIONS_ENABLED_KEY, context);
         boolean enabled = enabledStr.equals("1");
         return enabled;
+    }
+
+    public static String getRSIKey(){
+        return getString(RSI_KEY_KEY);
+    }
+    public static void saveRSIKey(String key){
+        saveString(RSI_KEY_KEY, key);
     }
 
     public static void saveNotificationsEnabled(boolean enabled){
