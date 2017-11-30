@@ -22,7 +22,7 @@
     <string name="search">Sök efter område</string>
 
 
-    <string name="nu">om 0h</string>
+    <string name="now">om 0h</string>
     <string name="fore">om 4h</string>
     <string name="eight">om 8h</string>
     <string name="more">Mer</string>
@@ -34,9 +34,9 @@
     <!-- Strings related to login -->
     <string name="error_invalid_email">Rsi-ncykel finns inte</string>
     <string name="error_field_required">Det här fältet är obligatoriskt</string>
-    <string name="logga_in">Logga in</string>
-    <string name="logga_ut">Logga ut</string>
-    <string name="ange_din_rsi_nyckel">Ange din RSI-nyckel</string>
+    <string name="log_in">Logga in</string>
+    <string name="log_out">Logga ut</string>
+    <string name="submitRsi_Key">Ange din RSI-nyckel</string>
     <string name="change_rsi_key">Ändra nyckel</string>
-    <string name="rsi_nyckel">RSI-Nyckel</string>
+    <string name="rsi_Key">RSI-Nyckel</string>
 </resources>
