@@ -23,9 +23,11 @@
 -[x] error när man inte är ansluten till internet eller servern inte går att nå
 -[x] default setting Varna för alt förutom tort som är över 50%
 -[x] Göra så inställningar sparas utan att man behöver klicka spara
+-[x] Fragmet_Start visar text att du inte bevakar något område
 -[ ] tillbaka knapp för alla sidor
 -[ ] ? Notificatione [Icon](https://stackoverflow.com/questions/30795431/icon-not-displaying-in-notification-white-square-shown-instead)
 -[ ] När man har öppnat appen mer än en gång så visas det översta bevakade områdets väglag som första skärm
+-[ ] Sätta in att när man loggat in och inte bevakar något område visas ´fragment_start´
 -[ ] Ta bort alarm rutan
 -[ ] hämta data varje 20de minut istället för varje minut
 -[ ] Verfiera NSI nyckel
