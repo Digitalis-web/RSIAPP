@@ -15,10 +15,11 @@
 -[x] inställningar knappen syns inte när listan av bevakande områden blir för lång
   (Kan fixas genom man kan skrolla bland områderna)
 -[x] Visa inte områden som det inte finns data över området
--[x] Syla Inlogning
+-[x] Styla Inlogning
 -[x] Sätta in en Ordentlig Logga
 -[x] Inlogning med RSI nyckel
 -[x] När man öppnar appen för första gången är det innlognings rutan
+-[x] När man klickar på notis så öppnas prognosen för det området
 -[ ] Verfiera NSI nyckel
 -[ ] Notificatione [Icon](https://stackoverflow.com/questions/30795431/icon-not-displaying-in-notification-white-square-shown-instead)
 -[ ] tillbaka knapp för alla sidor
@@ -27,7 +28,6 @@
 -[ ] error när man inte är ansluten till internet eller servern inte går att nå
 -[ ] Ta bort alarm rutan
 -[ ] hämta data varje 20de minut istället för varje minut
--[ ] När man klickar på notis så öppnas prognosen för det området
 -[ ] Göra så inställningar sparas utan att man behöver klicka spara
 -[ ] Tiderna på prognos
 

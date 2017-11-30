@@ -45,6 +45,7 @@ public class Notifications {
 
         initNotification(builder, title, contentText, context, areaID);
         Notification notification = builder.build();
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
 /*        NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
@@ -67,7 +68,8 @@ public class Notifications {
 
         resultIntent.putExtra("area_id", area_id);
         resultIntent.putExtra("latest_forecast_time", FetchingManager.latestForecastTime);
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, Integer.parseInt(area_id), resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         builder.setContentIntent(resultPendingIntent);
         builder.setSmallIcon(R.drawable.ic_rsi_snowflake_2);
