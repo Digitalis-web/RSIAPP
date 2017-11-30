@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -48,7 +47,9 @@ public class SettingsFragment extends Fragment  implements CheckBox.OnCheckedCha
     private OnFragmentInteractionListener mListener;
     private boolean notificationsEnabled = true;
 
-    private ArrayList<String> availableLayers = new ArrayList<String>(){{
+    public static SettingsFragment settingsFragment;
+
+    private static ArrayList<String> availableLayers = new ArrayList<String>(){{
         add("Slipperiness");
         add("Hazardous");
         add("Moist");
@@ -56,14 +57,6 @@ public class SettingsFragment extends Fragment  implements CheckBox.OnCheckedCha
         add("LightSnow");
         add("Snow");
         add("DriftingSnow");
-/*        settingsItems.add(new SettingsItem("Slipperiness"));
-        settingsItems.add(new SettingsItem("Hazardous"));
-        settingsItems.add(new SettingsItem("Moist"));
-        settingsItems.add(new SettingsItem("Wet"));
-        settingsItems.add(new SettingsItem("LightSnow"));
-        settingsItems.add(new SettingsItem("Snow"));
-        settingsItems.add(new SettingsItem("DriftingSnow"));*/
-
     }};
 
 
@@ -74,6 +67,7 @@ public class SettingsFragment extends Fragment  implements CheckBox.OnCheckedCha
 
     public static SettingsFragment newInstance() {
         SettingsFragment fragment = new SettingsFragment();
+        settingsFragment = fragment;
         return fragment;
     }
 
@@ -98,16 +92,16 @@ public class SettingsFragment extends Fragment  implements CheckBox.OnCheckedCha
 
     public void initComponents(){
         initCategorySettings();
-        Button saveButton = inflatedView.findViewById(R.id.save_settings_button);
+        //Button saveButton = inflatedView.findViewById(R.id.save_settings_button);
 
         setupEnableNotificationsCheckBox();
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
+/*        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 saveSettings();
             }
-        });
+        });*/
 
         TextView RSIKeyText = inflatedView.findViewById(R.id.rsi_key_settings);
         RSIKeyText.setText(StorageManager.getRSIKey());
@@ -122,6 +116,20 @@ public class SettingsFragment extends Fragment  implements CheckBox.OnCheckedCha
 
     }
 
+    // sets a default value to settings if there are no settings set. Should only happen the first time user launches the app
+    public static void initDefaultSettingsIfNonExists(){
+        if(StorageManager.getSettings().isEmpty()){
+            Set<String> settingsSet = new HashSet<>();
+            Log.d(TAG, "initDefaultSettingsIfNonExists: settings do not exist");
+            for(String layer : availableLayers){
+                String saveString = buildSaveString(layer, "1", "30");
+                settingsSet.add(saveString);
+            }
+            StorageManager.saveSettings(settingsSet);
+            StorageManager.saveNotificationsEnabled(true);
+        }
+    }
+
     public void setupEnableNotificationsCheckBox(){
         enableNotificationsheckBox = inflatedView.findViewById(R.id.enable_notifications);
         enableNotificationsheckBox.setOnCheckedChangeListener(this);
@@ -130,6 +138,11 @@ public class SettingsFragment extends Fragment  implements CheckBox.OnCheckedCha
         notificationsEnabled = enabled;
         enableNotificationsheckBox.setChecked(enabled);
 
+    }
+
+    public static String buildSaveString(String name, String enabled, String value){
+        String saveString = name + "," + enabled + "," + value;
+        return saveString;
     }
 
     public void saveSettings(){
@@ -144,7 +157,7 @@ public class SettingsFragment extends Fragment  implements CheckBox.OnCheckedCha
             String name = item.getName();
             String enabled = item.isEnabled() ? "1" : "0";
             String value = String.valueOf(item.getSliderValue());
-            String saveString = name + "," + enabled + "," + value;
+            String saveString = buildSaveString(name, enabled, value);
 
 /*            Log.d(TAG, "-------------------------------");
             Log.d(TAG, "saveSettings: name: " + name);
@@ -186,30 +199,20 @@ public class SettingsFragment extends Fragment  implements CheckBox.OnCheckedCha
                 SettingsItem item = settingsItemMap.get(name);
                 Log.d(TAG, "initCategorySettings: getting + " + name);
                 item.setSavedValues(enabled, value);
-/*                savedEnabled = enabled;
-                savedSliderValue = value;*/
             }
 
 
         }
 
         LinearLayout categoriesView = inflatedView.findViewById(R.id.categories_settings_view);
-        //categoriesView.setAdapter(new SettingsItemAdapterOld(inflatedView.getContext(), settingsItems, categoriesView));
 
-        //    navDrawerList = (LinearLayout) findViewById(R.id.nav_view);
         categoriesView.removeAllViews();
-        //navDrawerList.setAdapter(new NavAreaItemAdapter(this, navAreaItems, navDrawerList));
         LayoutInflater inflater = LayoutInflater.from(getContext());
 
         for (SettingsItem settingsItem : settingsItems) {
             View row  = inflater.inflate(R.layout.settings_item, categoriesView, false);
 
-/*            TextView name = (TextView) row.findViewById(R.id.nav_item_header);
-            name.setText(settingsItem.getName());
-            navDrawerList.addView(row);
-            row.setOnClickListener(navItem);*/
             settingsItem.initComponents(row);
-            settingsItem.setFromSavedSettings();
             categoriesView.addView(row);
         }
 
@@ -242,6 +245,7 @@ public class SettingsFragment extends Fragment  implements CheckBox.OnCheckedCha
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         this.notificationsEnabled = b;
+        saveSettings();
     }
 
     public interface OnFragmentInteractionListener {

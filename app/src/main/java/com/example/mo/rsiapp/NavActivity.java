@@ -83,6 +83,9 @@ public class NavActivity extends AppCompatActivity
             openLogin();
         }
 
+        //StorageManager.clearSettings();
+        SettingsFragment.initDefaultSettingsIfNonExists(); // inits default settings if there are no settings
+
         Intent intent = getIntent();
         // if the application is opened by clicking on a notification
         if(intent.hasExtra("area_id") && intent.hasExtra("latest_forecast_time")){
@@ -94,7 +97,6 @@ public class NavActivity extends AppCompatActivity
         }
         else {
             Alarm.setAlarm(this); // starts the background task
-
         }
 
 
@@ -114,7 +116,7 @@ public class NavActivity extends AppCompatActivity
         navDrawer.closeDrawers();
     }
 
-    public void updateNavItems() {
+    public void updateNavItems() { // updates the list of watched areas
         Set<String> watchedAreas = StorageManager.getWatchedAreas();
         ArrayList<NavAreaItem> navAreaItems = new ArrayList<>();
 

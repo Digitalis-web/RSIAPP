@@ -87,6 +87,11 @@ public class StorageManager {
         NavActivity.navActivity.updateNavItems();
     }
 
+    public static void clearSettings() {
+        Set<String> set = new HashSet<>();
+        saveStringSet(SETTINGS_KEY, set);
+        saveString(NOTIFICATIONS_ENABLED_KEY, "");
+    }
 
     public static void clearWatchedAreas() {
         Set<String> set = new HashSet<>();

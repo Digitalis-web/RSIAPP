@@ -56,26 +56,27 @@ public class FetchingManager {
     }
 
     public static void parseAreasData(JSONObject data, boolean updateUI) {
-        Log.d(TAG, "parseAreasData: " + data.toString());
-        areasID.clear();
-        areasName.clear();
-        try {
+        //Log.d(TAG, "parseAreasData: " + data.toString());
+        if(data != null) { // if no data was fetched
+            areasID.clear();
+            areasName.clear();
+            try {
 
-            JSONArray areasArr = data.getJSONArray("areas");
+                JSONArray areasArr = data.getJSONArray("areas");
 
-            Log.d(TAG, "parseAreasData: areas" + areasArr.toString());
-            for(int i = 0; i < areasArr.length(); i++){
-                JSONObject obj = areasArr.getJSONObject(i);
-                areasName.add(obj.get("name").toString());
-                areasID.add(obj.get("id").toString());
-                //Log.d(TAG, "parseAreasData: id: " + obj.get("id"));
-                //Log.d(TAG, "parseAreasData: name: " + obj.get("name"));
-            }
+                Log.d(TAG, "parseAreasData: areas" + areasArr.toString());
+                for (int i = 0; i < areasArr.length(); i++) {
+                    JSONObject obj = areasArr.getJSONObject(i);
+                    areasName.add(obj.get("name").toString());
+                    areasID.add(obj.get("id").toString());
+                    //Log.d(TAG, "parseAreasData: id: " + obj.get("id"));
+                    //Log.d(TAG, "parseAreasData: name: " + obj.get("name"));
+                }
 
-            JSONArray forecastsObj = data.getJSONArray("forecasts");
+                JSONArray forecastsObj = data.getJSONArray("forecasts");
 
-            JSONObject obj = forecastsObj.getJSONObject(0);
-            latestForecastTime = Long.parseLong(obj.get("creation_time").toString());
+                JSONObject obj = forecastsObj.getJSONObject(0);
+                latestForecastTime = Long.parseLong(obj.get("creation_time").toString());
 /*            for(int i = 0; i < forecastsObj.length(); i++) {
                 JSONObject obj = forecastsObj.getJSONObject(i);
 
@@ -84,16 +85,22 @@ public class FetchingManager {
                 Log.d(TAG, "parseAreasData: lastforecast: " + latestForecastTime);
             }*/
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-        if(updateUI) {
-            NavActivity.navActivity.updateNavItems();
-            NavActivity.searchBar.updateList(areasName);
+            if (updateUI) {
+                NavActivity.navActivity.updateNavItems();
+                NavActivity.searchBar.updateList(areasName);
+            } else {
+                checkForNewForecast();
+            }
         }
         else {
-            checkForNewForecast();
+            if(updateUI){
+                NavActivity.navActivity.displayError("Anslutning misslyckades", "Kunde inte hämta data, vänligen kontrollera internetanslutningen och försök igen");
+            }
+
         }
     }
 

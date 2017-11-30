@@ -93,6 +93,7 @@
                 android:layout_marginLeft="@dimen/container_spacing"
                 android:layout_marginRight="@dimen/container_spacing"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/container_spacing"
                 android:checked="true"
                 android:splitTrack="false"
                 android:text="@string/enable_notifications"
@@ -105,7 +106,7 @@
                 android:layout_weight="1"
                 android:orientation="vertical" />
 
-            <android.support.v7.widget.AppCompatButton
+            <!--<android.support.v7.widget.AppCompatButton
                 android:id="@+id/save_settings_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -117,7 +118,7 @@
                 android:background="@color/colorRed"
                 android:text="@string/save"
                 android:textColor="@color/colorWhite"
-                android:textSize="15sp" />
+                android:textSize="15sp" />-->
         </LinearLayout>
     </ScrollView>
 

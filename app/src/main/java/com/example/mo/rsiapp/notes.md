@@ -20,16 +20,16 @@
 -[x] Inlogning med RSI nyckel
 -[x] När man öppnar appen för första gången är det innlognings rutan
 -[x] När man klickar på notis så öppnas prognosen för det området
--[ ] Verfiera NSI nyckel
--[ ] Notificatione [Icon](https://stackoverflow.com/questions/30795431/icon-not-displaying-in-notification-white-square-shown-instead)
+-[x] error när man inte är ansluten till internet eller servern inte går att nå
+-[x] default setting Varna för alt förutom tort som är över 50%
+-[x] Göra så inställningar sparas utan att man behöver klicka spara
 -[ ] tillbaka knapp för alla sidor
+-[ ] Tiderna på prognos
+-[ ] ? Notificatione [Icon](https://stackoverflow.com/questions/30795431/icon-not-displaying-in-notification-white-square-shown-instead)
 -[ ] När man har öppnat appen mer än en gång så visas det översta bevakade områdets väglag som första skärm
--[ ] default setting Varna för alt förutom tort som är över 50%
--[ ] error när man inte är ansluten till internet eller servern inte går att nå
 -[ ] Ta bort alarm rutan
 -[ ] hämta data varje 20de minut istället för varje minut
--[ ] Göra så inställningar sparas utan att man behöver klicka spara
--[ ] Tiderna på prognos
+-[ ] Verfiera NSI nyckel
 
 
 ### Settings

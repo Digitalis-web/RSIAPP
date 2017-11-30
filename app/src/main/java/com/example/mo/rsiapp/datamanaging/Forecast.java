@@ -219,6 +219,7 @@ public class Forecast {
 
         ArrayList<String> notifyLayers = new ArrayList<>(); // the layers that are over the threshold
         ArrayList<Integer> notifyValues = new ArrayList<>();
+        ArrayList<String> notifyTimes = new ArrayList<>();
 
 
         ArrayList<Long> controlTimes = new ArrayList<Long>(){{
@@ -232,6 +233,7 @@ public class Forecast {
         for(int n = 0; n < controlTimes.size(); n++) {
             long time = controlTimes.get(n);
             HashMap<String, Long> dataPoints =  getDataPoint("roadcondition", time, trackedAreasValues.keySet());
+            String timeLabel = FetchingManager.unixToHumanTime(time);
 /*            Log.d(TAG, "controlData: datapoints: " + dataPoints.toString());
             Log.d(TAG, "controlData: --------------------------------" + time);*/
 
@@ -243,10 +245,11 @@ public class Forecast {
                 int maxValue = trackedAreasValues.get(layer);
                 if(percent > 0){
                     if(percent >= maxValue){
-                        if(!notifyLayers.contains(layer)) {
-                            notifyLayers.add(layer);
-                            notifyValues.add(percent);
-                        }
+                        //if(!notifyLayers.contains(layer)) {
+                        notifyLayers.add(layer);
+                        notifyValues.add(percent);
+                        notifyTimes.add(timeLabel);
+                        //}
                     }
                 }
 
@@ -261,55 +264,6 @@ public class Forecast {
 
 
         }
-/*            for(int i = 0; i < seriesArray.length(); i++){
-            JSONObject seriesItem = seriesArray.getJSONObject(i);
-            String layer = seriesItem.getString("name");
-            JSONArray seriesData = seriesItem.getJSONArray("data");
-
-            Set<String> trackedLayers = trackedAreasValues.keySet();
-
-
-            // if current layer is tracked
-            if(trackedLayers.contains(layer)) {
-                int maxValue = trackedAreasValues.get(layer);
-
-
-*//*                    for (int n = 0; n < seriesData.length(); n++) {
-                    JSONObject timePointObj = seriesData.getJSONObject(n);
-                    long pointTime = timePointObj.getLong("x");
-
-                    if (pointTime >= currentTime) { // only checks the future
-                        Long value = timePointObj.getLong("y");
-                        double percent = ((value*1.0) / routeLength)*100;
-
-                        Log.d(TAG, "controlData: ------------------------------");
-                        Log.d(TAG, "controlData: layer: " + layer);
-                        Log.d(TAG, "controlData: value: " + value);
-                        Log.d(TAG, "controlData: routeLength: " + routeLength);
-                        Log.d(TAG, "controlData: percent: " + percent);
-                        Log.d(TAG, "controlData: area: " + areaID);
-                        Log.d(TAG, "controlData: maxValue: " + maxValue);
-                        Log.d(TAG, "controlData: time: " + pointTime);
-                        Log.d(TAG, "controlData: time: " + FetchingManager.unixToHumanTime(pointTime));
-
-                        if(percent >= maxValue){
-                            Log.d(TAG, "controlData: ALAAAAAAAAAAAAARM !!!!!!!! " + areaID);
-                            Log.d(TAG, "controlData: " + layer + " har stigit över " + maxValue + " och är " + percent);
-                            notifyLayers.add(layer);
-                            notifyValues.add((int)percent);
-                            //notifyValues.add(value);
-                            Log.d(TAG, "controlData: BREAKING LOOP");
-                            break;
-                        }
-*//**//*                            else {
-                            Log.d(TAG, "controlData: not breaking");
-                        }*//**//*
-                        //values.put(name, value);
-                    }
-
-                }*//*
-            }
-        }*/
 
         if(notifyLayers.size() > 0) {
             String message = "";
@@ -317,9 +271,10 @@ public class Forecast {
             for(int i = 0; i < notifyLayers.size(); i++){
                 String layer = notifyLayers.get(i);
                 int percent = notifyValues.get(i);
+                String timeLabel = notifyTimes.get(i);
 
                 String label = DisplayInfoManager.getLayerLabel(layer);
-                message +=  label + " har nått " + percent + "%\n";
+                message +=  label + " når " + percent + "%  " + timeLabel + "\n";
             }
             Notifications.sendNotification(Alarm.currentAlarmContext, "Ny prognos för " + areaName + " visar", message, areaID);
             Log.d(TAG, "controlData: sending notification for " + areaName);

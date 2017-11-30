@@ -8,6 +8,7 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 
 import com.example.mo.rsiapp.R;
+import com.example.mo.rsiapp.SettingsFragment;
 import com.example.mo.rsiapp.datamanaging.DisplayInfoManager;
 
 /**
@@ -15,7 +16,7 @@ import com.example.mo.rsiapp.datamanaging.DisplayInfoManager;
  */
 
 public class SettingsItem implements SeekBar.OnSeekBarChangeListener, CheckBox.OnCheckedChangeListener{
-    public static final String TAG = "NavAreaItem";
+    public static final String TAG = "SettingsItem";
     private String name;
     private String labelName;
     private int sliderValue = 0;
@@ -38,13 +39,12 @@ public class SettingsItem implements SeekBar.OnSeekBarChangeListener, CheckBox.O
     }
 
     public void setFromSavedSettings(){
-        Log.d(TAG, "setSavedValues: settings from saved + " +savedSliderValue);
         if(!savedSettingsSet) {
-            savedSettingsSet = true;
             this.sliderValue = savedSliderValue;
             this.enabled = savedEnabled;
             setEnabled(enabled);
             setSliderValue(sliderValue);
+            savedSettingsSet = true;
         }
     }
 
@@ -99,6 +99,9 @@ public class SettingsItem implements SeekBar.OnSeekBarChangeListener, CheckBox.O
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        if(progress == 0){
+            progress = 1;
+        }
         sliderValue = progress;
         //slider.setProgress(progress);
         updateLabel();
@@ -106,16 +109,22 @@ public class SettingsItem implements SeekBar.OnSeekBarChangeListener, CheckBox.O
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-
+        Log.d(TAG, "onStartTrackingTouch: startslider");
     }
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-
+        Log.d(TAG, "onStopTrackingTouch: saving value:" + sliderValue);
+        if(savedSettingsSet) {
+            SettingsFragment.settingsFragment.saveSettings();
+        }
     }
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         this.enabled = b;
+        if(savedSettingsSet) {
+            SettingsFragment.settingsFragment.saveSettings();
+        }
     }
 }
