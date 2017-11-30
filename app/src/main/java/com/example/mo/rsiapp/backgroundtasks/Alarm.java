@@ -16,7 +16,7 @@ import com.example.mo.rsiapp.datamanaging.FetchingManager;
  */
 public class Alarm extends BroadcastReceiver
 {
-    private final String TAG = "Alarm";
+    private static final String TAG = "Alarm";
     public static Context currentAlarmContext = null;
     @Override
     public void onReceive(Context context, Intent intent)
@@ -38,19 +38,29 @@ public class Alarm extends BroadcastReceiver
 
     public static void setAlarm(Context context)
     {
-        AlarmManager am =( AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        boolean alarmRunning = (PendingIntent.getBroadcast(context, 0,
+            new Intent(context, Alarm.class),
+            PendingIntent.FLAG_NO_CREATE) != null);
+
+        //if(!alarmRunning) {
+        Log.d(TAG, "setAlarm: alarm not running, startging");
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(context, Alarm.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
         am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60, pi); // Millisec * Second * Minute
+/*        }
+        else {
+            Log.d(TAG, "alarm already running");
+        }*/
         //Log.i("debugging", "setting repeating in set alarm");
     }
 
-/*    public static void cancelAlarm(Context context)
+    public static void cancelAlarm(Context context)
     {
         Intent intent = new Intent(context, Alarm.class);
         PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(sender);
-    }*/
+    }
 }
 

@@ -74,7 +74,7 @@ public class NavActivity extends AppCompatActivity
         //StorageManager.clearWatchedAreas();
         FetchingManager.fetchAreas(JSONFetcher.FETCH_AREAS);
 
-        Alarm.setAlarm(this); // starts the background task
+        //Alarm.cancelAlarm(this); // starts the background task
 
         Notifications.initNotificationsChannel(this);
 
@@ -89,6 +89,11 @@ public class NavActivity extends AppCompatActivity
             String areaID = intent.getStringExtra("area_id");
             long forecastTime = intent.getLongExtra("latest_forecast_time", FetchingManager.latestForecastTime);
             FetchingManager.fetchForecast(areaID, forecastTime, JSONFetcher.FETCH_FORECAST);
+            openLoadingScreen();
+
+        }
+        else {
+            Alarm.setAlarm(this); // starts the background task
 
         }
 
