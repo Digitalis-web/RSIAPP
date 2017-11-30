@@ -10,7 +10,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.mo.rsiapp.NavActivity;
 import com.example.mo.rsiapp.R;
@@ -77,7 +76,7 @@ public class InstantAutoComplete extends android.support.v7.widget.AppCompatAuto
     public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
         removeFocusAndKeyboard();
         useSelectedValue();
-        Toast.makeText(getContext(),getText(),Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(),getText(),Toast.LENGTH_SHORT).show();
         return true;
     }
 
@@ -117,12 +116,15 @@ public class InstantAutoComplete extends android.support.v7.widget.AppCompatAuto
     }
 
     public void useSelectedValue(){
-        Toast.makeText(getContext(), getText(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), getText(), Toast.LENGTH_SHORT).show();
+
         String areaName = getText().toString();
         int index = FetchingManager.areasName.indexOf(areaName);
-        String areaID = FetchingManager.areasID.get(index);
-        NavActivity.openLoadingScreen();
-        FetchingManager.fetchForecast(areaID, FetchingManager.latestForecastTime, JSONFetcher.FETCH_FORECAST);
+        if(index != -1) {
+            String areaID = FetchingManager.areasID.get(index);
+            NavActivity.openLoadingScreen();
+            FetchingManager.fetchForecast(areaID, FetchingManager.latestForecastTime, JSONFetcher.FETCH_FORECAST);
+        }
     }
 
     public void clearText() {

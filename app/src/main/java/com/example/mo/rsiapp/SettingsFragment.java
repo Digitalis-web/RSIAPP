@@ -104,7 +104,13 @@ public class SettingsFragment extends Fragment  implements CheckBox.OnCheckedCha
         });*/
 
         TextView RSIKeyText = inflatedView.findViewById(R.id.rsi_key_settings);
-        RSIKeyText.setText(StorageManager.getRSIKey());
+        String displayKey = StorageManager.getRSIKey();
+
+        if(displayKey.isEmpty()){
+            displayKey = "Ej angiven";
+        }
+
+        RSIKeyText.setText(displayKey);
 
         TextView changeRsiKeyText = inflatedView.findViewById(R.id.change_rsi_key);
         changeRsiKeyText.setOnClickListener(new View.OnClickListener() {

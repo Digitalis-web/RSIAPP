@@ -87,6 +87,10 @@ public class StorageManager {
         NavActivity.navActivity.updateNavItems();
     }
 
+    public static void clearRSIKey() {
+        saveString(RSI_KEY_KEY, "");
+    }
+
     public static void clearSettings() {
         Set<String> set = new HashSet<>();
         saveStringSet(SETTINGS_KEY, set);

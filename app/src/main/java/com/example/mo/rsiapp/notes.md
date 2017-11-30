@@ -24,12 +24,12 @@
 -[x] default setting Varna för alt förutom tort som är över 50%
 -[x] Göra så inställningar sparas utan att man behöver klicka spara
 -[ ] tillbaka knapp för alla sidor
--[ ] Tiderna på prognos
 -[ ] ? Notificatione [Icon](https://stackoverflow.com/questions/30795431/icon-not-displaying-in-notification-white-square-shown-instead)
 -[ ] När man har öppnat appen mer än en gång så visas det översta bevakade områdets väglag som första skärm
 -[ ] Ta bort alarm rutan
 -[ ] hämta data varje 20de minut istället för varje minut
 -[ ] Verfiera NSI nyckel
+-[ ] Uppdatera tiden för senaste prognos om man haft appen uppe länge
 
 
 ### Settings

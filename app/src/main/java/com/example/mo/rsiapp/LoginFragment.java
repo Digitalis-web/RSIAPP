@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.mo.rsiapp.datamanaging.StorageManager;
 
@@ -100,6 +101,7 @@ public class LoginFragment extends Fragment {
     public void initComponents(){
         Button loginBtn = inflatedView.findViewById(R.id.login_btn);
         this.inputField = inflatedView.findViewById(R.id.input_key);
+        inputField.setText(StorageManager.getRSIKey());
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
 
@@ -123,6 +125,7 @@ public class LoginFragment extends Fragment {
 
         if(!key.isEmpty()) {
             StorageManager.saveRSIKey(key);
+            Toast.makeText(getContext(), "Nyckel sparad" ,Toast.LENGTH_SHORT).show();
         }
 
     }
