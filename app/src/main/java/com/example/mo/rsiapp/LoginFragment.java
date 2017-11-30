@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
 import com.example.mo.rsiapp.datamanaging.StorageManager;
@@ -107,6 +108,13 @@ public class LoginFragment extends Fragment {
                 loginClicked();
             }
         });
+
+    }
+
+    public void removeFocusAndKeyboard(){
+        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(inputField.getWindowToken(), 0);
+        inputField.clearFocus();
     }
 
     public void loginClicked() {
@@ -124,6 +132,11 @@ public class LoginFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+/*    @Override
+    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+        return false;
+    }*/
 
     /**
      * This interface must be implemented by activities that contain this

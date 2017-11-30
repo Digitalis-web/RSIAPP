@@ -31,9 +31,13 @@
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/input_key"
+            android:inputType="text"
+            android:maxLines="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/rsi_nyckel" />
+            android:hint="@string/rsi_nyckel"
+            android:imeOptions="actionDone"
+            />
 
     </android.support.design.widget.TextInputLayout>
 

@@ -81,7 +81,7 @@ public class InstantAutoComplete extends android.support.v7.widget.AppCompatAuto
         return true;
     }
 
-    @Override
+/*    @Override
     public boolean onKeyPreIme(int keyCode, KeyEvent event) {
 
         // if back button is pressed while keyboard is open
@@ -89,7 +89,7 @@ public class InstantAutoComplete extends android.support.v7.widget.AppCompatAuto
             removeFocusAndKeyboard();
         }
         return super.onKeyPreIme(keyCode, event);
-    }
+    }*/
 
     public void removeFocusAndKeyboard(){
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
