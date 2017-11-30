@@ -30,6 +30,8 @@
 -[ ] hämta data varje 20de minut istället för varje minut
 -[ ] Verfiera NSI nyckel
 -[ ] Uppdatera tiden för senaste prognos om man haft appen uppe länge
+-[ ] Fixa något för yttemperatur
+
 
 
 ### Settings
