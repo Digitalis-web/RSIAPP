@@ -7,7 +7,7 @@
 ## To do
 -[ ] Tillbaka knapp för alla sidor
 -[ ] ? Notificatione [Icon](https://stackoverflow.com/questions/30795431/icon-not-displaying-in-notification-white-square-shown-instead)
--[ ] När man har öppnat appen mer än en gång så visas det översta bevakade områdets väglag som första skärm
+-[x] När man har öppnat appen mer än en gång så visas det översta bevakade områdets väglag som första skärm
 -[ ] Sätta in att när man loggat in och inte bevakar något område visas ´fragment_start´
 -[ ] Gömma naven när du är på inloggnings rutan
 -[ ] Ta bort alarm rutan

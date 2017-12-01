@@ -43,6 +43,8 @@ public class NavActivity extends AppCompatActivity
     private LinearLayout navDrawerList;
     private DrawerLayout navDrawer;
 
+    public static boolean favoriteForecastOpened = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +74,7 @@ public class NavActivity extends AppCompatActivity
         DisplayInfoManager.initData();
 
         //StorageManager.clearWatchedAreas();
-        StorageManager.clearRSIKey();
+        //StorageManager.clearRSIKey();
         FetchingManager.fetchAreas(JSONFetcher.FETCH_AREAS);
 
         //Alarm.cancelAlarm(this); // starts the background task

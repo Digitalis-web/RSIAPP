@@ -77,13 +77,6 @@ public class FetchingManager {
 
                 JSONObject obj = forecastsObj.getJSONObject(0);
                 latestForecastTime = Long.parseLong(obj.get("creation_time").toString());
-/*            for(int i = 0; i < forecastsObj.length(); i++) {
-                JSONObject obj = forecastsObj.getJSONObject(i);
-
-                latestForecastTime = Long.parseLong(obj.get("creation_time").toString());
-                //latestForecastTime = 1485680400; // TEMP DEBUG
-                Log.d(TAG, "parseAreasData: lastforecast: " + latestForecastTime);
-            }*/
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -92,6 +85,16 @@ public class FetchingManager {
             if (updateUI) {
                 NavActivity.navActivity.updateNavItems();
                 NavActivity.searchBar.updateList(areasName);
+
+                if (!NavActivity.favoriteForecastOpened && !StorageManager.getRSIKey().isEmpty()) { // if a forecast hasn't been automaticly opened yet
+                    NavActivity.favoriteForecastOpened = true;
+                    Set<String> watchedAreas = StorageManager.getWatchedAreas();
+                    if(!watchedAreas.isEmpty()){
+                        String firstArea = watchedAreas.iterator().next();
+                        FetchingManager.fetchForecast(firstArea, latestForecastTime, JSONFetcher.FETCH_FORECAST);
+                    }
+
+                }
             } else {
                 checkForNewForecast();
             }
