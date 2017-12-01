@@ -22,11 +22,12 @@ import java.util.TimeZone;
  */
 
 public class FetchingManager {
+    public static final String SERVER_IP = "64.147.114.20";
 
     private static String url = "http://163.172.101.14:8000/api/ogJu1VCu09HpHD6VbHX34jChdoKz2fR5/area/1427@1497772800";
     //private static String forecastUrl = "http://163.172.101.14:8000/api/ogJu1VCu09HpHD6VbHX34jChdoKz2fR5/area/";
-    private static String forecastUrl = "http://163.172.101.14:8000/api/area/";
-    private static String areasUrl = "http://163.172.101.14:8000/api//forecasts";
+    private static String forecastUrl = "http://" + SERVER_IP + "/api/area/";
+    private static String areasUrl = "http://" +  SERVER_IP + "/api//forecasts";
     private static String TAG = "FetchingManager";
     public static ArrayList<String> areasName = new ArrayList<>();
     public static ArrayList<String> areasID = new ArrayList<>();
@@ -86,14 +87,8 @@ public class FetchingManager {
                 NavActivity.navActivity.updateNavItems();
                 NavActivity.searchBar.updateList(areasName);
 
-                if (!NavActivity.favoriteForecastOpened && !StorageManager.getRSIKey().isEmpty()) { // if a forecast hasn't been automaticly opened yet
-                    NavActivity.favoriteForecastOpened = true;
-                    Set<String> watchedAreas = StorageManager.getWatchedAreas();
-                    if(!watchedAreas.isEmpty()){
-                        String firstArea = watchedAreas.iterator().next();
-                        FetchingManager.fetchForecast(firstArea, latestForecastTime, JSONFetcher.FETCH_FORECAST);
-                    }
-
+                if(!NavActivity.favoriteForecastOpened) {
+                    NavActivity.navActivity.viewFavoriteForecast();
                 }
             } else {
                 checkForNewForecast();
@@ -167,15 +162,15 @@ public class FetchingManager {
 
     // checks if there is new forecast available and fetches the new forecast if there is a new one available
     public static void checkForNewForecast(){
-        Log.d(TAG, "checkifnew: " + latestForecastTime);
+        Log.d(TAG, "-----------------");
+        Log.d(TAG, "checkifnew1: " + latestForecastTime);
 
         long lastControlledTime = StorageManager.getLastControlledForecastTime(Alarm.currentAlarmContext);
-        Log.d(TAG, "checkifnew: " + lastControlledTime);
+        Log.d(TAG, "checkifnew2: " + lastControlledTime);
 
         // if there is a new forecast to be controlled
-        //if (lastControlledTime < lastControlledTime) {
-        if (true) { // tmp
-            //fetchForecast();
+        if (lastControlledTime != latestForecastTime) {
+        //if (true) { // tmp
             Set<String> watchedAreas = StorageManager.getWatchedAreas(Alarm.currentAlarmContext);
             Log.d(TAG, "checkForNewForecast: control:  " + watchedAreas.toString());
             for(String area : watchedAreas){
@@ -184,6 +179,9 @@ public class FetchingManager {
 
             }
             StorageManager.setLastControlledForecastTime(latestForecastTime, Alarm.currentAlarmContext);
+        }
+        else {
+            //Notifications.sendNotification(Alarm.currentAlarmContext,"test", "no prognos", "0");
         }
     }
 

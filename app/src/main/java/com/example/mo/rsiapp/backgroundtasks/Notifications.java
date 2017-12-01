@@ -6,6 +6,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.media.RingtoneManager;
 import android.os.Build;
 import android.util.Log;
 
@@ -26,24 +28,19 @@ public class Notifications {
 
     public static void sendNotification(Context context, String title, String contentText, String areaID) {
 
-        //String channelID = NotificationChannel.DEFAULT_CHANNEL_ID;
 
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        //NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context).setChannel(NOTIFICATIONS_CHANNEL);
         Notification.Builder builder = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             builder = new Notification.Builder(context, NOTIFICATIONS_CHANNEL);
-/*                .setSmallIcon(R.drawable.ic_rsi_snowflake_2)
-                .setContentTitle(title)
-                .setStyle(new Notification.BigTextStyle().bigText(contentText))
-                .setAutoCancel(true).build();*/
         }
         else {
-            builder = new Notification.Builder(context);
+            builder = new Notification.Builder(context); // deprecated only for api 26 and higher
         }
 
         initNotification(builder, title, contentText, context, areaID);
+
         Notification notification = builder.build();
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
@@ -59,7 +56,7 @@ public class Notifications {
         //mBuilder.build().flags |= Notification.FLAG_AUTO_CANCEL;
 
 
-        // Gets an instance of the NotificationManager service//
+        // Gets an instance of the NotificationManager service
         mNotificationManager.notify(Integer.parseInt(areaID), notification);
     }
 
@@ -73,12 +70,19 @@ public class Notifications {
         PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         builder.setContentIntent(resultPendingIntent);
-        builder.setSmallIcon(R.drawable.ic_rsi_snowflake_2);
+        builder.setSmallIcon(R.drawable.ic_rsi_snowflake);
+        builder.setColor(Color.WHITE);
         builder.setContentTitle(title);
         builder.setStyle(new Notification.BigTextStyle().bigText(contentText));
         builder.setContentText(contentText);
         builder.setTicker(title);
-        builder.setAutoCancel(true).build();
+        builder.setAutoCancel(true);
+
+        // makes sure only one of the notifications gives a sound cause multiple notifications may be issued at the same time
+        if(!Alarm.notificationWithSoundSent) {
+            Alarm.notificationWithSoundSent = true;
+            builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+        }
     }
 
     public static void initNotificationsChannel(Context context){

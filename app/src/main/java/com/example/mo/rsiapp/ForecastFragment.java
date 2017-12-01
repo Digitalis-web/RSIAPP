@@ -302,8 +302,6 @@ public class ForecastFragment extends Fragment {
     private void removeAllInfoListItems(LinearLayout infoLayout) {
         //infoLayout.getView();
         int elementCount = infoLayout.getChildCount();
-        Log.d(TAG, "removeAllInfoListItems: elementCount: " + elementCount);
-        Log.d(TAG, "removeAllInfoListItems: layout: " + infoLayout);
         for (int i = elementCount - 1; i > 0; i--) {
             infoLayout.removeViewAt(i);
         }
@@ -373,7 +371,7 @@ public class ForecastFragment extends Fragment {
             } else if (category.equals("roadtemperature")) {
                 //Log.d(TAG, "addDataSet: key: " + key);
                 if (!key.equals("StdDev")) {
-                    addInfoListItem(key + ": " + value, Color.BLACK, infoLayout);
+                    addInfoListItem(key + ": " + value, Color.WHITE, infoLayout);
                 }
 
             }

@@ -22,7 +22,7 @@
     <string name="search">Sök efter område</string>
 
     <string name="welcome">Välkommen till RSI</string>
-    <string name="NoArea">Du bevakar inga områden. Sök efter ett nytt område att bevaka</string>
+    <string name="NoArea">Du bevakar inget område ännu. Sök efter ett nytt område att bevaka</string>
 
 
     <string name="now">om 0h</string>
@@ -38,7 +38,7 @@
     <string name="error_field_required">Det här fältet är obligatoriskt</string>
     <string name="log_in">Logga in</string>
     <string name="log_out">Logga ut</string>
-    <string name="submitRsi_Key">Ange din RSI-nyckel</string>
+    <string name="submit_rsi_Key">Ange din RSI-nyckel</string>
     <string name="change_rsi_key">Ändra nyckel</string>
     <string name="rsi_Key">RSI-Nyckel</string>
 </resources>

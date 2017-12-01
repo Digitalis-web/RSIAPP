@@ -17,7 +17,7 @@
         android:layout_gravity="center"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="@string/submitRsi_Key"
+        android:text="@string/submit_rsi_Key"
         android:textColor="@color/colorGraph1"
         android:textSize="22sp" />
 

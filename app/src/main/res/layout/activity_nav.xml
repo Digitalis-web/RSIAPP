@@ -51,7 +51,7 @@
                         android:layout_weight="1"
                         android:contentDescription="@string/logo"
                         android:scaleType="fitStart"
-                        app:srcCompat="@drawable/ic_rsi_snowflake_2" />
+                        app:srcCompat="@drawable/ic_rsi_snowflake" />
 
                     <ImageView
                         android:id="@+id/klimator_logo"
@@ -60,7 +60,7 @@
                         android:layout_weight="1"
                         android:contentDescription="@string/logo"
                         android:scaleType="fitStart"
-                        app:srcCompat="@drawable/ic_icon_4" />
+                        app:srcCompat="@drawable/ic_klimator_logo" />
 
                 </LinearLayout>
 

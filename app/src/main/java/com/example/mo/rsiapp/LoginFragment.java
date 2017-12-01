@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,6 +75,7 @@ public class LoginFragment extends Fragment {
         View inflatedView = inflater.inflate(R.layout.fragment_login, container, false);
         this.inflatedView = inflatedView;
         initComponents();
+        NavActivity.navActivity.hideSearchBar();
 
         // Inflate the layout for this fragment
         return inflatedView;
@@ -121,11 +121,13 @@ public class LoginFragment extends Fragment {
 
     public void loginClicked() {
         String key = String.valueOf(inputField.getText());
-        Log.d(TAG, "loginClicked: " + key);
+        //Log.d(TAG, "loginClicked: " + key);
 
         if(!key.isEmpty()) {
             StorageManager.saveRSIKey(key);
             Toast.makeText(getContext(), "Nyckel sparad" ,Toast.LENGTH_SHORT).show();
+            NavActivity.navActivity.showSearchBar();
+            NavActivity.navActivity.openInitial();
         }
 
     }

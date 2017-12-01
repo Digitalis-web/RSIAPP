@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.mo.rsiapp.datamanaging.FetchingManager;
 
@@ -18,36 +17,39 @@ public class Alarm extends BroadcastReceiver
 {
     private static final String TAG = "Alarm";
     public static Context currentAlarmContext = null;
+    public static boolean notificationWithSoundSent;
+    public static final int ALARM_INTERVAL = 1000*60*30; // 30 minutes
+
     @Override
     public void onReceive(Context context, Intent intent)
     {
         currentAlarmContext = context;
-        Log.i("debugging", "kör on reciveve");
+        notificationWithSoundSent = false;
+        //Log.i(TAG, "kör on reciveve");
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
         wl.acquire();
 
-        Log.d(TAG, "onReceive: makeing toast");
 
-        Toast.makeText(context, "Alarm !!!!!!!!!!", Toast.LENGTH_LONG).show(); // For example
+        //Toast.makeText(context, "Alarm !!!!!!!!!!", Toast.LENGTH_LONG).show(); // For example
         FetchingManager.fetchAndControlData(context);
-
 
         wl.release();
     }
 
     public static void setAlarm(Context context)
     {
-        boolean alarmRunning = (PendingIntent.getBroadcast(context, 0,
-            new Intent(context, Alarm.class),
-            PendingIntent.FLAG_NO_CREATE) != null);
+        //boolean alarmRunning = (PendingIntent.getBroadcast(context, 0,
+            //new Intent(context, Alarm.class),
+            //PendingIntent.FLAG_NO_CREATE) != null);
 
         //if(!alarmRunning) {
         Log.d(TAG, "setAlarm: alarm not running, startging");
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(context, Alarm.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60, pi); // Millisec * Second * Minute
+        //am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), ALARM_INTERVAL, pi); // Millisec * Second * Minute
+        am.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), ALARM_INTERVAL, pi); // Millisec * Second * Minute
 /*        }
         else {
             Log.d(TAG, "alarm already running");

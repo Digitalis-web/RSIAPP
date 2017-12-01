@@ -20,6 +20,7 @@ public class StorageManager {
     public static final String SETTINGS_KEY =  "settings";
     public static final String NOTIFICATIONS_ENABLED_KEY =  "notifications";
     public static final String RSI_KEY_KEY =  "rsi_key";
+    public static final String FAVORITE_AREA_KEY =  "favorite_area";
     public static final String TAG =  "StorageManager";
 
     public static final String PREF_NAME =  "areasData";
@@ -31,9 +32,23 @@ public class StorageManager {
         return enabled;
     }
 
+    public static void setFavoriteArea(String areaID){
+        saveString(FAVORITE_AREA_KEY, areaID);
+        NavActivity.navActivity.updateNavItemsFavorite(areaID);
+    }
+
+    public static String getFavoriteArea(){
+        return getString(FAVORITE_AREA_KEY);
+    }
+
+    public static boolean keyIsVerified(){
+        return !getRSIKey().isEmpty();
+    }
+
     public static String getRSIKey(){
         return getString(RSI_KEY_KEY);
     }
+
     public static void saveRSIKey(String key){
         saveString(RSI_KEY_KEY, key);
     }
@@ -85,6 +100,23 @@ public class StorageManager {
         set.remove(areaID);
         saveStringSet(WATCHED_AREAS_KEY, set);
         NavActivity.navActivity.updateNavItems();
+        String favoriteArea = getFavoriteArea();
+
+        if(favoriteArea.equals(areaID)){
+            setAnyFavoriteArea();
+        }
+    }
+
+    // if the favorited area is removed from watched areas, a new one will be chosen from the watched areas
+    public static void setAnyFavoriteArea(){
+        Set<String> watchedAreas = getWatchedAreas();
+        if(!watchedAreas.isEmpty()){
+            String first = watchedAreas.iterator().next();
+            setFavoriteArea(first);
+        }
+        else {
+            setFavoriteArea("");
+        }
     }
 
     public static void clearRSIKey() {
@@ -108,6 +140,11 @@ public class StorageManager {
         set.add(areaID);
         saveStringSet(WATCHED_AREAS_KEY, set);
         NavActivity.navActivity.updateNavItems();
+
+        // if there is no favorite area yet, the new watched area will be the favotire
+        if(getFavoriteArea().isEmpty()){
+            setFavoriteArea(areaID);
+        }
     }
 
     public static void saveStringSet(String key, Set<String> set) {

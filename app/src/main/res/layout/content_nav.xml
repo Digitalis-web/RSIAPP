@@ -10,12 +10,6 @@
     tools:context="com.example.mo.rsiapp.NavActivity"
     tools:showIn="@layout/app_bar_nav">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="testNofitication"
-        android:visibility="gone"
-        />
 
     <Button
         android:id="@+id/btnStartAlarm"

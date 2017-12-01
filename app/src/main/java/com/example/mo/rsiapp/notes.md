@@ -6,21 +6,20 @@
 
 ## To do
 -[ ] Tillbaka knapp för alla sidor
--[ ] ? Notificatione [Icon](https://stackoverflow.com/questions/30795431/icon-not-displaying-in-notification-white-square-shown-instead)
--[x] När man har öppnat appen mer än en gång så visas det översta bevakade områdets väglag som första skärm
--[ ] Sätta in att när man loggat in och inte bevakar något område visas ´fragment_start´
--[ ] Gömma naven när du är på inloggnings rutan
--[ ] Ta bort alarm rutan
--[ ] hämta data varje 20de minut istället för varje minut
+-[ ] Notifikationer [Icon](https://stackoverflow.com/questions/30795431/icon-not-displaying-in-notification-white-square-shown-instead)
 -[ ] Verfiera NSI nyckel
--[ ] Gömma login rutan när rsi nyckeln är verfierad
 -[ ] Uppdatera tiden för senaste prognos om man haft appen uppe länge
 -[ ] Fixa något för yttemperatur
--[ ] göra så man kan organisera om bevakade områden.
 -[ ] Sätt in en tillbaka pil i intsällningarna `Dropbox\_Digital peguin solutions\_Kunder\_Current\RSI\_App\_exports\5.0\settings`
 
 ##Done
+-[x] Gömma naven när du är på inloggnings rutan
+-[x] Ta bort alarm rutan
+-[x] Sätta in att när man loggat in och inte bevakar något område visas ´fragment_start´
+-[x] data varje 20de minut istället för varje minut
 -[x] Visa vad det är man har uppe om det är temperatur eller väglag
+-[x] Gömma login rutan när rsi nyckeln är angiven
+-[x] När man har öppnat appen mer än en gång så visas det översta bevakade områdets väglag som första skärm
 -[x] laddnings animation
 -[x] visa tid istället för "om 4h"
 -[x] ta bort focus från sökbaren när man öppnar nav
@@ -51,3 +50,4 @@
 -[ ] När man klikcar på någon del av pai 
     digramet så kommer det upp hur mycket äv vägen som är tex tor
 -[ ] Kunna to bort bevakade områden direkt från navven
+-[ ] göra så man kan organisera om bevakade områden.

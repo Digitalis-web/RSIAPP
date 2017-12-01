@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,7 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.example.mo.rsiapp.backgroundtasks.Alarm;
 import com.example.mo.rsiapp.backgroundtasks.Notifications;
@@ -33,9 +31,10 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import static com.example.mo.rsiapp.R.menu.nav;
+import static com.example.mo.rsiapp.datamanaging.FetchingManager.latestForecastTime;
 
 public class NavActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, DrawerLayout.DrawerListener, LoginFragment.OnFragmentInteractionListener, ForecastFragment.OnFragmentInteractionListener, LoadingFragment.OnFragmentInteractionListener , SettingsFragment.OnFragmentInteractionListener {
+        implements  DrawerLayout.DrawerListener, LoginFragment.OnFragmentInteractionListener, ForecastFragment.OnFragmentInteractionListener, LoadingFragment.OnFragmentInteractionListener , SettingsFragment.OnFragmentInteractionListener, StartPageFragment.OnFragmentInteractionListener {
 
     public static InstantAutoComplete searchBar;
     private static final String TAG = "NavActivity";
@@ -44,6 +43,7 @@ public class NavActivity extends AppCompatActivity
     private DrawerLayout navDrawer;
 
     public static boolean favoriteForecastOpened = false;
+    ArrayList<NavAreaItem> navAreaItems = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,10 +81,6 @@ public class NavActivity extends AppCompatActivity
 
         Notifications.initNotificationsChannel(this);
 
-        // if no RSI key has been given
-        if(StorageManager.getRSIKey().isEmpty()) {
-            openLogin();
-        }
 
         //StorageManager.clearSettings();
         SettingsFragment.initDefaultSettingsIfNonExists(); // inits default settings if there are no settings
@@ -93,7 +89,8 @@ public class NavActivity extends AppCompatActivity
         // if the application is opened by clicking on a notification
         if(intent.hasExtra("area_id") && intent.hasExtra("latest_forecast_time")){
             String areaID = intent.getStringExtra("area_id");
-            long forecastTime = intent.getLongExtra("latest_forecast_time", FetchingManager.latestForecastTime);
+            long forecastTime = intent.getLongExtra("latest_forecast_time", latestForecastTime);
+            FetchingManager.latestForecastTime = forecastTime;
             FetchingManager.fetchForecast(areaID, forecastTime, JSONFetcher.FETCH_FORECAST);
             openLoadingScreen();
         }
@@ -101,6 +98,43 @@ public class NavActivity extends AppCompatActivity
             Alarm.setAlarm(this); // starts the background task
         }
 
+        StorageManager.clearRSIKey();
+        openInitial();
+    }
+
+    public void showSearchBar() {
+        View nav = findViewById(R.id.search_edit_frame);
+        nav.setVisibility(View.VISIBLE);
+    }
+
+    public void hideSearchBar(){
+        View nav =  findViewById(R.id.search_edit_frame);
+        nav.setVisibility(View.INVISIBLE);
+    }
+
+    public void openInitial(){
+
+        // if no RSI key has been given
+        if(!StorageManager.keyIsVerified()) {
+            openLogin();
+        }
+        else if(StorageManager.getFavoriteArea().isEmpty()){
+            // open startpage if there is no favorite area
+            openStartPage();
+        }
+    }
+
+    public void viewFavoriteForecast(){
+        favoriteForecastOpened = true;
+        if(StorageManager.keyIsVerified()) {
+            if (!NavActivity.favoriteForecastOpened) { // if a forecast hasn't been automatically opened yet
+                String favoriteArea = StorageManager.getFavoriteArea();
+                if (!favoriteArea.isEmpty()) {
+                    FetchingManager.fetchForecast(favoriteArea, FetchingManager.latestForecastTime, JSONFetcher.FETCH_FORECAST);
+                }
+
+            }
+        }
 
     }
 
@@ -118,10 +152,19 @@ public class NavActivity extends AppCompatActivity
         navDrawer.closeDrawers();
     }
 
+
+    public void updateNavItemsFavorite(String newFavorite){
+        for(NavAreaItem navItem : navAreaItems){
+            boolean isNewFavorite = navItem.getAreaID().equals(newFavorite);
+            navItem.setIsFavorite(isNewFavorite);
+        }
+
+    }
+
     public void updateNavItems() { // updates the list of watched areas
         Set<String> watchedAreas = StorageManager.getWatchedAreas();
-        ArrayList<NavAreaItem> navAreaItems = new ArrayList<>();
 
+        navAreaItems.clear();
         for (String areaID : watchedAreas) {
             String areaName = FetchingManager.getAreaNameFromID(areaID);
             navAreaItems.add(new NavAreaItem(areaName, areaID));
@@ -135,11 +178,13 @@ public class NavActivity extends AppCompatActivity
         for (NavAreaItem navItem : navAreaItems) {
             View row  = inflater.inflate(R.layout.nav_area_item, navDrawerList, false);
 
-            TextView name = row.findViewById(R.id.nav_item_header);
-            name.setText(navItem.getName());
+            navItem.initComponents(row);
             navDrawerList.addView(row);
-            row.setOnClickListener(navItem);
         }
+
+        String favoriteArea = StorageManager.getFavoriteArea();
+        updateNavItemsFavorite(favoriteArea);
+
     }
 
     public void displayError(String errorTitle, String errorMessage) {
@@ -166,6 +211,12 @@ public class NavActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    public void openStartPage() {
+        StartPageFragment fragment = new StartPageFragment().newInstance();
+        FragmentManager manager = navActivity.getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.fragment_layout, fragment, fragment.getTag()).commit();
     }
 
     public void openSettings(View v) {
@@ -213,10 +264,16 @@ public class NavActivity extends AppCompatActivity
     }
 
     public static void openForecast(String areaID, int routeLength, Forecast forecast){
-        ForecastFragment.viewedForecast = forecast; // passed staticly is ok here cause there will only ever be one instance of ForecastFragment at the time
-        ForecastFragment fragment = new ForecastFragment().newInstance(areaID, routeLength);
-        FragmentManager manager = navActivity.getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.fragment_layout, fragment, fragment.getTag()).commit();
+        // in case app has closed by user while fetching data in other thread
+        try {
+            ForecastFragment.viewedForecast = forecast; // passed statically is ok here cause there will only ever be one instance of ForecastFragment at the time
+            ForecastFragment fragment = new ForecastFragment().newInstance(areaID, routeLength);
+            FragmentManager manager = navActivity.getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.fragment_layout, fragment, fragment.getTag()).commit();
+        }
+        catch (IllegalStateException e){
+            e.printStackTrace();
+        }
     }
 
     public static void openLogin(){
@@ -233,42 +290,8 @@ public class NavActivity extends AppCompatActivity
     }
 
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_forecast) {
-            //openForecast();
-        } else if (id == R.id.nav_settings) {
-
-        }
-        // else if (id == R.id.nav_slideshow) {
-        //}
-        /*
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }*/
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
     @Override
     public void onFragmentInteraction(Uri uri) {
-
 
     }
 
