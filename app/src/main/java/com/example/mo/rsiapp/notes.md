@@ -11,6 +11,9 @@
 -[ ] Uppdatera tiden för senaste prognos om man haft appen uppe länge
 -[ ] Fixa något för yttemperatur
 -[ ] Sätt in en tillbaka pil i intsällningarna `Dropbox\_Digital peguin solutions\_Kunder\_Current\RSI\_App\_exports\5.0\settings`
+-[ ] Brevid de pajdiagramet står det mängden % som är tex torrt
+-[ ] Ta bort mer och merdetaljerad data knappen och andvänd nya botten naven från `Dropbox\_Digital peguin solutions\_Kunder\_Current\RSI\_App\_exports\5.0\`
+-[ ] Om man trycker på byta RSi-nyckeln så försvinner inte logga in rutan när man trycker logga in
 
 ##Done
 -[x] Gömma naven när du är på inloggnings rutan
