@@ -99,6 +99,7 @@ public class NavActivity extends AppCompatActivity
         }
 
         //StorageManager.clearRSIKey();
+
         openInitial();
     }
 
