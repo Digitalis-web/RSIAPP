@@ -98,7 +98,7 @@ public class NavActivity extends AppCompatActivity
             Alarm.setAlarm(this); // starts the background task
         }
 
-        StorageManager.clearRSIKey();
+        //StorageManager.clearRSIKey();
         openInitial();
     }
 
