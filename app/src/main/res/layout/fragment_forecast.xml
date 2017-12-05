@@ -137,20 +137,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <Button
-            android:id="@+id/webBtn"
-            style="@style/ForecastButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/container_spacing"
-            android:autoLink="web"
-            android:background="@color/colorBlue"
-            android:clickable="true"
-            android:focusable="true"
-            android:linksClickable="true"
-            android:onClick="launchRSI"
-            android:text="@string/web" />
-
     </LinearLayout>
 </ScrollView>
 
