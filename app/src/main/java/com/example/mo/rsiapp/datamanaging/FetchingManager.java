@@ -22,7 +22,8 @@ import java.util.TimeZone;
  */
 
 public class FetchingManager {
-    public static final String SERVER_IP = "64.147.114.20";
+    ///public static final String SERVER_IP = "64.147.114.20";
+    public static final String SERVER_IP = "163.172.101.14";
 
     private static String url = "http://163.172.101.14:8000/api/ogJu1VCu09HpHD6VbHX34jChdoKz2fR5/area/1427@1497772800";
     //private static String forecastUrl = "http://163.172.101.14:8000/api/ogJu1VCu09HpHD6VbHX34jChdoKz2fR5/area/";
