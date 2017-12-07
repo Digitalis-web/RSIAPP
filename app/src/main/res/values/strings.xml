@@ -38,7 +38,6 @@
     <string name="map">karta</string>
 
 
-
     <!-- Strings related to login -->
     <string name="error_invalid_email">Rsi-ncykel finns inte</string>
     <string name="error_field_required">Det här fältet är obligatoriskt</string>

@@ -14,10 +14,11 @@
     * funktionalitet
 -[ ] Sätt in en tillbaka pil i intsällningarna `Dropbox\_Digital peguin solutions\_Kunder\_Current\RSI\_App\_exports\5.0\settings`
 -[ ] Brevid de pajdiagramet står det mängden % som är tex torrt
--[ ] Ta bort mer och merdetaljerad data knappen och andvänd nya botten naven från `Dropbox\_Digital peguin solutions\_Kunder\_Current\RSI\_App\_exports\5.0\`
+-[ ] För så att forcast_nav item fungerar ordentligt.
 -[ ] Om man trycker på byta RSi-nyckeln så försvinner inte logga in rutan när man trycker logga in
 
 ##Done
+-[x] göra så man kan organisera om bevakade områden.
 -[x] Gömma naven när du är på inloggnings rutan
 -[x] Ta bort alarm rutan
 -[x] Sätta in att när man loggat in och inte bevakar något område visas ´fragment_start´
@@ -49,10 +50,9 @@
 
 ##Testing
 -[ ] Be folket på RSI att titta på appen och testa den lite.
--[ ] Ha en länk där folk kan ladda ner appen och testa den
+-[x] Ha en länk där folk kan ladda ner appen och testa den
 
 ##Saker att kanske lägga till i framtiden
 -[ ] När man klikcar på någon del av pai 
     digramet så kommer det upp hur mycket äv vägen som är tex tor
 -[ ] Kunna to bort bevakade områden direkt från navven
--[ ] göra så man kan organisera om bevakade områden.

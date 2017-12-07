@@ -12,4 +12,6 @@
     <dimen name="nav_item_spacing">20dp</dimen>
     <dimen name="category_button_spacing">2dp</dimen>
     <dimen name="piChart_spacing">10dp</dimen>
+    <dimen name="temp_spacing">20dp</dimen>
+    <dimen name="temp_height">100dp</dimen>
 </resources>

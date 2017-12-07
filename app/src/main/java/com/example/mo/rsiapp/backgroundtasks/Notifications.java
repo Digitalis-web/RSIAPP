@@ -34,8 +34,7 @@ public class Notifications {
         Notification.Builder builder = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             builder = new Notification.Builder(context, NOTIFICATIONS_CHANNEL);
-        }
-        else {
+        } else {
             builder = new Notification.Builder(context); // deprecated only for api 26 and higher
         }
 
@@ -60,7 +59,7 @@ public class Notifications {
         mNotificationManager.notify(Integer.parseInt(areaID), notification);
     }
 
-    public static void initNotification(Notification.Builder builder, String title, String contentText, Context context, String area_id){
+    public static void initNotification(Notification.Builder builder, String title, String contentText, Context context, String area_id) {
         Intent resultIntent = new Intent(context, NavActivity.class);
 
         resultIntent.putExtra("area_id", area_id);
@@ -79,13 +78,13 @@ public class Notifications {
         builder.setAutoCancel(true);
 
         // makes sure only one of the notifications gives a sound cause multiple notifications may be issued at the same time
-        if(!Alarm.notificationWithSoundSent) {
+        if (!Alarm.notificationWithSoundSent) {
             Alarm.notificationWithSoundSent = true;
             builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
         }
     }
 
-    public static void initNotificationsChannel(Context context){
+    public static void initNotificationsChannel(Context context) {
         Log.d(TAG, "sendNotification: runnings");
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // The user-visible name of the channel.
