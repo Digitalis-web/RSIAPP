@@ -123,12 +123,16 @@ public class NavActivity extends AppCompatActivity
             // open startpage if there is no favorite area
             openStartPage();
         }
+        else {
+            favoriteForecastOpened = false;
+            viewFavoriteForecast();
+        }
     }
 
     public void viewFavoriteForecast(){
-        favoriteForecastOpened = true;
         if(StorageManager.keyIsVerified()) {
             if (!NavActivity.favoriteForecastOpened) { // if a forecast hasn't been automatically opened yet
+                favoriteForecastOpened = true;
                 String favoriteArea = StorageManager.getFavoriteArea();
                 if (!favoriteArea.isEmpty()) {
                     FetchingManager.fetchForecast(favoriteArea, FetchingManager.latestForecastTime, JSONFetcher.FETCH_FORECAST);

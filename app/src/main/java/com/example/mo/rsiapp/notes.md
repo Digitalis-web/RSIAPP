@@ -15,9 +15,9 @@
 -[ ] Sätt in en tillbaka pil i intsällningarna `Dropbox\_Digital peguin solutions\_Kunder\_Current\RSI\_App\_exports\5.0\settings`
 -[ ] Brevid de pajdiagramet står det mängden % som är tex torrt
 -[ ] För så att forcast_nav item fungerar ordentligt.
--[ ] Om man trycker på byta RSi-nyckeln så försvinner inte logga in rutan när man trycker logga in
 
 ##Done
+-[x] Om man trycker på byta RSi-nyckeln så försvinner logga in rutan när man trycker logga in
 -[x] göra så man kan organisera om bevakade områden.
 -[x] Gömma naven när du är på inloggnings rutan
 -[x] Ta bort alarm rutan
