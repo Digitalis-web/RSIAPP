@@ -60,19 +60,18 @@ public class ForecastFragment extends Fragment {
     private View inflatedView;
 
 
-    PieChart chartOne;
-    PieChart chartTwo;
-    PieChart chartThree;
-
     LinearLayout chartOneContainer;
     LinearLayout chartTwoContainer;
     LinearLayout chartThreeContainer;
+
+
 
     // TODO: Rename and change types of parameters
     private String areaID;
     private int routeLength;
 
     private ViewGroup rootViewGroup;
+    private LinearLayout forecastLayout;
 
     private OnFragmentInteractionListener mListener;
     ArrayList<String> availableCategories = new ArrayList<>();
@@ -215,14 +214,14 @@ public class ForecastFragment extends Fragment {
         HashMap<String, Long> chart3Values = viewedForecast.getDataPoint(category, FetchingManager.chartThreeTime, null);
 
         Log.d(TAG, "onCreateView: starting create chart");
-        LinearLayout chart1InfoLayout = (LinearLayout) inflatedView.findViewById(R.id.chartInfoOne);
-        addDataSet(category, chartOne, chart1Values, chart1InfoLayout);
+        //LinearLayout chart1InfoLayout = chartOne.findViewById(R.id.chartInfoOne);
+        addDataSet(category, chartOneContainer, chart1Values);
 
-        LinearLayout chart2InfoLayout = (LinearLayout) inflatedView.findViewById(R.id.chartInfoTwo);
-        addDataSet(category, chartTwo, chart2Values, chart2InfoLayout);
+        //LinearLayout chart2InfoLayout = (LinearLayout) inflatedView.findViewById(R.id.chartInfoTwo);
+        addDataSet(category, chartTwoContainer, chart2Values);
 
-        LinearLayout chart3InfoLayout = (LinearLayout) inflatedView.findViewById(R.id.chartInfoThree);
-        addDataSet(category, chartThree, chart3Values, chart3InfoLayout);
+        //LinearLayout chart3InfoLayout = (LinearLayout) inflatedView.findViewById(R.id.chartInfoThree);
+        addDataSet(category, chartThreeContainer, chart3Values);
 
         /*chart1.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
@@ -244,23 +243,23 @@ public class ForecastFragment extends Fragment {
 
     }
 
-    //
     public void initComponents(View inflatedView) {
+        forecastLayout = inflatedView.findViewById(R.id.forecast_layout);
 
-        chartOne = inflatedView.findViewById(R.id.piChartOne);
+/*        chartOne = inflatedView.findViewById(R.id.piChartOne);
         chartTwo = inflatedView.findViewById(R.id.piChartTwo);
-        chartThree = inflatedView.findViewById(R.id.piChartThree);
+        chartThree = inflatedView.findViewById(R.id.piChartThree);*/
 
-        initPieChart(chartOne);
-        initPieChart(chartTwo);
-        initPieChart(chartThree);
+        chartOneContainer = initPieChart(FetchingManager.chartOneTimeLabel);
+        chartTwoContainer = initPieChart(FetchingManager.chartTwoTimeLabel);
+        chartThreeContainer = initPieChart(FetchingManager.chartThreeTimeLabel);
 
-        TextView chartOneHeader = inflatedView.findViewById(R.id.chartOneHeader);
+/*        TextView chartOneHeader = inflatedView.findViewById(R.id.chartOneHeader);
         TextView chartTwoHeader = inflatedView.findViewById(R.id.chartTwoHeader);
         TextView chartThreeHeader = inflatedView.findViewById(R.id.chartThreeHeader);
         chartOneHeader.setText(FetchingManager.chartOneTimeLabel);
         chartTwoHeader.setText(FetchingManager.chartTwoTimeLabel);
-        chartThreeHeader.setText(FetchingManager.chartThreeTimeLabel);
+        chartThreeHeader.setText(FetchingManager.chartThreeTimeLabel);*/
 
         updateCharts(viewedForecast.categories.get(0), inflatedView);
 
@@ -284,7 +283,15 @@ public class ForecastFragment extends Fragment {
     }
 
     //
-    private void initPieChart(PieChart chart) {
+    private LinearLayout initPieChart(String header) {
+
+        LayoutInflater inflater = LayoutInflater.from(NavActivity.navActivity);
+        LinearLayout chartContainer = (LinearLayout) inflater.inflate(R.layout.forecast_chart_container, forecastLayout, false);
+
+        TextView headerView = chartContainer.findViewById(R.id.chartHeader);
+        headerView.setText(header);
+
+        PieChart chart = chartContainer.findViewById(R.id.pieChart);
 
         Description desc = new Description();
         desc.setText("");
@@ -296,6 +303,9 @@ public class ForecastFragment extends Fragment {
         //chart.setCenterTextSize(15);
         chart.setDrawEntryLabels(false);
 
+        forecastLayout.addView(chartContainer);
+
+        return chartContainer;
     }
 
     // Removes the info items that explain the charts. Removes everything but the first element which is the title
@@ -328,8 +338,9 @@ public class ForecastFragment extends Fragment {
         categoryHeader.setText(categoryLabel);
     }
 
-    //
-    private void addDataSet(String category, PieChart chart, HashMap<String, Long> values, LinearLayout infoLayout) {
+    private void addDataSet(String category, LinearLayout chartContainer, HashMap<String, Long> values) {
+        LinearLayout infoLayout = chartContainer.findViewById(R.id.chartInfo);
+        PieChart chart = chartContainer.findViewById(R.id.pieChart);
         Log.d(TAG, "addDataSet: RUNNING ADD DATA");
         Log.d(TAG, "addDataSet: started");
         setCategoryHeader(category);
@@ -400,20 +411,6 @@ public class ForecastFragment extends Fragment {
         legend.setEnabled(false);
         //legend.setFormSize(10f);
 
-        //ArrayList<LegendEntry> lEntries = new ArrayList<>();
-        //LegendEntry e = new LegendEntry("1", legend.getForm(), legend.getFormSize(), legend.getFormLineWidth(), legend.getFormLineDashEffect(), chart.getData().getColors()[0]);
-        //lEntries.add(e);
-        //legend.setEntries(lEntries);
-        //legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
-        //legend.setOrientation(Legend.LegendOrientation.VERTICAL);
-        //legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        //legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        //legend.setTypeface(new Typeface());
-        //legend.setDirection(Legend.LegendDirection.LEFT_TO_RIGHT);
-        //legend.setForm(Legend.LegendForm.CIRCLE);
-        //legend.setDrawInside(false);
-        //legend.setDrawInside(false);
-        //legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);*/
 
         chart.invalidate();
 

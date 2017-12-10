@@ -65,7 +65,6 @@ public class NavActivity extends AppCompatActivity
 
         //Log.d(TAG, "onCreate: watched areas: " + StorageManager.getWatchedAreas().toString());
 
-
         getSupportActionBar().setDisplayShowTitleEnabled(false); // hide title in action bar
 
 
@@ -76,8 +75,6 @@ public class NavActivity extends AppCompatActivity
         //StorageManager.clearWatchedAreas();
         //StorageManager.clearRSIKey();
         FetchingManager.fetchAreas(JSONFetcher.FETCH_AREAS);
-
-        //Alarm.cancelAlarm(this); // starts the background task
 
         Notifications.initNotificationsChannel(this);
 
@@ -124,8 +121,10 @@ public class NavActivity extends AppCompatActivity
             openStartPage();
         }
         else {
-            favoriteForecastOpened = false;
-            viewFavoriteForecast();
+            if(FetchingManager.latestForecastTime != 0) { // if this is 0, it means the latestforecast time still hasn't been fetched from the server
+                favoriteForecastOpened = false;
+                viewFavoriteForecast();
+            }
         }
     }
 
@@ -192,6 +191,9 @@ public class NavActivity extends AppCompatActivity
 
     }
 
+    public void displayConnectError(){
+        displayError("Anslutningsfel", "Kunde inte hämta data från servern, vänligen försök igen");
+    }
     public void displayError(String errorTitle, String errorMessage) {
 
         AlertDialog builder;

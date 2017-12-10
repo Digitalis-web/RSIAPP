@@ -75,7 +75,7 @@ public class JSONFetcher extends AsyncTask<String, Void, JSONObject> {
             br.close();
 
             jsonString = sb.toString();
-            System.out.println("JSON: " + jsonString.substring(jsonString.length()-59));
+            //System.out.println("JSON: " + jsonString.substring(jsonString.length()-59));
             JSONObj = new JSONObject(jsonString);
 
         } catch (IOException e) {

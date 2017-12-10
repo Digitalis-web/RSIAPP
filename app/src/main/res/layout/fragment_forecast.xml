@@ -10,117 +10,28 @@
         android:orientation="vertical"
         tools:context="com.example.mo.rsiapp.ForecastFragment">
 
-        <TextView
-            android:id="@+id/forecast_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/container_spacing"
-            android:textAlignment="center"
-            android:textColor="@color/colorWhite"
-            android:textSize="29sp" />
-
-        <TextView
-            android:id="@+id/forecast_category_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textColor="@color/colorWhite"
-            android:textSize="18sp" />
-
         <LinearLayout
-            android:id="@+id/chartContainerOne"
-            style="@style/AppTheme.ChartContainer"
+            android:id="@+id/forecast_layout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/container_height"
-            android:background="@color/colorGraph1">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:id="@+id/forecast_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/container_spacing"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="29sp" />
 
-            <LinearLayout
-                android:id="@+id/chartInfoOne"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/chartOneHeader"
-                    style="@style/ChartListHeader"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/now"
-                    android:textColor="@color/colorWhite" />
-            </LinearLayout>
-
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/piChartOne"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/piChart_spacing"
-                android:layout_weight="3" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/chartContainerTwo"
-            style="@style/AppTheme.ChartContainer"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/container_height"
-            android:background="@color/colorGraph2">
-
-            <LinearLayout
-                android:id="@+id/chartInfoTwo"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/chartTwoHeader"
-                    style="@style/ChartListHeader"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/fore"
-                    android:textColor="@color/colorWhite" />
-            </LinearLayout>
-
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/piChartTwo"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/piChart_spacing"
-                android:layout_weight="3" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/chartContainerThree"
-            style="@style/AppTheme.ChartContainer"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/container_height"
-            android:background="@color/colorGraph3">
-
-            <LinearLayout
-                android:id="@+id/chartInfoThree"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/chartThreeHeader"
-                    style="@style/ChartListHeader"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/eight"
-                    android:textColor="@color/colorWhite" />
-            </LinearLayout>
-
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/piChartThree"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/piChart_spacing"
-                android:layout_weight="3" />
+            <TextView
+                android:id="@+id/forecast_category_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <android.support.v7.widget.AppCompatButton
@@ -137,7 +48,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"/>
-
     </LinearLayout>
 </ScrollView>
 
