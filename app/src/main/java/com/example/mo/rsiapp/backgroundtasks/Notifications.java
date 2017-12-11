@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 
 import com.example.mo.rsiapp.NavActivity;
@@ -70,7 +72,8 @@ public class Notifications {
 
         builder.setContentIntent(resultPendingIntent);
         builder.setSmallIcon(R.drawable.ic_notifications);
-        builder.setColor(Color.WHITE);
+        //builder.setColor(Color.WHITE);
+        builder.setColor(ContextCompat.getColor(context, R.color.colorBlue));
         builder.setContentTitle(title);
         builder.setStyle(new Notification.BigTextStyle().bigText(contentText));
         builder.setContentText(contentText);

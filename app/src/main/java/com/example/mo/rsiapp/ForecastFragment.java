@@ -277,8 +277,6 @@ public class ForecastFragment extends Fragment {
         String areaName = FetchingManager.getAreaNameFromID(areaID);
         TextView headerView = (TextView) inflatedView.findViewById(R.id.forecast_header);
         headerView.setText(areaName);
-
-
     }
 
     //

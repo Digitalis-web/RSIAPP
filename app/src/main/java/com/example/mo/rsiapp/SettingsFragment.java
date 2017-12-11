@@ -61,7 +61,7 @@ public class SettingsFragment extends Fragment  implements CheckBox.OnCheckedCha
 
 
     public SettingsFragment() {
-        // Required empty public constructor
+        // Required empty public Ronstructor
     }
 
 
