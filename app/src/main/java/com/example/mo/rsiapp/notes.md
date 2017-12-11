@@ -16,7 +16,8 @@
 -[ ] Brevid de pajdiagramet står det mängden % som är tex torrt
 -[ ] För så att forcast_nav item fungerar ordentligt.
 
-##Done
+### Done
+-[x] Swich färgerna fungerar nu som de ska.
 -[x] Om man trycker på byta RSi-nyckeln så försvinner logga in rutan när man trycker logga in
 -[x] göra så man kan organisera om bevakade områden.
 -[x] Gömma naven när du är på inloggnings rutan
@@ -50,7 +51,10 @@
 
 ##Testing
 -[ ] Be folket på RSI att titta på appen och testa den lite.
--[x] Ha en länk där folk kan ladda ner appen och testa den
+-[ ] Ha en länk där folk kan ladda ner appen och testa den
+
+## Buggar
+* 
 
 ##Saker att kanske lägga till i framtiden
 -[ ] När man klikcar på någon del av pai 

@@ -25,7 +25,7 @@
     <color name="colorSnow">#2265A8</color>
     <color name="colorDriftingSnow">#254794</color>
     <color name="colorSlipperiness">#FDAB3C</color>
-    <color name="colorHazardous">#FC4E2A</color>
+    <color name="colorHazardous">#fc4e2a</color>
 
     <!-- Temp -->
     <color name="colorTemp1">#FC4E2A</color>

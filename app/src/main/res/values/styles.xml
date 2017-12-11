@@ -20,8 +20,10 @@
         <item name="android:layout_marginRight">20dp</item>
     </style>
 
-    <style name="Switch">
-        <item name="android:textColor">@color/colorGraph1</item>
+    <style name="SwitchStyle">
+        <item name="colorControlActivated">@color/colorBlue</item>
+        <item name="colorSwitchThumbNormal">@color/colorBlue</item>
+        <item name="android:colorForeground">@color/colorGraph3</item>
     </style>
 
     <style name="AppTheme.NoTitle" parent="AppTheme">

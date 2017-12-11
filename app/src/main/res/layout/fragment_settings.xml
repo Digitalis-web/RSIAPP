@@ -87,13 +87,13 @@
 
             <Switch
                 android:id="@+id/enable_notifications"
-                style="@style/Switch"
+                android:theme="@style/SwitchStyle"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/container_spacing"
                 android:layout_marginLeft="@dimen/container_spacing"
                 android:layout_marginRight="@dimen/container_spacing"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="@dimen/container_spacing"
                 android:checked="true"
                 android:splitTrack="false"
                 android:text="@string/enable_notifications"
