@@ -28,7 +28,7 @@ public class FetchingManager {
     private static String url = "http://163.172.101.14:8000/api/ogJu1VCu09HpHD6VbHX34jChdoKz2fR5/area/1427@1497772800";
     //private static String forecastUrl = "http://163.172.101.14:8000/api/ogJu1VCu09HpHD6VbHX34jChdoKz2fR5/area/";
     private static String forecastUrl = "http://" + SERVER_IP + "/api/area/";
-    private static String areasUrl = "http://" +  SERVER_IP + "/api//forecasts";
+    private static String areasUrl = "http://" + SERVER_IP + "/api//forecasts";
     private static String TAG = "FetchingManager";
     public static ArrayList<String> areasName = new ArrayList<>();
     public static ArrayList<String> areasID = new ArrayList<>();
@@ -39,8 +39,8 @@ public class FetchingManager {
     public static long chartTwoTime = 0;
     public static long chartThreeTime = 0;
     public static String chartOneTimeLabel = "";
-    public static String chartTwoTimeLabel= "";
-    public static String chartThreeTimeLabel  = "";
+    public static String chartTwoTimeLabel = "";
+    public static String chartThreeTimeLabel = "";
 
 
     public static void fetchAreas(int fetchMode) {
@@ -59,7 +59,7 @@ public class FetchingManager {
 
     public static void parseAreasData(JSONObject data, boolean updateUI) {
         //Log.d(TAG, "parseAreasData: " + data.toString());
-        if(data != null) { // if no data was fetched
+        if (data != null) { // if no data was fetched
             areasID.clear();
             areasName.clear();
             try {
@@ -88,15 +88,14 @@ public class FetchingManager {
                 NavActivity.navActivity.updateNavItems();
                 NavActivity.searchBar.updateList(areasName);
 
-                if(!NavActivity.favoriteForecastOpened) {
+                if (!NavActivity.favoriteForecastOpened) {
                     NavActivity.navActivity.viewFavoriteForecast();
                 }
             } else {
                 checkForNewForecast();
             }
-        }
-        else {
-            if(updateUI){
+        } else {
+            if (updateUI) {
                 NavActivity.navActivity.displayError("Anslutning misslyckades", "Kunde inte hämta data, vänligen kontrollera internetanslutningen och försök igen");
             }
 
@@ -105,34 +104,33 @@ public class FetchingManager {
 
     public static String getAreaNameFromID(String areaID) {
         int index = areasID.indexOf(areaID);
-        if(index != -1) {
+        if (index != -1) {
             String areaName = areasName.get(index);
             return areaName;
-        }
-        else {
+        } else {
             return "";
         }
     }
 
-    public static long getClosestHourTime(){
+    public static long getClosestHourTime() {
         long unixTime = System.currentTimeMillis() / 1000L;
         //long unixTime = latestForecastTime+3600;
         //Log.d(TAG, "getClosestHourTime: unixTime: " + unixTime);
-        Log.d(TAG, "getClosestHourTime: time: " + unixTime );
+        Log.d(TAG, "getClosestHourTime: time: " + unixTime);
         Log.d(TAG, "getClosestHourTime: time: " + unixToHumanTime(unixTime));
 
         long hourRest = unixTime % 3600;
         long closestHourTime = unixTime - hourRest; // Floored hour
 
         // if current time more than XX:30
-        if(hourRest >= 1800) {
+        if (hourRest >= 1800) {
             closestHourTime += 3600;
         }
         //Log.d(TAG, "getClosestHourTime: cloests: " + closestHourTime);
 
         chartOneTime = closestHourTime;
-        chartTwoTime = closestHourTime + 4*3600;
-        chartThreeTime = closestHourTime + 8*3600;
+        chartTwoTime = closestHourTime + 4 * 3600;
+        chartThreeTime = closestHourTime + 8 * 3600;
 
         chartOneTimeLabel = unixToHumanTime(chartOneTime);
         chartTwoTimeLabel = unixToHumanTime(chartTwoTime);
@@ -144,16 +142,14 @@ public class FetchingManager {
         return closestHourTime;
     }
 
-    public static String unixToHumanTime(long unixTime){
-        Date date = new Date(unixTime*1000L);
-        SimpleDateFormat dateFormat =  new SimpleDateFormat("HH:mm");
+    public static String unixToHumanTime(long unixTime) {
+        Date date = new Date(unixTime * 1000L);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
         dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Stockholm"));
         String humanTime = dateFormat.format(date);
 
         return humanTime;
     }
-
-
 
 
     public static void clearOldData() {
@@ -162,7 +158,7 @@ public class FetchingManager {
     }
 
     // checks if there is new forecast available and fetches the new forecast if there is a new one available
-    public static void checkForNewForecast(){
+    public static void checkForNewForecast() {
         Log.d(TAG, "-----------------");
         Log.d(TAG, "checkifnew1: " + latestForecastTime);
 
@@ -171,25 +167,24 @@ public class FetchingManager {
 
         // if there is a new forecast to be controlled
         if (lastControlledTime != latestForecastTime) {
-        //if (true) { // tmp
+            //if (true) { // tmp
             Set<String> watchedAreas = StorageManager.getWatchedAreas(Alarm.currentAlarmContext);
             Log.d(TAG, "checkForNewForecast: control:  " + watchedAreas.toString());
-            for(String area : watchedAreas){
+            for (String area : watchedAreas) {
                 Log.d(TAG, "fetchAndControlData: area: " + area);
                 fetchForecast(area, latestForecastTime, JSONFetcher.FETCH_FORECAST_IN_BACKGROUND);
 
             }
             StorageManager.setLastControlledForecastTime(latestForecastTime, Alarm.currentAlarmContext);
-        }
-        else {
+        } else {
             //Notifications.sendNotification(Alarm.currentAlarmContext,"test", "no prognos", "0");
         }
     }
 
 
-    public static void fetchAndControlData(Context context){
+    public static void fetchAndControlData(Context context) {
         Log.d(TAG, "fetchAndControlData: running");
-        if(StorageManager.getNotificationsEnabled(context)) {
+        if (StorageManager.getNotificationsEnabled(context)) {
             Log.d(TAG, "fetchAndControlData: notifications are enabled");
             fetchAreas(JSONFetcher.FETCH_AREAS_IN_BACKGROUND);
         }

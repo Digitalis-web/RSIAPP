@@ -6,7 +6,6 @@
 
 ## To do
 -[ ] Tillbaka knapp för alla sidor
--[ ] Notifikationer [Icon](https://stackoverflow.com/questions/30795431/icon-not-displaying-in-notification-white-square-shown-instead)
 -[ ] Verfiera NSI nyckel
 -[ ] Uppdatera tiden för senaste prognos om man haft appen uppe länge
 -[ ] Temperatur sidan
@@ -14,9 +13,11 @@
     * funktionalitet
 -[ ] Sätt in en tillbaka pil i intsällningarna `Dropbox\_Digital peguin solutions\_Kunder\_Current\RSI\_App\_exports\5.0\settings`
 -[ ] Brevid de pajdiagramet står det mängden % som är tex torrt
--[ ] För så att forcast_nav item fungerar ordentligt.
+-[ ] Gör så att forcast_nav item fungerar ordentligt.
+-[ ] Favorit området dyker inte altid upp när man startar appen.
 
 ### Done
+-[x] Notifikationer [Icon](https://stackoverflow.com/questions/30795431/icon-not-displaying-in-notification-white-square-shown-instead)
 -[x] Swich färgerna fungerar nu som de ska.
 -[x] Om man trycker på byta RSi-nyckeln så försvinner logga in rutan när man trycker logga in
 -[x] göra så man kan organisera om bevakade områden.
@@ -54,7 +55,6 @@
 -[ ] Ha en länk där folk kan ladda ner appen och testa den
 
 ## Buggar
-* 
 
 ##Saker att kanske lägga till i framtiden
 -[ ] När man klikcar på någon del av pai 

@@ -69,7 +69,7 @@ public class Notifications {
         PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         builder.setContentIntent(resultPendingIntent);
-        builder.setSmallIcon(R.drawable.ic_rsi_snowflake);
+        builder.setSmallIcon(R.drawable.ic_notifications);
         builder.setColor(Color.WHITE);
         builder.setContentTitle(title);
         builder.setStyle(new Notification.BigTextStyle().bigText(contentText));
