@@ -1,54 +1,113 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/forecast_scroll_view"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/forecast_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:context="com.example.mo.rsiapp.ForecastFragment">
+        android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/forecast_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            >
-            <TextView
-                android:id="@+id/forecast_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/container_spacing"
-                android:textAlignment="center"
-                android:textColor="@color/colorWhite"
-                android:textSize="29sp" />
+            tools:context="com.example.mo.rsiapp.ForecastFragment">
 
-            <TextView
-                android:id="@+id/forecast_category_header"
+            <LinearLayout
+                android:id="@+id/forecast_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/forecast_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/container_spacing"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="29sp" />
+
+                <TextView
+                    android:id="@+id/forecast_category_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/select_category_button"
+                style="@style/ForecastButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textColor="@color/colorWhite"
-                android:textSize="18sp" />
+                android:background="@color/colorWhite"
+                android:text="@string/more" />
+
+            <com.example.mo.rsiapp.customviews.WatchAreaButton
+                android:id="@+id/watch_area_button"
+                style="@style/ForecastButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp" />
+
         </LinearLayout>
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/select_category_button"
-            style="@style/ForecastButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
-            android:text="@string/more" />
+    </ScrollView>
 
-        <com.example.mo.rsiapp.customviews.WatchAreaButton
-            android:id="@+id/watch_area_button"
-            style="@style/ForecastButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"/>
+    <LinearLayout
+        android:gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#efefef"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/road"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="#00000000"
+            android:drawableTop="@drawable/ic_road"
+            android:gravity="center"
+            android:text="@string/road"
+            android:textColor="@color/colorBlack" />
+
+        <Button
+            android:id="@+id/temp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="#00000000"
+            android:drawableTop="@drawable/ic_temperature"
+            android:gravity="center"
+            android:text="@string/temp"
+            android:textColor="@color/colorBlack" />
+
+        <Button
+            android:id="@+id/webBtn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:autoLink="web"
+            android:background="#00000000"
+            android:clickable="true"
+            android:drawableTop="@drawable/ic_map"
+            android:focusable="true"
+            android:gravity="center"
+            android:linksClickable="true"
+            android:onClick="launchRSI"
+            android:text="@string/map"
+            android:textColor="@color/colorBlack" />
+
     </LinearLayout>
-</ScrollView>
 
+</LinearLayout>
 

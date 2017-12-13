@@ -71,7 +71,7 @@ public class LoadingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View inflatedView = inflater.inflate(R.layout.fragment_loading, container,false);
+        View inflatedView = inflater.inflate(R.layout.fragment_loading, container, false);
         rootViewGroup = container;
 
         initComponents(inflatedView);
@@ -80,7 +80,7 @@ public class LoadingFragment extends Fragment {
         return inflatedView;
     }
 
-    public void initComponents(View inflatedView){
+    public void initComponents(View inflatedView) {
 
     }
 
