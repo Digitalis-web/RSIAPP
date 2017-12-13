@@ -2,35 +2,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorLightBlue"
+    android:layout_height="wrap_content"
+    android:weightSum="100"
     >
 
-    <TextView
-        android:id="@+id/temperature_min"
-        android:layout_width="0dp"
-        android:layout_weight="2"
-        android:layout_height="match_parent"
-        android:text="-1"
-        android:background="@color/colorDry"
-        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/temperature_container_height">
+        <TextView
+            android:id="@+id/temperature_min"
+            android:textSize="22sp"
+            android:layout_width="0dp"
+            android:layout_weight="30"
+            android:layout_height="match_parent"
+            android:text="Fel"
+            android:textColor="@color/colorWhite"
+            android:textAlignment="viewEnd"
+            />
 
-    <View
-        android:id="@+id/temperature_span"
-        android:layout_width="0dp"
-        android:layout_weight="2"
-        android:layout_height="match_parent"
-        android:background="@color/colorSlipperiness"
-        />
+        <View
+            android:id="@+id/temperature_span"
+            android:layout_width="0dp"
+            android:layout_weight="30"
+            android:layout_height="match_parent"
+            android:background="@drawable/temperature_chart_shape"
+            />
 
-    <TextView
-        android:id="@+id/temperature_max"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="match_parent"
-        android:text="7"
-        android:background="@color/colorDry"
-        />
+        <TextView
+            android:id="@+id/temperature_max"
+            android:textSize="22sp"
+            android:layout_width="0dp"
+            android:layout_weight="30"
+            android:layout_height="match_parent"
+            android:textColor="@color/colorWhite"
+            android:text="Fel"
+            />
+    </LinearLayout>
 
 
 </LinearLayout>

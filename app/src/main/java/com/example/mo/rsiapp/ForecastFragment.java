@@ -16,8 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.mo.rsiapp.customviews.WatchAreaButton;
@@ -76,6 +76,10 @@ public class ForecastFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     ArrayList<String> availableCategories = new ArrayList<>();
     ArrayList<String> availableCategoriesLabels = new ArrayList<>();
+
+    HashMap<String, Long> chart1Values;
+    HashMap<String, Long> chart2Values;
+    HashMap<String, Long> chart3Values;
 
     //
     public ForecastFragment() {
@@ -217,13 +221,7 @@ public class ForecastFragment extends Fragment {
         chartTwoContainer = addPieChart(FetchingManager.chartTwoTimeLabel);
         chartThreeContainer = addPieChart(FetchingManager.chartThreeTimeLabel);
 
-        HashMap<String, Long> chart1Values = viewedForecast.getDataPoint(category, FetchingManager.chartOneTime, null);
-        HashMap<String, Long> chart2Values = viewedForecast.getDataPoint(category, FetchingManager.chartTwoTime, null);
-        HashMap<String, Long> chart3Values = viewedForecast.getDataPoint(category, FetchingManager.chartThreeTime, null);
 
-        addDataSet(category, chartOneContainer, chart1Values);
-        addDataSet(category, chartTwoContainer, chart2Values);
-        addDataSet(category, chartThreeContainer, chart3Values);
     }
 
     public void updateTemperatureCharts(String category){
@@ -232,16 +230,26 @@ public class ForecastFragment extends Fragment {
         chartTwoContainer = addTemperatureChart(FetchingManager.chartTwoTimeLabel);
         chartThreeContainer = addTemperatureChart(FetchingManager.chartThreeTimeLabel);
 
+
+
+
     }
 
     public void updateCharts(String category) {
+        chart1Values = viewedForecast.getDataPoint(category, FetchingManager.chartOneTime, null);
+        chart2Values = viewedForecast.getDataPoint(category, FetchingManager.chartTwoTime, null);
+        chart3Values = viewedForecast.getDataPoint(category, FetchingManager.chartThreeTime, null);
 
         if(category.equals("roadcondition")){
             updateRoadConditionCharts(category);
         }
         else {
-            //updateTemperatureCharts(category);
+            updateTemperatureCharts(category);
         }
+
+        addDataSet(category, chartOneContainer, chart1Values);
+        addDataSet(category, chartTwoContainer, chart2Values);
+        addDataSet(category, chartThreeContainer, chart3Values);
 
         /*chart1.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
@@ -301,7 +309,7 @@ public class ForecastFragment extends Fragment {
 
         LayoutInflater inflater = LayoutInflater.from(NavActivity.navActivity);
         LinearLayout chartContainer = (LinearLayout) inflater.inflate(R.layout.forecast_chart_container, forecastLayout, false);
-        FrameLayout innerChartContainer = chartContainer.findViewById(R.id.innerChartContainer);
+        RelativeLayout innerChartContainer = chartContainer.findViewById(R.id.innerChartContainer);
 
         TextView headerView = chartContainer.findViewById(R.id.chartHeader);
         headerView.setText(header);
@@ -329,7 +337,7 @@ public class ForecastFragment extends Fragment {
 
         LayoutInflater inflater = LayoutInflater.from(NavActivity.navActivity);
         LinearLayout chartContainer = (LinearLayout) inflater.inflate(R.layout.forecast_chart_container, forecastLayout, false);
-        FrameLayout innerChartContainer = chartContainer.findViewById(R.id.innerChartContainer);
+        RelativeLayout innerChartContainer = chartContainer.findViewById(R.id.innerChartContainer);
 
         TextView headerView = chartContainer.findViewById(R.id.chartHeader);
         headerView.setText(header);
@@ -387,18 +395,25 @@ public class ForecastFragment extends Fragment {
 
         int totalLength = this.routeLength;
 
+        long temperatureMin = -1;
+        long temperatureMax = -1;
+
         int i = 0;
         for (String key : values.keySet()) {
             long value = values.get(key);
 
-            Log.d(TAG, "addDataSet: value : " + value);
-            Log.d(TAG, "addDataSet: key : " + key);
+/*            Log.d(TAG, "addDataSet: value : " + value);
+            Log.d(TAG, "addDataSet: key : " + key);*/
             if (category.equals("roadcondition")) {
                 if (value > 0) {
+                    int percent = (int)Math.round((value*1.0 / routeLength*100));
+
+                    Log.d(TAG, "addDataSet: percent" + percent);
                     yEntries.add(new PieEntry(value, i));
                     //xEntries.add(key);
                     int color = Integer.parseInt(DisplayInfoManager.getRoadConditionInfoByName(key, "color"));
                     String label = DisplayInfoManager.getRoadConditionInfoByName(key, "label");
+                    label = percent + "% " + label;
                     //int color = Color.parseColor(hexColor);
                     colors.add(color);
                     addInfoListItem(label, color, infoLayout);
@@ -417,6 +432,16 @@ public class ForecastFragment extends Fragment {
             } else if (category.equals("roadtemperature")) {
                 //Log.d(TAG, "addDataSet: key: " + key);
                 if (!key.equals("StdDev")) {
+                    if(key.equals("Min")){
+                        temperatureMin = value;
+                        Log.d(TAG, "addDataSet: key: " + key);
+                        Log.d(TAG, "addDataSet: value: " + value);
+                    }
+                    else if (key.equals("Max")){
+                        temperatureMax = value;
+                        Log.d(TAG, "addDataSet: key: " + key);
+                        Log.d(TAG, "addDataSet: value: " + value);
+                    }
                     addInfoListItem(key + ": " + value, Color.WHITE, infoLayout);
                 }
 
@@ -424,32 +449,143 @@ public class ForecastFragment extends Fragment {
             i++;
         }
 
+
+
         if (category.equals("roadtreatment")) {
             yEntries.add(new PieEntry(totalLength, i));
             int color = Color.YELLOW;
             colors.add(color);
             addInfoListItem("Ej saltat", color, infoLayout);
         }
+        if(category.equals("roadtemperature")) {
+            setTemperatureChart(chartContainer, (int)temperatureMin, (int)temperatureMax);
+        }
+        else {
 
-        PieDataSet pieDataSet = new PieDataSet(yEntries, "");
-        pieDataSet.setSliceSpace(0);
-        pieDataSet.setValueTextSize(0);
-        //pieDataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
-        pieDataSet.setColors(colors);
+            PieDataSet pieDataSet = new PieDataSet(yEntries, "");
+            pieDataSet.setSliceSpace(0);
+            pieDataSet.setValueTextSize(0);
+            //pieDataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
+            pieDataSet.setColors(colors);
 
-        PieData pieData = new PieData(pieDataSet);
-        chart.setData(pieData);
+            PieData pieData = new PieData(pieDataSet);
+            chart.setData(pieData);
 
-        // chart.setData(generateCenterText());
+            // chart.setData(generateCenterText());
 
-        Legend legend = chart.getLegend();
-        legend.setEnabled(false);
-        //legend.setFormSize(10f);
-
-
-        chart.invalidate();
+            Legend legend = chart.getLegend();
+            legend.setEnabled(false);
+            //legend.setFormSize(10f);
 
 
+            chart.invalidate();
+        }
+
+
+    }
+
+    public void setTemperatureChart(LinearLayout chartContainer, int min, int max){
+        int spanLength = 10;
+        Log.d(TAG, "setTemperatureChart: spanlength: " + spanLength);
+
+        TextView minView = chartContainer.findViewById(R.id.temperature_min);
+        View spanView = chartContainer.findViewById(R.id.temperature_span);
+        TextView maxView = chartContainer.findViewById(R.id.temperature_max);
+
+        minView.setText(String.valueOf(min) + "° ");
+        maxView.setText(" " + String.valueOf(max) + "°");
+
+
+        Log.d(TAG, "setTempatureChart: max: " + max);
+        Log.d(TAG, "setTempatureChart: min: " + min);
+        int diff = max - min;
+        Log.d(TAG, "setTempatureChart: diff: " + diff);
+
+
+
+        int minViewSize = 20;
+        Log.d(TAG, "setTempatureChart: minviewsize: " + minViewSize);
+        setViewWeight(minView, minViewSize);
+
+        int spanViewSize =(int)(diff*1.0 / spanLength*100);
+        Log.d(TAG, "setTempatureChart: spanviewsize: " + spanLength);
+
+        if(spanViewSize > 100 - minViewSize*2){
+            Log.d(TAG, "setTemperatureChart: trigger" + spanViewSize);
+            spanViewSize = 100 - minViewSize*2;
+            Log.d(TAG, "setTemperatureChart: trigger" + spanViewSize);
+        }
+        else if(spanViewSize == 0){
+            spanViewSize = 10;
+        }
+
+        setViewWeight(spanView, spanViewSize);
+
+        int maxViewSize =  100 - minViewSize - spanViewSize;
+        Log.d(TAG, "setTempatureChart: maxviewsize: " + maxViewSize);
+        setViewWeight(maxView, maxViewSize);
+
+
+
+    }
+/*    public void setTemperatureChart(LinearLayout chartContainer, long min, long max){
+        int lowestDisplayTemp = -8;
+        int highestDisplayTemp = 5;
+        int spanLength = highestDisplayTemp - lowestDisplayTemp;
+
+        TextView minView = chartContainer.findViewById(R.id.temperature_min);
+        View spanView = chartContainer.findViewById(R.id.temperature_span);
+        TextView maxView = chartContainer.findViewById(R.id.temperature_max);
+
+
+        min = -18;
+        max = -8;
+
+        minView.setText(String.valueOf(min) + "° ");
+        maxView.setText(" " + String.valueOf(max) + "°");
+
+        if(min == max){ // for the purpose of not lettings the span width be 0 only
+            min -= 1;
+        }
+
+        if(min <= lowestDisplayTemp){
+            min = lowestDisplayTemp + 3;
+        }
+
+        if(max <= lowestDisplayTemp){
+            max = lowestDisplayTemp + 4;
+        }
+
+        if(max >= highestDisplayTemp){
+            max = highestDisplayTemp - 1;
+        }
+
+        Log.d(TAG, "setTempatureChart: max: " + max);
+        Log.d(TAG, "setTempatureChart: min: " + min);
+        long diff = max - min;
+        Log.d(TAG, "setTempatureChart: diff: " + diff);
+
+
+
+        int minViewSize = (int)Math.abs((lowestDisplayTemp-min)*1.0 / spanLength * 100);
+        Log.d(TAG, "setTempatureChart: minviewsize: " + minViewSize);
+        setViewWeight(minView, minViewSize);
+
+        int spanViewSize = (int)(diff*1.0 / spanLength*100);
+        Log.d(TAG, "setTempatureChart: spanviewsize: " + spanViewSize);
+        setViewWeight(spanView, spanViewSize);
+
+        int maxViewSize = (int)((highestDisplayTemp-max)*1.0 / spanLength * 100);
+        Log.d(TAG, "setTempatureChart: minviewsize: " + maxViewSize);
+        setViewWeight(maxView, maxViewSize);
+
+
+    }*/
+
+    public void setViewWeight(View view, int weight){
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT);
+        p.weight = weight;
+        view.setLayoutParams(p);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
