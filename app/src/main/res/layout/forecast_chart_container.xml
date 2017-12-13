@@ -5,8 +5,7 @@
     style="@style/AppTheme.ChartContainer"
     android:layout_width="match_parent"
     android:layout_height="@dimen/container_height"
-    android:background="@color/colorGraph1"
-    >
+    android:background="@color/colorGraph1">
 
     <LinearLayout
         android:id="@+id/chartInfo"
@@ -21,8 +20,8 @@
             style="@style/ChartListHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
             android:text="@string/now"
+            android:textAlignment="center"
             android:textColor="@color/colorWhite" />
     </LinearLayout>
 
@@ -32,10 +31,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3"
-        android:gravity="center"
-        >
+        android:gravity="center">
 
     </RelativeLayout>
 </LinearLayout>
-
-

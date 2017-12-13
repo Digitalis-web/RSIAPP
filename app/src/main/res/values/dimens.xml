@@ -8,7 +8,7 @@
     <dimen name="container_height">180dp</dimen>
     <dimen name="container_spacing">20dp</dimen>
     <dimen name="container_inner_spacing">0dp</dimen>
-    <dimen name="chart_list_item_spacing">20dp</dimen>
+    <dimen name="chart_list_item_spacing">15dp</dimen>
     <dimen name="nav_item_spacing">20dp</dimen>
     <dimen name="category_button_spacing">2dp</dimen>
     <dimen name="pieChart_spacing">10dp</dimen>

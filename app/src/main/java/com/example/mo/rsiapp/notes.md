@@ -14,10 +14,10 @@
 -[ ] Brevid paj diagramet står det mängden % som är tex "torrt"
 -[ ] Gör så att knapparna i forcast_fragment fungerar odentligt.
 -[ ] Favorit området dyker inte altid upp när man startar appen.
--[ ] Texten på forcast fragmet är för lång vilket gör att den hammnar på 2 rader om det är 100%
 -[ ] Tiden och områdets olika väglag ligger inte bra relatift till varakdra
 
 ### Done
+-[x] Texten på forcast fragmet är för lång vilket gör att den hammnar på 2 rader om det är 100%
 -[x] Notifikationer [Icon](https://stackoverflow.com/questions/30795431/icon-not-displaying-in-notification-white-square-shown-instead)
 -[x] Swich färgerna fungerar nu som de ska.
 -[x] Om man trycker på byta RSi-nyckeln så försvinner logga in rutan när man trycker logga in
