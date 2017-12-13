@@ -12,8 +12,10 @@
 -[ ] Temperatur sidan funktionalitet
 -[ ] Sätt in en tillbaka pil i intsällningarna `Dropbox\_Digital peguin solutions\_Kunder\_Current\RSI\_App\_exports\5.0\settings`
 -[ ] Brevid paj diagramet står det mängden % som är tex "torrt"
--[ ] Gör så att forcast_nav item fungerar ordentligt.
+-[ ] Gör så att knapparna i forcast_fragment fungerar odentligt.
 -[ ] Favorit området dyker inte altid upp när man startar appen.
+-[ ] Texten på forcast fragmet är för lång vilket gör att den hammnar på 2 rader om det är 100%
+-[ ] Tiden och områdets olika väglag ligger inte bra relatift till varakdra
 
 ### Done
 -[x] Notifikationer [Icon](https://stackoverflow.com/questions/30795431/icon-not-displaying-in-notification-white-square-shown-instead)

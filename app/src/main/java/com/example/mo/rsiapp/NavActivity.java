@@ -34,7 +34,7 @@ import static com.example.mo.rsiapp.R.menu.nav;
 import static com.example.mo.rsiapp.datamanaging.FetchingManager.latestForecastTime;
 
 public class NavActivity extends AppCompatActivity
-        implements  DrawerLayout.DrawerListener, LoginFragment.OnFragmentInteractionListener, ForecastFragment.OnFragmentInteractionListener, LoadingFragment.OnFragmentInteractionListener , SettingsFragment.OnFragmentInteractionListener, StartPageFragment.OnFragmentInteractionListener {
+        implements DrawerLayout.DrawerListener, LoginFragment.OnFragmentInteractionListener, ForecastFragment.OnFragmentInteractionListener, LoadingFragment.OnFragmentInteractionListener, SettingsFragment.OnFragmentInteractionListener, StartPageFragment.OnFragmentInteractionListener {
 
     public static InstantAutoComplete searchBar;
     private static final String TAG = "NavActivity";
@@ -53,7 +53,7 @@ public class NavActivity extends AppCompatActivity
         setContentView(R.layout.activity_nav);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        
+
 
         navDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -84,14 +84,13 @@ public class NavActivity extends AppCompatActivity
 
         Intent intent = getIntent();
         // if the application is opened by clicking on a notification
-        if(intent.hasExtra("area_id") && intent.hasExtra("latest_forecast_time")){
+        if (intent.hasExtra("area_id") && intent.hasExtra("latest_forecast_time")) {
             String areaID = intent.getStringExtra("area_id");
             long forecastTime = intent.getLongExtra("latest_forecast_time", latestForecastTime);
             FetchingManager.latestForecastTime = forecastTime;
             FetchingManager.fetchForecast(areaID, forecastTime, JSONFetcher.FETCH_FORECAST);
             openLoadingScreen();
-        }
-        else {
+        } else {
             Alarm.setAlarm(this); // starts the background task
         }
 
@@ -105,31 +104,29 @@ public class NavActivity extends AppCompatActivity
         nav.setVisibility(View.VISIBLE);
     }
 
-    public void hideSearchBar(){
-        View nav =  findViewById(R.id.search_edit_frame);
+    public void hideSearchBar() {
+        View nav = findViewById(R.id.search_edit_frame);
         nav.setVisibility(View.INVISIBLE);
     }
 
-    public void openInitial(){
+    public void openInitial() {
 
         // if no RSI key has been given
-        if(!StorageManager.keyIsVerified()) {
+        if (!StorageManager.keyIsVerified()) {
             openLogin();
-        }
-        else if(StorageManager.getFavoriteArea().isEmpty()){
+        } else if (StorageManager.getFavoriteArea().isEmpty()) {
             // open startpage if there is no favorite area
             openStartPage();
-        }
-        else {
-            if(FetchingManager.latestForecastTime != 0) { // if this is 0, it means the latestforecast time still hasn't been fetched from the server
+        } else {
+            if (FetchingManager.latestForecastTime != 0) { // if this is 0, it means the latestforecast time still hasn't been fetched from the server
                 favoriteForecastOpened = false;
                 viewFavoriteForecast();
             }
         }
     }
 
-    public void viewFavoriteForecast(){
-        if(StorageManager.keyIsVerified()) {
+    public void viewFavoriteForecast() {
+        if (StorageManager.keyIsVerified()) {
             if (!NavActivity.favoriteForecastOpened) { // if a forecast hasn't been automatically opened yet
                 favoriteForecastOpened = true;
                 String favoriteArea = StorageManager.getFavoriteArea();
@@ -157,8 +154,8 @@ public class NavActivity extends AppCompatActivity
     }
 
 
-    public void updateNavItemsFavorite(String newFavorite){
-        for(NavAreaItem navItem : navAreaItems){
+    public void updateNavItemsFavorite(String newFavorite) {
+        for (NavAreaItem navItem : navAreaItems) {
             boolean isNewFavorite = navItem.getAreaID().equals(newFavorite);
             navItem.setIsFavorite(isNewFavorite);
         }
@@ -180,7 +177,7 @@ public class NavActivity extends AppCompatActivity
         LayoutInflater inflater = LayoutInflater.from(this);
 
         for (NavAreaItem navItem : navAreaItems) {
-            View row  = inflater.inflate(R.layout.nav_area_item, navDrawerList, false);
+            View row = inflater.inflate(R.layout.nav_area_item, navDrawerList, false);
 
             navItem.initComponents(row);
             navDrawerList.addView(row);
@@ -191,9 +188,10 @@ public class NavActivity extends AppCompatActivity
 
     }
 
-    public void displayConnectError(){
+    public void displayConnectError() {
         displayError("Anslutningsfel", "Kunde inte hämta data från servern, vänligen försök igen");
     }
+
     public void displayError(String errorTitle, String errorMessage) {
 
         AlertDialog builder;
@@ -201,8 +199,8 @@ public class NavActivity extends AppCompatActivity
 
         builder.setTitle(errorTitle);
         builder.setMessage(errorMessage);
-        builder.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog, int index){
+        builder.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int index) {
                 dialog.dismiss();
             }
         });
@@ -240,11 +238,12 @@ public class NavActivity extends AppCompatActivity
     public void manualFetchData(View v) {
         //FetchingManager.fetchForecast(0);
     }
+
     public void manualCancelAlarm(View v) {
         //Alarm.cancelAlarm(this);
     }
 
-    public void manualStartAlarm(View v){
+    public void manualStartAlarm(View v) {
         Alarm.setAlarm(this);
     }
 
@@ -270,27 +269,26 @@ public class NavActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public static void openForecast(String areaID, int routeLength, Forecast forecast){
+    public static void openForecast(String areaID, int routeLength, Forecast forecast) {
         // in case app has closed by user while fetching data in other thread
         try {
             ForecastFragment.viewedForecast = forecast; // passed statically is ok here cause there will only ever be one instance of ForecastFragment at the time
             ForecastFragment fragment = new ForecastFragment().newInstance(areaID, routeLength);
             FragmentManager manager = navActivity.getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.fragment_layout, fragment, fragment.getTag()).commit();
-        }
-        catch (IllegalStateException e){
+        } catch (IllegalStateException e) {
             e.printStackTrace();
         }
     }
 
-    public static void openLogin(){
+    public static void openLogin() {
         LoginFragment fragment = new LoginFragment().newInstance();
         FragmentManager manager = navActivity.getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.fragment_layout, fragment, fragment.getTag()).commit();
     }
 
 
-    public static void openLoadingScreen(){
+    public static void openLoadingScreen() {
         LoadingFragment fragment = new LoadingFragment().newInstance();
         FragmentManager manager = navActivity.getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.fragment_layout, fragment, fragment.getTag()).commit();
@@ -304,7 +302,7 @@ public class NavActivity extends AppCompatActivity
 
     @Override
     public void onDrawerSlide(View drawerView, float slideOffset) {
-        if(slideOffset != 0){
+        if (slideOffset != 0) {
             searchBar.removeFocusAndKeyboard();
         }
 
@@ -325,8 +323,10 @@ public class NavActivity extends AppCompatActivity
 
     }
 
-    public void launchRSI(View view){
+    public void launchRSI(View view) {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.roadstatus.info/app"));
         startActivity(browserIntent);
     }
+
+
 }

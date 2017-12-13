@@ -208,13 +208,13 @@ public class ForecastFragment extends Fragment {
         return values;
     }
 
-    public void removeAllCharts(){
+    public void removeAllCharts() {
         forecastLayout.removeView(chartOneContainer);
         forecastLayout.removeView(chartTwoContainer);
         forecastLayout.removeView(chartThreeContainer);
     }
 
-    public void updateRoadConditionCharts(String category){
+    public void updateRoadConditionCharts(String category) {
 
         removeAllCharts();
         chartOneContainer = addPieChart(FetchingManager.chartOneTimeLabel);
@@ -224,13 +224,11 @@ public class ForecastFragment extends Fragment {
 
     }
 
-    public void updateTemperatureCharts(String category){
+    public void updateTemperatureCharts(String category) {
         removeAllCharts();
         chartOneContainer = addTemperatureChart(FetchingManager.chartOneTimeLabel);
         chartTwoContainer = addTemperatureChart(FetchingManager.chartTwoTimeLabel);
         chartThreeContainer = addTemperatureChart(FetchingManager.chartThreeTimeLabel);
-
-
 
 
     }
@@ -240,10 +238,9 @@ public class ForecastFragment extends Fragment {
         chart2Values = viewedForecast.getDataPoint(category, FetchingManager.chartTwoTime, null);
         chart3Values = viewedForecast.getDataPoint(category, FetchingManager.chartThreeTime, null);
 
-        if(category.equals("roadcondition")){
+        if (category.equals("roadcondition")) {
             updateRoadConditionCharts(category);
-        }
-        else {
+        } else {
             updateTemperatureCharts(category);
         }
 
@@ -291,13 +288,13 @@ public class ForecastFragment extends Fragment {
         final WatchAreaButton watchButton = inflatedView.findViewById(R.id.watch_area_button);
         watchButton.init(areaID);
 
-        final Button categoriesButton = (Button) inflatedView.findViewById(R.id.select_category_button);
+        /*final Button categoriesButton = (Button) inflatedView.findViewById(R.id.select_category_button);
         categoriesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openSelectCategoryMenu();
             }
-        });
+        });*/
         //initCategoryButtons(inflatedView);
 
         String areaName = FetchingManager.getAreaNameFromID(areaID);
@@ -406,7 +403,7 @@ public class ForecastFragment extends Fragment {
             Log.d(TAG, "addDataSet: key : " + key);*/
             if (category.equals("roadcondition")) {
                 if (value > 0) {
-                    int percent = (int)Math.round((value*1.0 / routeLength*100));
+                    int percent = (int) Math.round((value * 1.0 / routeLength * 100));
 
                     Log.d(TAG, "addDataSet: percent" + percent);
                     yEntries.add(new PieEntry(value, i));
@@ -432,12 +429,11 @@ public class ForecastFragment extends Fragment {
             } else if (category.equals("roadtemperature")) {
                 //Log.d(TAG, "addDataSet: key: " + key);
                 if (!key.equals("StdDev")) {
-                    if(key.equals("Min")){
+                    if (key.equals("Min")) {
                         temperatureMin = value;
                         Log.d(TAG, "addDataSet: key: " + key);
                         Log.d(TAG, "addDataSet: value: " + value);
-                    }
-                    else if (key.equals("Max")){
+                    } else if (key.equals("Max")) {
                         temperatureMax = value;
                         Log.d(TAG, "addDataSet: key: " + key);
                         Log.d(TAG, "addDataSet: value: " + value);
@@ -450,17 +446,15 @@ public class ForecastFragment extends Fragment {
         }
 
 
-
         if (category.equals("roadtreatment")) {
             yEntries.add(new PieEntry(totalLength, i));
             int color = Color.YELLOW;
             colors.add(color);
             addInfoListItem("Ej saltat", color, infoLayout);
         }
-        if(category.equals("roadtemperature")) {
-            setTemperatureChart(chartContainer, (int)temperatureMin, (int)temperatureMax);
-        }
-        else {
+        if (category.equals("roadtemperature")) {
+            setTemperatureChart(chartContainer, (int) temperatureMin, (int) temperatureMax);
+        } else {
 
             PieDataSet pieDataSet = new PieDataSet(yEntries, "");
             pieDataSet.setSliceSpace(0);
@@ -484,7 +478,7 @@ public class ForecastFragment extends Fragment {
 
     }
 
-    public void setTemperatureChart(LinearLayout chartContainer, int min, int max){
+    public void setTemperatureChart(LinearLayout chartContainer, int min, int max) {
         int spanLength = 10;
         Log.d(TAG, "setTemperatureChart: spanlength: " + spanLength);
 
@@ -502,29 +496,26 @@ public class ForecastFragment extends Fragment {
         Log.d(TAG, "setTempatureChart: diff: " + diff);
 
 
-
         int minViewSize = 20;
         Log.d(TAG, "setTempatureChart: minviewsize: " + minViewSize);
         setViewWeight(minView, minViewSize);
 
-        int spanViewSize =(int)(diff*1.0 / spanLength*100);
+        int spanViewSize = (int) (diff * 1.0 / spanLength * 100);
         Log.d(TAG, "setTempatureChart: spanviewsize: " + spanLength);
 
-        if(spanViewSize > 100 - minViewSize*2){
+        if (spanViewSize > 100 - minViewSize * 2) {
             Log.d(TAG, "setTemperatureChart: trigger" + spanViewSize);
-            spanViewSize = 100 - minViewSize*2;
+            spanViewSize = 100 - minViewSize * 2;
             Log.d(TAG, "setTemperatureChart: trigger" + spanViewSize);
-        }
-        else if(spanViewSize == 0){
+        } else if (spanViewSize == 0) {
             spanViewSize = 10;
         }
 
         setViewWeight(spanView, spanViewSize);
 
-        int maxViewSize =  100 - minViewSize - spanViewSize;
+        int maxViewSize = 100 - minViewSize - spanViewSize;
         Log.d(TAG, "setTempatureChart: maxviewsize: " + maxViewSize);
         setViewWeight(maxView, maxViewSize);
-
 
 
     }
@@ -582,7 +573,7 @@ public class ForecastFragment extends Fragment {
 
     }*/
 
-    public void setViewWeight(View view, int weight){
+    public void setViewWeight(View view, int weight) {
         LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT);
         p.weight = weight;
         view.setLayoutParams(p);

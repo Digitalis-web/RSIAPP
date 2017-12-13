@@ -78,7 +78,7 @@ public class Notifications {
         builder.setContentIntent(resultPendingIntent);
         builder.setSmallIcon(R.drawable.ic_notifications);
         builder.setLargeIcon(notificationLargeIconBitmap);
-        builder.setColor(ContextCompat.getColor(context, R.color.colorBlue));
+        builder.setColor(ContextCompat.getColor(context, R.color.colorBlack));
         builder.setContentTitle(title);
         builder.setStyle(new Notification.BigTextStyle().bigText(contentText));
         builder.setContentText(contentText);

@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -39,30 +39,31 @@
                     android:textSize="18sp" />
             </LinearLayout>
 
-            <android.support.v7.widget.AppCompatButton
+            <!--<android.support.v7.widget.AppCompatButton
                 android:id="@+id/select_category_button"
                 style="@style/ForecastButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
-                android:text="@string/more" />
+                android:text="@string/more" />-->
 
             <com.example.mo.rsiapp.customviews.WatchAreaButton
                 android:id="@+id/watch_area_button"
                 style="@style/ForecastButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp" />
+                android:layout_marginBottom="100dp" />
 
         </LinearLayout>
 
     </ScrollView>
 
     <LinearLayout
-        android:gravity="bottom"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="#efefef"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorWhite"
+        android:gravity="bottom"
         android:orientation="horizontal"
         android:weightSum="3">
 
@@ -109,5 +110,5 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
 
