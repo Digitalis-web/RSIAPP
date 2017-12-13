@@ -97,6 +97,7 @@ public class NavActivity extends AppCompatActivity
         //StorageManager.clearRSIKey();
 
         openInitial();
+        Notifications.sendNotification(this, "hello", "hello", "123");
     }
 
     public void showSearchBar() {

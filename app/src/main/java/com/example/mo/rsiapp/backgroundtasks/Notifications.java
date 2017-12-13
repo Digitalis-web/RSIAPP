@@ -65,9 +65,6 @@ public class Notifications {
 
     public static void initNotification(Notification.Builder builder, String title, String contentText, Context context, String area_id) {
         Intent resultIntent = new Intent(context, NavActivity.class);
-        Bitmap notificationLargeIconBitmap = BitmapFactory.decodeResource(
-                context.getResources(),
-                R.drawable.ic_notificaton_large);
 
         resultIntent.putExtra("area_id", area_id);
         resultIntent.putExtra("latest_forecast_time", FetchingManager.latestForecastTime);
@@ -77,8 +74,7 @@ public class Notifications {
 
         builder.setContentIntent(resultPendingIntent);
         builder.setSmallIcon(R.drawable.ic_notifications);
-        builder.setLargeIcon(notificationLargeIconBitmap);
-        builder.setColor(ContextCompat.getColor(context, R.color.colorBlack));
+        builder.setColor(ContextCompat.getColor(context, R.color.colorBlue));
         builder.setContentTitle(title);
         builder.setStyle(new Notification.BigTextStyle().bigText(contentText));
         builder.setContentText(contentText);
