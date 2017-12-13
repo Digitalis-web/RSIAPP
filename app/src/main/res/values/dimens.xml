@@ -8,10 +8,9 @@
     <dimen name="container_height">180dp</dimen>
     <dimen name="container_spacing">20dp</dimen>
     <dimen name="container_inner_spacing">0dp</dimen>
-    <dimen name="chart_list_item_spacing">50dp</dimen>
+    <dimen name="chart_list_item_spacing">35dp</dimen>
     <dimen name="nav_item_spacing">20dp</dimen>
     <dimen name="category_button_spacing">2dp</dimen>
-    <dimen name="piChart_spacing">10dp</dimen>
-    <dimen name="temp_spacing">20dp</dimen>
-    <dimen name="temp_height">100dp</dimen>
+    <dimen name="pieChart_spacing">10dp</dimen>
+    <dimen name="temperature_container_height">100dp</dimen>
 </resources>

@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -129,15 +130,13 @@ public class ForecastFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //setText("right");
         View inflatedView = inflater.inflate(R.layout.fragment_forecast, container, false);
         rootViewGroup = container;
 
         this.inflatedView = inflatedView;
-        initComponents(inflatedView);
+        initComponents();
         findAvailableCategories();
 
-        // Inflate the layout for this fragment
         return inflatedView;
     }
 
@@ -166,7 +165,7 @@ public class ForecastFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int index) {
                 Log.d(TAG, "onClick: category: " + availableCategories.get(index));
-                updateCharts(availableCategories.get(index), getView());
+                updateCharts(availableCategories.get(index));
             }
         });
         builder.show();
@@ -205,22 +204,44 @@ public class ForecastFragment extends Fragment {
         return values;
     }
 
-    //
-    public void updateCharts(String category, View inflatedView) {
-        //String category = categories.get(0);
+    public void removeAllCharts(){
+        forecastLayout.removeView(chartOneContainer);
+        forecastLayout.removeView(chartTwoContainer);
+        forecastLayout.removeView(chartThreeContainer);
+    }
+
+    public void updateRoadConditionCharts(String category){
+
+        removeAllCharts();
+        chartOneContainer = addPieChart(FetchingManager.chartOneTimeLabel);
+        chartTwoContainer = addPieChart(FetchingManager.chartTwoTimeLabel);
+        chartThreeContainer = addPieChart(FetchingManager.chartThreeTimeLabel);
+
         HashMap<String, Long> chart1Values = viewedForecast.getDataPoint(category, FetchingManager.chartOneTime, null);
         HashMap<String, Long> chart2Values = viewedForecast.getDataPoint(category, FetchingManager.chartTwoTime, null);
         HashMap<String, Long> chart3Values = viewedForecast.getDataPoint(category, FetchingManager.chartThreeTime, null);
 
-        Log.d(TAG, "onCreateView: starting create chart");
-        //LinearLayout chart1InfoLayout = chartOne.findViewById(R.id.chartInfoOne);
         addDataSet(category, chartOneContainer, chart1Values);
-
-        //LinearLayout chart2InfoLayout = (LinearLayout) inflatedView.findViewById(R.id.chartInfoTwo);
         addDataSet(category, chartTwoContainer, chart2Values);
-
-        //LinearLayout chart3InfoLayout = (LinearLayout) inflatedView.findViewById(R.id.chartInfoThree);
         addDataSet(category, chartThreeContainer, chart3Values);
+    }
+
+    public void updateTemperatureCharts(String category){
+        removeAllCharts();
+        chartOneContainer = addTemperatureChart(FetchingManager.chartOneTimeLabel);
+        chartTwoContainer = addTemperatureChart(FetchingManager.chartTwoTimeLabel);
+        chartThreeContainer = addTemperatureChart(FetchingManager.chartThreeTimeLabel);
+
+    }
+
+    public void updateCharts(String category) {
+
+        if(category.equals("roadcondition")){
+            updateRoadConditionCharts(category);
+        }
+        else {
+            //updateTemperatureCharts(category);
+        }
 
         /*chart1.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
@@ -242,16 +263,13 @@ public class ForecastFragment extends Fragment {
 
     }
 
-    public void initComponents(View inflatedView) {
+    public void initComponents() {
         forecastLayout = inflatedView.findViewById(R.id.forecast_layout);
 
 /*        chartOne = inflatedView.findViewById(R.id.piChartOne);
         chartTwo = inflatedView.findViewById(R.id.piChartTwo);
         chartThree = inflatedView.findViewById(R.id.piChartThree);*/
 
-        chartOneContainer = initPieChart(FetchingManager.chartOneTimeLabel);
-        chartTwoContainer = initPieChart(FetchingManager.chartTwoTimeLabel);
-        chartThreeContainer = initPieChart(FetchingManager.chartThreeTimeLabel);
 
 /*        TextView chartOneHeader = inflatedView.findViewById(R.id.chartOneHeader);
         TextView chartTwoHeader = inflatedView.findViewById(R.id.chartTwoHeader);
@@ -260,7 +278,7 @@ public class ForecastFragment extends Fragment {
         chartTwoHeader.setText(FetchingManager.chartTwoTimeLabel);
         chartThreeHeader.setText(FetchingManager.chartThreeTimeLabel);*/
 
-        updateCharts(viewedForecast.categories.get(0), inflatedView);
+        updateCharts(viewedForecast.categories.get(0));
 
         final WatchAreaButton watchButton = inflatedView.findViewById(R.id.watch_area_button);
         watchButton.init(areaID);
@@ -279,16 +297,17 @@ public class ForecastFragment extends Fragment {
         headerView.setText(areaName);
     }
 
-    //
-    private LinearLayout initPieChart(String header) {
+    private LinearLayout addPieChart(String header) {
 
         LayoutInflater inflater = LayoutInflater.from(NavActivity.navActivity);
         LinearLayout chartContainer = (LinearLayout) inflater.inflate(R.layout.forecast_chart_container, forecastLayout, false);
+        FrameLayout innerChartContainer = chartContainer.findViewById(R.id.innerChartContainer);
 
         TextView headerView = chartContainer.findViewById(R.id.chartHeader);
         headerView.setText(header);
 
-        PieChart chart = chartContainer.findViewById(R.id.pieChart);
+        //PieChart chart = chartContainer.findViewById(R.id.pieChart);
+        PieChart chart = (PieChart) inflater.inflate(R.layout.piechart, forecastLayout, false);
 
         Description desc = new Description();
         desc.setText("");
@@ -300,6 +319,25 @@ public class ForecastFragment extends Fragment {
         //chart.setCenterTextSize(15);
         chart.setDrawEntryLabels(false);
 
+        innerChartContainer.addView(chart);
+        forecastLayout.addView(chartContainer);
+
+        return chartContainer;
+    }
+
+    private LinearLayout addTemperatureChart(String header) {
+
+        LayoutInflater inflater = LayoutInflater.from(NavActivity.navActivity);
+        LinearLayout chartContainer = (LinearLayout) inflater.inflate(R.layout.forecast_chart_container, forecastLayout, false);
+        FrameLayout innerChartContainer = chartContainer.findViewById(R.id.innerChartContainer);
+
+        TextView headerView = chartContainer.findViewById(R.id.chartHeader);
+        headerView.setText(header);
+
+        //PieChart chart = chartContainer.findViewById(R.id.pieChart);
+        LinearLayout chart = (LinearLayout) inflater.inflate(R.layout.temperature_chart, forecastLayout, false);
+
+        innerChartContainer.addView(chart);
         forecastLayout.addView(chartContainer);
 
         return chartContainer;
