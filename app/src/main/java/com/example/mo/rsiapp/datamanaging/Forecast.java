@@ -61,6 +61,13 @@ public class Forecast {
     // requestedLayers specifies which layers that should be returned. If null all layers will be returned
     public HashMap<String, Long> getDataPoint(String category, long time, Set<String> requestedLayers){
 
+        if(data == null){
+            if(NavActivity.navActivity != null) {
+                NavActivity.navActivity.displayConnectError();
+                FetchingManager.fetchAreas(JSONFetcher.FETCH_AREAS);
+            }
+        }
+
         HashMap<String, Long> values = new HashMap<>();
         try {
             JSONObject data = getDataForCategory(category);

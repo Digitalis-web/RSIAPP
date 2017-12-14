@@ -1,7 +1,6 @@
 package com.example.mo.rsiapp;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -10,12 +9,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -80,6 +78,10 @@ public class ForecastFragment extends Fragment {
     HashMap<String, Long> chart1Values;
     HashMap<String, Long> chart2Values;
     HashMap<String, Long> chart3Values;
+
+    AppCompatButton roadConditionButton;
+    AppCompatButton temperatureButton;
+    //LinearLayout moreButton;
 
     //
     public ForecastFragment() {
@@ -160,7 +162,7 @@ public class ForecastFragment extends Fragment {
     }*/
 
     //
-    public void openSelectCategoryMenu() {
+/*    public void openSelectCategoryMenu() {
         CharSequence categories[] = availableCategoriesLabels.toArray(new String[availableCategoriesLabels.size()]);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -174,7 +176,7 @@ public class ForecastFragment extends Fragment {
         });
         builder.show();
 
-    }
+    }*/
 
     //
     public HashMap<String, Long> getDataPoint(String category, long time) {
@@ -271,6 +273,11 @@ public class ForecastFragment extends Fragment {
     public void initComponents() {
         forecastLayout = inflatedView.findViewById(R.id.forecast_layout);
 
+        if(viewedForecast == null || viewedForecast.categories == null){
+            NavActivity.navActivity.displayConnectError();
+            NavActivity.openLoadingScreen();
+            return;
+        }
 /*        chartOne = inflatedView.findViewById(R.id.piChartOne);
         chartTwo = inflatedView.findViewById(R.id.piChartTwo);
         chartThree = inflatedView.findViewById(R.id.piChartThree);*/
@@ -283,10 +290,24 @@ public class ForecastFragment extends Fragment {
         chartTwoHeader.setText(FetchingManager.chartTwoTimeLabel);
         chartThreeHeader.setText(FetchingManager.chartThreeTimeLabel);*/
 
-        updateCharts(viewedForecast.categories.get(0));
 
         final WatchAreaButton watchButton = inflatedView.findViewById(R.id.watch_area_button);
         watchButton.init(areaID);
+
+        roadConditionButton = inflatedView.findViewById(R.id.roadBtn);
+        roadConditionButton.setOnClickListener(new AppCompatButton.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openRoadContidion();
+            }
+        });
+        temperatureButton = inflatedView.findViewById(R.id.temperatureBtn);
+        temperatureButton.setOnClickListener(new AppCompatButton.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openTemperature();
+            }
+        });
 
         /*final Button categoriesButton = (Button) inflatedView.findViewById(R.id.select_category_button);
         categoriesButton.setOnClickListener(new View.OnClickListener() {
@@ -300,6 +321,27 @@ public class ForecastFragment extends Fragment {
         String areaName = FetchingManager.getAreaNameFromID(areaID);
         TextView headerView = (TextView) inflatedView.findViewById(R.id.forecast_header);
         headerView.setText(areaName);
+
+        if (viewedForecast.categories.size() > 0){
+            //updateCharts(viewedForecast.categories.get(0));
+            openRoadContidion();
+        }
+        else {
+            NavActivity.navActivity.displayConnectError();
+            return;
+        }
+    }
+
+    public void openRoadContidion(){
+        updateCharts("roadcondition");
+        roadConditionButton.setBackgroundColor(Color.GRAY);
+        temperatureButton.setBackgroundColor(Color.WHITE);
+    }
+
+    public void openTemperature(){
+        updateCharts("roadtemperature");
+        roadConditionButton.setBackgroundColor(Color.WHITE);
+        temperatureButton.setBackgroundColor(Color.GRAY);
     }
 
     private LinearLayout addPieChart(String header) {
@@ -482,31 +524,24 @@ public class ForecastFragment extends Fragment {
         int spanLength = 10;
         Log.d(TAG, "setTemperatureChart: spanlength: " + spanLength);
 
-        TextView minView = chartContainer.findViewById(R.id.temperature_min);
-        View spanView = chartContainer.findViewById(R.id.temperature_span);
-        TextView maxView = chartContainer.findViewById(R.id.temperature_max);
+        TextView minView = chartContainer.findViewById(R.id.temperatureMin);
+        View spanView = chartContainer.findViewById(R.id.temperatureSpan);
+        TextView maxView = chartContainer.findViewById(R.id.temperatureMax);
 
         minView.setText(String.valueOf(min) + "° ");
         maxView.setText(" " + String.valueOf(max) + "°");
 
 
-        Log.d(TAG, "setTempatureChart: max: " + max);
-        Log.d(TAG, "setTempatureChart: min: " + min);
         int diff = max - min;
-        Log.d(TAG, "setTempatureChart: diff: " + diff);
 
 
         int minViewSize = 20;
-        Log.d(TAG, "setTempatureChart: minviewsize: " + minViewSize);
         setViewWeight(minView, minViewSize);
 
         int spanViewSize = (int) (diff * 1.0 / spanLength * 100);
-        Log.d(TAG, "setTempatureChart: spanviewsize: " + spanLength);
 
         if (spanViewSize > 100 - minViewSize * 2) {
-            Log.d(TAG, "setTemperatureChart: trigger" + spanViewSize);
             spanViewSize = 100 - minViewSize * 2;
-            Log.d(TAG, "setTemperatureChart: trigger" + spanViewSize);
         } else if (spanViewSize == 0) {
             spanViewSize = 10;
         }
@@ -514,10 +549,7 @@ public class ForecastFragment extends Fragment {
         setViewWeight(spanView, spanViewSize);
 
         int maxViewSize = 100 - minViewSize - spanViewSize;
-        Log.d(TAG, "setTempatureChart: maxviewsize: " + maxViewSize);
         setViewWeight(maxView, maxViewSize);
-
-
     }
 /*    public void setTemperatureChart(LinearLayout chartContainer, long min, long max){
         int lowestDisplayTemp = -8;

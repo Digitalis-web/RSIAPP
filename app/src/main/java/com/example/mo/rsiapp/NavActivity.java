@@ -92,12 +92,11 @@ public class NavActivity extends AppCompatActivity
             openLoadingScreen();
         } else {
             Alarm.setAlarm(this); // starts the background task
+            openInitial();
         }
 
         //StorageManager.clearRSIKey();
 
-        openInitial();
-        Notifications.sendNotification(this, "hello", "hello", "123");
     }
 
     public void showSearchBar() {

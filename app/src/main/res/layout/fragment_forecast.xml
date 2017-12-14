@@ -68,10 +68,10 @@
         android:weightSum="3">
 
         <Button
-            android:id="@+id/road"
+            android:id="@+id/roadBtn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
+            android:paddingTop="10dp"
             android:layout_weight="1"
             android:background="#00000000"
             android:drawableTop="@drawable/ic_road"
@@ -80,10 +80,10 @@
             android:textColor="@color/colorBlack" />
 
         <Button
-            android:id="@+id/temp"
+            android:id="@+id/temperatureBtn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
+            android:paddingTop="10dp"
             android:layout_weight="1"
             android:background="#00000000"
             android:drawableTop="@drawable/ic_temperature"
@@ -95,7 +95,7 @@
             android:id="@+id/webBtn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
+            android:paddingTop="10dp"
             android:layout_weight="1"
             android:autoLink="web"
             android:background="#00000000"
