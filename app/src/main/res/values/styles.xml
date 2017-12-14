@@ -38,18 +38,18 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="ForecastButton" parent="AppTheme">
-        <item name = "android:textColor">@color/colorBlack</item>
-        <item name = "android:layout_marginLeft">@dimen/container_spacing</item>
-        <item name = "android:layout_marginRight">@dimen/container_spacing</item>
-        <item name = "android:layout_marginTop">@dimen/container_spacing</item>
-        <item name = "android:textSize">20sp</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:layout_marginLeft">@dimen/container_spacing</item>
+        <item name="android:layout_marginRight">@dimen/container_spacing</item>
+        <item name="android:layout_marginTop">@dimen/container_spacing</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="ChartListHeader" parent="AppTheme">
-        <item name = "android:textColor">@color/colorBlack</item>
-        <item name = "android:textSize">22sp</item>
-        <!--<item name = "android:paddingLeft">@dimen/chart_list_item_spacing</item>-->
-        <item name = "android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:paddingLeft">@dimen/chart_list_item_spacing</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="AppTheme.ChartContainer" parent="AppTheme">
@@ -60,15 +60,15 @@
         <item name="android:paddingBottom">@dimen/container_inner_spacing</item>
     </style>
 
-    <style name="AppTheme.InstantAutoComplete" parent="AppTheme" >
-        <item name = "android:textColor">@color/colorBlack</item>
-        <item name = "android:textColorHint">@color/colorDarkGrey</item>
+    <style name="AppTheme.InstantAutoComplete" parent="AppTheme">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColorHint">@color/colorDarkGrey</item>
     </style>
 
-    <style name = "AppTheme.DropDownItem">
-        <item name = "android:background">@color/colorLightBlue</item>
+    <style name="AppTheme.DropDownItem">
+        <item name="android:background">@color/colorLightBlue</item>
         <!--<item name = "android:textColorSecondary">@color/colorLightBlue</item>-->
-        <item name = "android:textColor">@color/colorBlack</item>
+        <item name="android:textColor">@color/colorBlack</item>
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
