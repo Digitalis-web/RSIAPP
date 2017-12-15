@@ -8,12 +8,12 @@
 -[ ] Tillbaka knapp för alla sidor
 -[ ] Verfiera NSI nyckel
 -[ ] Uppdatera tiden för senaste prognos om man haft appen uppe länge
--[ ] Temperatur sidan styling: `Dropbox\_Digital peguin solutions\_Kunder\_Current\RSI\_App\_exports\5.0\temperature`
--[ ] Temperatur sidan funktionalitet
 -[ ] Sätt in en tillbaka pil i intsällningarna `Dropbox\_Digital peguin solutions\_Kunder\_Current\RSI\_App\_exports\5.0\settings`
 -[ ] Favorit området dyker inte altid upp när man startar appen.
 
 ### Done
+-[x] Temperatur sidan funktionalitet
+-[x] Temperatur sidan styling: `Dropbox\_Digital peguin solutions\_Kunder\_Current\RSI\_App\_exports\5.0\temperature`
 -[x] Gör så att knapparna i forcast_fragment fungerar odentligt.
 -[x] Brevid paj diagramet står det mängden % som är tex "torrt"
 -[x] Tiden och områdets olika väglag ligger inte bra relatift till varakdra
