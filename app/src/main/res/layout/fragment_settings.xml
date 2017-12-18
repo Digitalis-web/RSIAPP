@@ -52,7 +52,7 @@
                 android:layout_marginTop="5dp"
                 android:text="@string/rsi_Key"
                 android:textColor="@color/colorGraph3"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/change_rsi_key"

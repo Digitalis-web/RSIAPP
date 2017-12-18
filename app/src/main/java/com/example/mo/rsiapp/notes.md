@@ -5,16 +5,16 @@
 [**Info Areas**](http://163.172.101.14:8000/api//area/1427@1497772800)
 
 ## Testnings resultat
-* När man lägger telefonen på sidan så fungerar det inte riktigt.
 
 ## To do
 -[ ] Tillbaka knapp för alla sidor
--[ ] Verfiera NSI nyckel
 -[ ] Uppdatera tiden för senaste prognos om man haft appen uppe länge
 -[ ] Sätt in en tillbaka pil i intsällningarna `Dropbox\_Digital peguin solutions\_Kunder\_Current\RSI\_App\_exports\5.0\settings`
 -[ ] Favorit området dyker inte altid upp när man startar appen.
 
 ### Done
+-[x] Verfiera NSI nyckel
+-[x] 2 olika error medelanden för inloggning av rsi appen.
 -[x] Sluta bevaka knappen är inte gul
 -[x] Temperatur sidan funktionalitet
 -[x] Temperatur sidan styling: `Dropbox\_Digital peguin solutions\_Kunder\_Current\RSI\_App\_exports\5.0\temperature`
