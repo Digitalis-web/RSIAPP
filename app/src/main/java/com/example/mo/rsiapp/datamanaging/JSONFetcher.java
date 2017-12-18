@@ -50,7 +50,6 @@ public class JSONFetcher extends AsyncTask<String, Void, JSONObject> {
     @Override
     protected JSONObject doInBackground(String... params) {
         String urlStr = params[0];
-        //updateUI = params[1].equals("true"); // weather the UI should be updated with the new data or not
 
         Log.d(TAG, "doinbackground");
         HttpURLConnection urlConnection = null;
@@ -75,7 +74,6 @@ public class JSONFetcher extends AsyncTask<String, Void, JSONObject> {
             br.close();
 
             jsonString = sb.toString();
-            //System.out.println("JSON: " + jsonString.substring(jsonString.length()-59));
             JSONObj = new JSONObject(jsonString);
 
         } catch (IOException e) {

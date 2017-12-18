@@ -10,8 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.Toast;
 
+import com.example.mo.rsiapp.datamanaging.FetchingManager;
+import com.example.mo.rsiapp.datamanaging.KeyVerifier;
 import com.example.mo.rsiapp.datamanaging.StorageManager;
 
 /**
@@ -75,9 +76,7 @@ public class LoginFragment extends Fragment {
         View inflatedView = inflater.inflate(R.layout.fragment_login, container, false);
         this.inflatedView = inflatedView;
         initComponents();
-        if(!StorageManager.keyIsVerified()) {
-            NavActivity.navActivity.hideSearchBar();
-        }
+        NavActivity.navActivity.hideSearchBar();
 
         // Inflate the layout for this fragment
         return inflatedView;
@@ -127,9 +126,11 @@ public class LoginFragment extends Fragment {
 
         if(!key.isEmpty()) {
             StorageManager.saveRSIKey(key);
+            FetchingManager.verifyKey(key, KeyVerifier.ON_LOGIN);
+/*            StorageManager.saveRSIKey(key);
             Toast.makeText(getContext(), "Nyckel sparad" ,Toast.LENGTH_SHORT).show();
             NavActivity.navActivity.showSearchBar();
-            NavActivity.navActivity.openInitial();
+            NavActivity.navActivity.openInitial();*/
 
         }
 

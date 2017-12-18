@@ -25,6 +25,7 @@ import com.example.mo.rsiapp.datamanaging.DisplayInfoManager;
 import com.example.mo.rsiapp.datamanaging.FetchingManager;
 import com.example.mo.rsiapp.datamanaging.Forecast;
 import com.example.mo.rsiapp.datamanaging.JSONFetcher;
+import com.example.mo.rsiapp.datamanaging.KeyVerifier;
 import com.example.mo.rsiapp.datamanaging.StorageManager;
 
 import java.util.ArrayList;
@@ -61,6 +62,8 @@ public class NavActivity extends AppCompatActivity
         navDrawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        //StorageManager.clearRSIKey();
+
         navDrawer.addDrawerListener(this);
 
         //Log.d(TAG, "onCreate: watched areas: " + StorageManager.getWatchedAreas().toString());
@@ -74,7 +77,6 @@ public class NavActivity extends AppCompatActivity
 
         //StorageManager.clearWatchedAreas();
         //StorageManager.clearRSIKey();
-        FetchingManager.fetchAreas(JSONFetcher.FETCH_AREAS);
 
         Notifications.initNotificationsChannel(this);
 
@@ -92,10 +94,15 @@ public class NavActivity extends AppCompatActivity
             openLoadingScreen();
         } else {
             Alarm.setAlarm(this); // starts the background task
-            openInitial();
         }
 
-        //StorageManager.clearRSIKey();
+        if(!StorageManager.getRSIKey().isEmpty()){
+            FetchingManager.verifyKey(StorageManager.getRSIKey(), KeyVerifier.ON_START);
+        }
+        else {
+            openLogin();
+        }
+
 
     }
 
@@ -111,10 +118,7 @@ public class NavActivity extends AppCompatActivity
 
     public void openInitial() {
 
-        // if no RSI key has been given
-        if (!StorageManager.keyIsVerified()) {
-            openLogin();
-        } else if (StorageManager.getFavoriteArea().isEmpty()) {
+        if (StorageManager.getFavoriteArea().isEmpty()) {
             // open startpage if there is no favorite area
             openStartPage();
         } else {

@@ -24,6 +24,7 @@ import java.util.TimeZone;
 public class FetchingManager {
     ///public static final String SERVER_IP = "64.147.114.20";
     public static final String SERVER_IP = "163.172.101.14";
+    public static final String VERIFY_KEY_IP = "146.185.150.217";
 
     private static String url = "http://163.172.101.14:8000/api/ogJu1VCu09HpHD6VbHX34jChdoKz2fR5/area/1427@1497772800";
     //private static String forecastUrl = "http://163.172.101.14:8000/api/ogJu1VCu09HpHD6VbHX34jChdoKz2fR5/area/";
@@ -155,6 +156,12 @@ public class FetchingManager {
     public static void clearOldData() {
         //categories.clear();
         //categorizedData.clear();
+    }
+
+    public static void verifyKey(String key, int fetchMode){
+        Log.d(TAG, "verifyKey: running");
+        KeyVerifier kv = new KeyVerifier(fetchMode);
+        kv.execute(key);
     }
 
     // checks if there is new forecast available and fetches the new forecast if there is a new one available
