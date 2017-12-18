@@ -22,24 +22,21 @@
     <string name="search">Sök efter område</string>
 
     <string name="welcome">Välkommen till RSI</string>
-    <string name="NoArea">Du bevakar inget område ännu. Sök efter ett nytt område att bevaka</string>
+    <string name="no_area">Du bevakar inget område ännu. Sök efter ett nytt område att bevaka</string>
 
 
-    <string name="now">om 0h</string>
-    <string name="fore">om 4h</string>
-    <string name="eight">om 8h</string>
     <string name="more">Mer</string>
     <string name="web">Mer detailjerad data</string>
 
     <string name="loading">Laddar data...</string>
 
-    <string name="road">väglag</string>
-    <string name="temp">temperature</string>
-    <string name="map">karta</string>
+    <string name="road">Väglag</string>
+    <string name="temp">Temperatur</string>
+    <string name="map">Karta</string>
 
 
     <!-- Strings related to login -->
-    <string name="error_invalid_email">Rsi-ncykel finns inte</string>
+    <string name="error_invalid_email">RSI-nyckel finns inte</string>
     <string name="error_field_required">Det här fältet är obligatoriskt</string>
     <string name="log_in">Logga in</string>
     <string name="log_out">Logga ut</string>
