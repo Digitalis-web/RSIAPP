@@ -80,7 +80,6 @@ public class NavActivity extends AppCompatActivity
 
         Notifications.initNotificationsChannel(this);
 
-
         //StorageManager.clearSettings();
         SettingsFragment.initDefaultSettingsIfNonExists(); // inits default settings if there are no settings
 

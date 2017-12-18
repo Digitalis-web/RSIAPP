@@ -86,6 +86,13 @@ public class KeyVerifier extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String result){
         boolean keyVerified = result.contains("true");
 
+        if(keyVerified){
+            StorageManager.saveNotificationsEnabled(true);
+        }
+        else {
+            StorageManager.saveNotificationsEnabled(false);
+        }
+
         if(fetchMode == ON_LOGIN) {
             if(keyVerified){
                 FetchingManager.fetchAreas(JSONFetcher.FETCH_AREAS);
@@ -98,14 +105,16 @@ public class KeyVerifier extends AsyncTask<String, Void, String> {
 
         }
         else if(fetchMode == ON_START){
-            if(!keyVerified) {
-                NavActivity.navActivity.openLogin();
-            }
-            else {
+            if(keyVerified) {
                 FetchingManager.fetchAreas(JSONFetcher.FETCH_AREAS);
                 NavActivity.navActivity.openInitial();
             }
+            else {
+                NavActivity.navActivity.openLogin();
+            }
         }
+
+
 
         Log.d(TAG, "onPostExecute: KEY VERIFED " + result);
         Log.d(TAG, "onPostExecute: KEY VERIFED " + keyVerified);
