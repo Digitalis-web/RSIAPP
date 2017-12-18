@@ -273,7 +273,7 @@ public class ForecastFragment extends Fragment {
     public void initComponents() {
         forecastLayout = inflatedView.findViewById(R.id.forecast_layout);
 
-        if(viewedForecast == null || viewedForecast.categories == null){
+        if (viewedForecast == null || viewedForecast.categories == null) {
             NavActivity.navActivity.displayConnectError();
             NavActivity.openLoadingScreen();
             return;
@@ -322,23 +322,22 @@ public class ForecastFragment extends Fragment {
         TextView headerView = (TextView) inflatedView.findViewById(R.id.forecast_header);
         headerView.setText(areaName);
 
-        if (viewedForecast.categories.size() > 0){
+        if (viewedForecast.categories.size() > 0) {
             //updateCharts(viewedForecast.categories.get(0));
             openRoadContidion();
-        }
-        else {
+        } else {
             NavActivity.navActivity.displayConnectError();
             return;
         }
     }
 
-    public void openRoadContidion(){
+    public void openRoadContidion() {
         updateCharts("roadcondition");
         roadConditionButton.setBackgroundColor(Color.GRAY);
         temperatureButton.setBackgroundColor(Color.WHITE);
     }
 
-    public void openTemperature(){
+    public void openTemperature() {
         updateCharts("roadtemperature");
         roadConditionButton.setBackgroundColor(Color.WHITE);
         temperatureButton.setBackgroundColor(Color.GRAY);
@@ -490,7 +489,7 @@ public class ForecastFragment extends Fragment {
 
         if (category.equals("roadtreatment")) {
             yEntries.add(new PieEntry(totalLength, i));
-            int color = Color.YELLOW;
+            int color = Color.RED;
             colors.add(color);
             addInfoListItem("Ej saltat", color, infoLayout);
         }

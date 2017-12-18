@@ -8,7 +8,7 @@
     android:paddingStart="@dimen/chart_list_item_spacing"
     android:paddingTop="0dp"
     android:textColor="@color/colorWhite"
-    android:textSize="14sp"
+    android:textSize="@dimen/font_size_item"
     android:textStyle="bold"
 
     />

@@ -4,6 +4,9 @@
 
 [**Info Areas**](http://163.172.101.14:8000/api//area/1427@1497772800)
 
+## Testnings resultat
+* När man lägger telefonen på sidan så fungerar det inte riktigt.
+
 ## To do
 -[ ] Tillbaka knapp för alla sidor
 -[ ] Verfiera NSI nyckel
@@ -12,6 +15,7 @@
 -[ ] Favorit området dyker inte altid upp när man startar appen.
 
 ### Done
+-[x] Sluta bevaka knappen är inte gul
 -[x] Temperatur sidan funktionalitet
 -[x] Temperatur sidan styling: `Dropbox\_Digital peguin solutions\_Kunder\_Current\RSI\_App\_exports\5.0\temperature`
 -[x] Gör så att knapparna i forcast_fragment fungerar odentligt.
@@ -50,12 +54,6 @@
 -[x] Gör att hela settings sidan går att skrolla i inte bara notiser
 -[x] Syla inststäningarna efter `Dropbox\_Digital peguin solutions\_Kunder\_Current\RSI\_App\_exports\5.0\settings`
 -[x] Ta bort aktivera notiser checkbox och andvänd swichen istället
-
-##Testing
--[ ] Be folket på RSI att titta på appen och testa den lite.
--[ ] Ha en länk där folk kan ladda ner appen och testa den
-
-## Buggar
 
 ##Saker att kanske lägga till i framtiden
 -[ ] När man klikcar på någon del av pai 
