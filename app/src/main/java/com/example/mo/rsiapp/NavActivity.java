@@ -198,7 +198,7 @@ public class NavActivity extends AppCompatActivity
     public void displayError(String errorTitle, String errorMessage) {
 
         AlertDialog builder;
-        builder = new AlertDialog.Builder(this).create();
+        builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom).create();
 
         builder.setTitle(errorTitle);
         builder.setMessage(errorMessage);
