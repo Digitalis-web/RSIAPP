@@ -8,6 +8,9 @@
 
 ## To do
 -[ ] Tillbaka knapp för alla sidor
+-[ ] Lägga in loggor på fler ställen och "Tjänst från Klimator" text
+-[ ] Lägga till Norges områden
+-[ ] Visa tid när senaste prognosen beräknades
 -[ ] Uppdatera tiden för senaste prognos om man haft appen uppe länge
 -[ ] Sätt in en tillbaka pil i intsällningarna `Dropbox\_Digital peguin solutions\_Kunder\_Current\RSI\_App\_exports\5.0\settings`
 -[ ] Favorit området dyker inte altid upp när man startar appen.
