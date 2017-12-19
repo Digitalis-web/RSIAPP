@@ -37,22 +37,32 @@
                     android:textAlignment="center"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
-            </LinearLayout>
 
-            <!--<android.support.v7.widget.AppCompatButton
-                android:id="@+id/select_category_button"
-                style="@style/ForecastButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorWhite"
-                android:text="@string/more" />-->
+                <TextView
+                    android:id="@+id/forecast_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/container_spacing"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp" />
+            </LinearLayout>
 
             <com.example.mo.rsiapp.customviews.WatchAreaButton
                 android:id="@+id/watch_area_button"
                 style="@style/ForecastButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="100dp" />
+                android:layout_marginBottom="20dp"/>
+
+            <ImageView
+                android:layout_marginBottom="100dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:scaleType="center"
+                android:src="@drawable/ic_rsi_snowflake" />
 
         </LinearLayout>
 

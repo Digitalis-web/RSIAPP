@@ -8,9 +8,8 @@
 
 ## To do
 -[ ] Tillbaka knapp för alla sidor
--[ ] Lägga till Norges områden
+-[ ] Lägga till Norges områden (Norges områden ska bara komma upp om man andvänder en norsk Rsi-nyckel)
 -[ ] Visa tid när senaste prognosen beräknades
--[ ] Lägga till rsi loggan på olika ställen
 -[ ] Uppdatera tiden för senaste prognos om man haft appen uppe länge
 -[ ] Sätt in en tillbaka pil i intsällningarna `Dropbox\_Digital peguin solutions\_Kunder\_Current\RSI\_App\_exports\5.0\settings`
 -[ ] Favorit området dyker inte altid upp när man startar appen.
@@ -18,6 +17,7 @@
     temperatur sidan och tvärtom för att komma till väglag från temperatur.
 
 ### Done
+-[x] Lägga till rsi loggan på olika ställen
 -[x] Lägga in loggor på fler ställen och "Tjänst från Klimator" text
 -[x] Verfiera NSI nyckel
 -[x] 2 olika error medelanden för inloggning av rsi appen.
