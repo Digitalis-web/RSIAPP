@@ -3,23 +3,68 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorLightBlue"
-    android:gravity="center"
     android:orientation="vertical"
+    android:weightSum="4"
     tools:context="com.example.mo.rsiapp.StartPageFragment">
 
-    <TextView
-        style="@style/start_Fragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-20dp"
-        android:text="@string/welcome"
-        android:textSize="28sp" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="40dp"
+        android:layout_weight="3"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
 
-    <TextView
-        style="@style/start_Fragment"
+        <TextView
+            style="@style/start_Fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome"
+            android:textSize="28sp" />
+
+        <TextView
+            style="@style/start_Fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="En produkt driven av Klimator"
+            android:textSize="20sp" />
+
+        <TextView
+            style="@style/start_Fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:text="@string/no_area" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/no_area" />
+        android:layout_height="0dp"
+        android:layout_marginTop="-50dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:contentDescription="@string/logo"
+            android:gravity="center"
+            android:scaleType="center"
+            android:src="@drawable/ic_rsi_snowflake" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:contentDescription="@string/logo"
+            android:scaleType="center"
+            android:src="@drawable/ic_klimator_logo" />
+
+    </LinearLayout>
 
 </LinearLayout>
