@@ -472,14 +472,13 @@ public class ForecastFragment extends Fragment {
                 if (!key.equals("StdDev")) {
                     if (key.equals("Min")) {
                         temperatureMin = value;
-                        Log.d(TAG, "addDataSet: key: " + key);
-                        Log.d(TAG, "addDataSet: value: " + value);
                     } else if (key.equals("Max")) {
                         temperatureMax = value;
-                        Log.d(TAG, "addDataSet: key: " + key);
-                        Log.d(TAG, "addDataSet: value: " + value);
                     }
-                    addInfoListItem(key + ": " + value, Color.WHITE, infoLayout);
+                    else if (key.equals("Avg")){
+                        key = "Medel";
+                    }
+                    addInfoListItem(key + ": " + value + "°", Color.WHITE, infoLayout);
                 }
 
             }
