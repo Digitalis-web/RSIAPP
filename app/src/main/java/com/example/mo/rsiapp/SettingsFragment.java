@@ -128,7 +128,7 @@ public class SettingsFragment extends Fragment  implements CheckBox.OnCheckedCha
             Set<String> settingsSet = new HashSet<>();
             Log.d(TAG, "initDefaultSettingsIfNonExists: settings do not exist");
             for(String layer : availableLayers){
-                String saveString = buildSaveString(layer, "1", "30");
+                String saveString = buildSaveString(layer, "1", "20");
                 settingsSet.add(saveString);
             }
             StorageManager.saveSettings(settingsSet);
