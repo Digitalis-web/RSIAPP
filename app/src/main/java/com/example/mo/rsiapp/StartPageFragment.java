@@ -25,8 +25,6 @@ public class StartPageFragment extends Fragment {
 
     private static final String TAG = "Startpage";
 
-    private ViewGroup rootViewGroup;
-
     private OnFragmentInteractionListener mListener;
 
 
@@ -50,7 +48,6 @@ public class StartPageFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View inflatedView = inflater.inflate(R.layout.fragment_start, container,false);
-        rootViewGroup = container;
 
         initComponents(inflatedView);
 

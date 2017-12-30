@@ -5,12 +5,12 @@
 [**Info Areas**](http://163.172.101.14:8000/api//area/1427@1497772800)
 
 ## To do
+-[ ] Lägga till ett litet frågetecken vid "Notifikationer" på inställningar som förklarar hur notiserna funkar
 -[ ] Lägga till en popup när man startar appen att detta är en beta version och alting kanske inte fungerar felfritt
     Om man stöter på problem eller vill ge feedback maila oliver.gustavssons@gmail.com
 -[ ] Tillbaka knapp för alla sidor
 -[ ] notis inställningarna ska vara på 20% från början.
 -[ ] Lägga till Norges områden (Norges områden ska bara komma upp om man andvänder en norsk Rsi-nyckel)
--[ ] Visa tid när senaste prognosen beräknades
 -[ ] lägga till texten nu om 4h och om 8h istället för tid.
 -[ ] Lägga till tiden i högsta vänstra hörnet.
 -[ ] Uppdatera tiden för senaste prognos om man haft appen uppe länge
@@ -19,6 +19,7 @@
     temperatur sidan och tvärtom för att komma till väglag från temperatur.
 
 ### Done
+-[x] Visa tid när senaste prognosen beräknades
 -[x] Favorit området dyker inte altid upp när man startar appen.
 -[x] Lägga till rsi loggan på olika ställen
 -[x] Lägga in loggor på fler ställen och "Tjänst från Klimator" text

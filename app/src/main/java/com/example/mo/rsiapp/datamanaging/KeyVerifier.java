@@ -40,13 +40,13 @@ public class KeyVerifier extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        Log.d(TAG, "doInBackground: key very");
         key = params[0];
         String urlStr = "http://" + FetchingManager.VERIFY_KEY_IP + "/verifykey.php";
+        //String urlStr = "http://roadstatus.info/key/verify_SDGJHweqr4w5jdfJ314jaSDJaskSJDGK345Asdsadjlha_3874SDFhjzxz.php";
+        //http://roadstatus.info/key/verify_SDGJHweqr4w5jdfJ314jaSDJaskSJDGK345Asdsadjlha_3874SDFhjzxz.php
         urlStr += "?rsi_key=" + key;
 
         URL url = null;
-        boolean keyVerified = false;
         String response = "";
 
         try {

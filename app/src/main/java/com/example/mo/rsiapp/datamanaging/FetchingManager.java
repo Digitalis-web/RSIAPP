@@ -35,6 +35,7 @@ public class FetchingManager {
     public static ArrayList<String> areasID = new ArrayList<>();
     public static long latestForecastTime = 0;
 
+
     public static long closestHourTime = 0;
     public static long chartOneTime = 0;
     public static long chartTwoTime = 0;
@@ -67,7 +68,7 @@ public class FetchingManager {
 
                 JSONArray areasArr = data.getJSONArray("areas");
 
-                Log.d(TAG, "parseAreasData: areas" + areasArr.toString());
+                //Log.d(TAG, "parseAreasData: areas" + areasArr.toString());
                 for (int i = 0; i < areasArr.length(); i++) {
                     JSONObject obj = areasArr.getJSONObject(i);
                     areasName.add(obj.get("name").toString());

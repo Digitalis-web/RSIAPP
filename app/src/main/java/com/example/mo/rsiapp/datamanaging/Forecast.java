@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+import static com.example.mo.rsiapp.datamanaging.FetchingManager.unixToHumanTime;
+
 
 /**
  * Created by mo on 19/11/17.
@@ -24,6 +26,10 @@ public class Forecast {
     public ArrayList<String> categories = new ArrayList<>();
     public ArrayList<JSONObject> categorizedData = new ArrayList<>();
     public String areaID = "";
+
+
+    public long latestForecastImportTime = 0;
+    public String latestForecastImportTimeLabel = "";
 
     private static final String TAG = "Forecast";
 
@@ -220,7 +226,7 @@ public class Forecast {
 
         }
 
-        long currentTime = FetchingManager.getClosestHourTime();
+        //long currentTime = FetchingManager.getClosestHourTime();
         //HashMap<String, Long> values = new HashMap<>();
 
 
@@ -240,7 +246,7 @@ public class Forecast {
         for(int n = 0; n < controlTimes.size(); n++) {
             long time = controlTimes.get(n);
             HashMap<String, Long> dataPoints =  getDataPoint("roadcondition", time, trackedAreasValues.keySet());
-            String timeLabel = FetchingManager.unixToHumanTime(time);
+            String timeLabel = unixToHumanTime(time);
 /*            Log.d(TAG, "controlData: datapoints: " + dataPoints.toString());
             Log.d(TAG, "controlData: --------------------------------" + time);*/
 
@@ -318,7 +324,8 @@ public class Forecast {
                     //Log.d(TAG, "parseForecastData: " + dataObj.toString());
                 }
 
-
+                latestForecastImportTime = Long.parseLong(data.get("import_time").toString());
+                latestForecastImportTimeLabel  = unixToHumanTime(latestForecastImportTime);
             }
             else {
                 if(NavActivity.navActivity != null) {

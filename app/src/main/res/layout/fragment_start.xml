@@ -16,26 +16,49 @@
         android:orientation="vertical">
 
         <TextView
-            style="@style/start_Fragment"
+            style="@style/StartFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/welcome"
+            android:textStyle="bold"
             android:textSize="28sp" />
 
         <TextView
-            style="@style/start_Fragment"
+            style="@style/StartFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:text="@string/driven_by"
+            android:textStyle="italic"
             android:textSize="20sp" />
 
         <TextView
-            style="@style/start_Fragment"
+            style="@style/StartFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
             android:text="@string/no_area" />
+
+        <TextView
+            style="@style/StartFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:text="@string/in_beta_start" />
+
+        <TextView
+            style="@style/StartFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:text="@string/send_feedback" />
+
+        <TextView
+            style="@style/StartFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:text="@string/feedback_mail" />
     </LinearLayout>
 
     <LinearLayout

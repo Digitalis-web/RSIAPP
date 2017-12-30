@@ -68,7 +68,6 @@ public class ForecastFragment extends Fragment {
     private String areaID;
     private int routeLength;
 
-    private ViewGroup rootViewGroup;
     private LinearLayout forecastLayout;
 
     private OnFragmentInteractionListener mListener;
@@ -137,7 +136,6 @@ public class ForecastFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View inflatedView = inflater.inflate(R.layout.fragment_forecast, container, false);
-        rootViewGroup = container;
 
         this.inflatedView = inflatedView;
         initComponents();
@@ -217,13 +215,10 @@ public class ForecastFragment extends Fragment {
     }
 
     public void updateRoadConditionCharts(String category) {
-
         removeAllCharts();
         chartOneContainer = addPieChart(FetchingManager.chartOneTimeLabel);
         chartTwoContainer = addPieChart(FetchingManager.chartTwoTimeLabel);
         chartThreeContainer = addPieChart(FetchingManager.chartThreeTimeLabel);
-
-
     }
 
     public void updateTemperatureCharts(String category) {
@@ -231,8 +226,6 @@ public class ForecastFragment extends Fragment {
         chartOneContainer = addTemperatureChart(FetchingManager.chartOneTimeLabel);
         chartTwoContainer = addTemperatureChart(FetchingManager.chartTwoTimeLabel);
         chartThreeContainer = addTemperatureChart(FetchingManager.chartThreeTimeLabel);
-
-
     }
 
     public void updateCharts(String category) {
@@ -273,11 +266,14 @@ public class ForecastFragment extends Fragment {
     public void initComponents() {
         forecastLayout = inflatedView.findViewById(R.id.forecast_layout);
 
+
         if (viewedForecast == null || viewedForecast.categories == null) {
             NavActivity.navActivity.displayConnectError();
             NavActivity.openLoadingScreen();
             return;
         }
+
+        setForecastTimeLabel();
 /*        chartOne = inflatedView.findViewById(R.id.piChartOne);
         chartTwo = inflatedView.findViewById(R.id.piChartTwo);
         chartThree = inflatedView.findViewById(R.id.piChartThree);*/
@@ -369,6 +365,12 @@ public class ForecastFragment extends Fragment {
         forecastLayout.addView(chartContainer);
 
         return chartContainer;
+    }
+
+    private void setForecastTimeLabel(){
+        String time = viewedForecast.latestForecastImportTimeLabel;
+        TextView timeLabel = inflatedView.findViewById(R.id.forecast_time);
+        timeLabel.setText("Prognos beräknad " + time);
     }
 
     private LinearLayout addTemperatureChart(String header) {

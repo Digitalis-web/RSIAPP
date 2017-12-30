@@ -22,8 +22,11 @@
     <string name="search">Sök efter område</string>
 
     <string name="welcome">Välkommen till RSI</string>
-    <string name="driven_by">En produkt driven av Klimator</string>
-    <string name="no_area">Du bevakar inget område ännu. Sök efter ett nytt område att bevaka</string>
+    <string name="driven_by">En produkt levererad av Klimator</string>
+    <string name="no_area">Du bevakar inget område ännu. Sök efter ett nytt område att bevaka.</string>
+    <string name="in_beta_start">Notera att detta är en betaversion och att fel och buggar kan förekomma.</string>
+    <string name="send_feedback">Vi tar gärna emot feedback på mailadressen nedan ifall du har förslag på förbättringar eller upptäcker några fel</string>
+    <string name="feedback_mail">oliver.gustavssons@gmail.com</string>
 
 
     <string name="more">Mer</string>

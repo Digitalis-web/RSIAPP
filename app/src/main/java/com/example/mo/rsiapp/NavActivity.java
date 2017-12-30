@@ -91,6 +91,7 @@ public class NavActivity extends AppCompatActivity
             FetchingManager.latestForecastTime = forecastTime;
             FetchingManager.fetchForecast(areaID, forecastTime, JSONFetcher.FETCH_FORECAST);
             openLoadingScreen();
+            favoriteForecastOpened = true; // stops favorite forecast from being opened
         } else {
             Alarm.setAlarm(this); // starts the background task
         }
