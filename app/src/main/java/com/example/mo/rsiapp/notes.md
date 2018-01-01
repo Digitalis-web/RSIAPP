@@ -9,7 +9,6 @@
 -[ ] Lägga till en popup när man startar appen att detta är en beta version och alting kanske inte fungerar felfritt
     Om man stöter på problem eller vill ge feedback maila oliver.gustavssons@gmail.com
 -[ ] Tillbaka knapp för alla sidor
--[ ] notis inställningarna ska vara på 20% från början.
 -[ ] Lägga till Norges områden (Norges områden ska bara komma upp om man andvänder en norsk Rsi-nyckel)
 -[ ] lägga till texten nu om 4h och om 8h istället för tid.
 -[ ] Lägga till tiden i högsta vänstra hörnet.
@@ -19,6 +18,7 @@
     temperatur sidan och tvärtom för att komma till väglag från temperatur.
 
 ### Done
+-[x] notis inställningarna ska vara på 20% från början.
 -[x] Visa tid när senaste prognosen beräknades
 -[x] Favorit området dyker inte altid upp när man startar appen.
 -[x] Lägga till rsi loggan på olika ställen
