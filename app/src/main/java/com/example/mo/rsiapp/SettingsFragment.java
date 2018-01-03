@@ -49,6 +49,11 @@ public class SettingsFragment extends Fragment  implements CheckBox.OnCheckedCha
 
     public static SettingsFragment settingsFragment;
 
+    private static ArrayList<String> defaultDisabledLayers = new ArrayList<String>(){{
+        add("Moist");
+        add("Wet");
+    }};
+
     private static ArrayList<String> availableLayers = new ArrayList<String>(){{
         add("Slipperiness");
         add("Hazardous");
@@ -128,7 +133,13 @@ public class SettingsFragment extends Fragment  implements CheckBox.OnCheckedCha
             Set<String> settingsSet = new HashSet<>();
             Log.d(TAG, "initDefaultSettingsIfNonExists: settings do not exist");
             for(String layer : availableLayers){
-                String saveString = buildSaveString(layer, "1", "20");
+                String saveString;
+                if(!defaultDisabledLayers.contains(layer)) {
+                    saveString = buildSaveString(layer, "1", "20");
+                }
+                else {
+                    saveString = buildSaveString(layer, "0", "20");
+                }
                 settingsSet.add(saveString);
             }
             StorageManager.saveSettings(settingsSet);

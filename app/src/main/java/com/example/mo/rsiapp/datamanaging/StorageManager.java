@@ -21,6 +21,7 @@ public class StorageManager {
     public static final String NOTIFICATIONS_ENABLED_KEY =  "notifications";
     public static final String RSI_KEY_KEY =  "rsi_key";
     public static final String FAVORITE_AREA_KEY =  "favorite_area";
+    public static final String COUNTRY_KEY =  "country_key";
     public static final String TAG =  "StorageManager";
 
     public static final String PREF_NAME =  "areasData";
@@ -35,6 +36,15 @@ public class StorageManager {
     public static void setFavoriteArea(String areaID){
         saveString(FAVORITE_AREA_KEY, areaID);
         NavActivity.navActivity.updateNavItemsFavorite(areaID);
+    }
+
+
+    public static String getCountry(Context context){
+        return getString(COUNTRY_KEY, context);
+    }
+
+    public static void setCountry(String country) {
+        saveString(COUNTRY_KEY, country);
     }
 
     public static String getFavoriteArea(){

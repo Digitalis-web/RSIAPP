@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.mo.rsiapp.datamanaging.FetchingManager;
 
@@ -19,6 +20,7 @@ public class Alarm extends BroadcastReceiver
     public static Context currentAlarmContext = null;
     public static boolean notificationWithSoundSent;
     public static final int ALARM_INTERVAL = 1000*60*30; // 30 minutes
+    //public static final int ALARM_INTERVAL = 1000*60; // 1 minutes
 
     @Override
     public void onReceive(Context context, Intent intent)
@@ -31,7 +33,7 @@ public class Alarm extends BroadcastReceiver
         wl.acquire();
 
 
-        //Toast.makeText(context, "Alarm !!!!!!!!!!", Toast.LENGTH_LONG).show(); // For example
+        Toast.makeText(context, "Alarm !!!!!!!!!!", Toast.LENGTH_LONG).show(); // For example
         FetchingManager.fetchAndControlData(context);
 
         wl.release();

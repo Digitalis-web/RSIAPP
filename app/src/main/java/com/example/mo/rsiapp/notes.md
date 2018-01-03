@@ -18,7 +18,7 @@
     temperatur sidan och tvärtom för att komma till väglag från temperatur.
 
 ### Done
--[x] notis inställningarna ska vara på 20% från början.
+-[x] Notis inställningarna ska vara på 20% från början.
 -[x] Visa tid när senaste prognosen beräknades
 -[x] Favorit området dyker inte altid upp när man startar appen.
 -[x] Lägga till rsi loggan på olika ställen

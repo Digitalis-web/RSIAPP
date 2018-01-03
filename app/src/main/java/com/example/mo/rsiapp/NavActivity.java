@@ -74,12 +74,15 @@ public class NavActivity extends AppCompatActivity
         searchBar = (InstantAutoComplete) findViewById(R.id.search_area);
 
         DisplayInfoManager.initData();
+        FetchingManager.setCurrentIp(this);
 
         //StorageManager.clearWatchedAreas();
         //StorageManager.clearRSIKey();
 
         Notifications.initNotificationsChannel(this);
 
+        //Log.d(TAG, "onCreate: " + StorageManager.getLastControlledForecastTime(this));
+        //StorageManager.setLastControlledForecastTime(0, this);
         //StorageManager.clearSettings();
         SettingsFragment.initDefaultSettingsIfNonExists(); // inits default settings if there are no settings
 

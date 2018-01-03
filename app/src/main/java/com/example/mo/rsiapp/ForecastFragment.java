@@ -50,7 +50,6 @@ public class ForecastFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private static final String ARG_PARAM3 = "param3";
     //private static final String ARG_PARAM2 = "param2";
 
     private static final String TAG = "Forecast";
@@ -58,6 +57,10 @@ public class ForecastFragment extends Fragment {
     public static Forecast viewedForecast;
     private View inflatedView;
 
+
+    public static final String chartOneLabel = "Nu";
+    public static final String chartTwoLabel = "Om 4h";
+    public static final String chartThreeLabel = "Om 8h";
 
     LinearLayout chartOneContainer;
     LinearLayout chartTwoContainer;
@@ -216,9 +219,9 @@ public class ForecastFragment extends Fragment {
 
     public void updateRoadConditionCharts(String category) {
         removeAllCharts();
-        chartOneContainer = addPieChart(FetchingManager.chartOneTimeLabel);
-        chartTwoContainer = addPieChart(FetchingManager.chartTwoTimeLabel);
-        chartThreeContainer = addPieChart(FetchingManager.chartThreeTimeLabel);
+        chartOneContainer = addPieChart(chartOneLabel);
+        chartTwoContainer = addPieChart(chartTwoLabel);
+        chartThreeContainer = addPieChart(chartThreeLabel);
     }
 
     public void updateTemperatureCharts(String category) {

@@ -23,13 +23,17 @@ import java.util.TimeZone;
 
 public class FetchingManager {
     ///public static final String SERVER_IP = "64.147.114.20";
-    public static final String SERVER_IP = "163.172.101.14";
+    public static final String SWEDEN_IP = "163.172.101.14";
     public static final String VERIFY_KEY_IP = "146.185.150.217";
+    public static final String NORWAY_IP = "http://51.15.73.105:8000/";
 
-    private static String url = "http://163.172.101.14:8000/api/ogJu1VCu09HpHD6VbHX34jChdoKz2fR5/area/1427@1497772800";
+    public static String currentIp = SWEDEN_IP;
+
+    //private static String url = "http://163.172.101.14:8000/api/ogJu1VCu09HpHD6VbHX34jChdoKz2fR5/area/1427@1497772800";
     //private static String forecastUrl = "http://163.172.101.14:8000/api/ogJu1VCu09HpHD6VbHX34jChdoKz2fR5/area/";
-    private static String forecastUrl = "http://" + SERVER_IP + "/api/area/";
-    private static String areasUrl = "http://" + SERVER_IP + "/api//forecasts";
+    //private static String forecastUrl = "http://" + SERVER_IP + "/api/area/";
+    //private static String areasUrl = "http://" + SERVER_IP + "/api//forecasts";
+
     private static String TAG = "FetchingManager";
     public static ArrayList<String> areasName = new ArrayList<>();
     public static ArrayList<String> areasID = new ArrayList<>();
@@ -46,17 +50,36 @@ public class FetchingManager {
 
 
     public static void fetchAreas(int fetchMode) {
+        String areasUrl = getAreasUrl();
         clearOldData();
         JSONFetcher JF = new JSONFetcher(fetchMode);
         JF.execute(areasUrl);
     }
 
     public static void fetchForecast(String areaID, long time, int fetchMode) {
+        String forecastUrl = getForecastUrl();
         clearOldData();
         String url = forecastUrl + areaID + "@" + time;
         Log.d(TAG, "fetchAndControlData: fetching data from : " + url);
         JSONFetcher JF = new JSONFetcher(fetchMode);
         JF.execute(url);
+    }
+
+    public static String getForecastUrl(){
+        return "http://" + currentIp + "/api/area/";
+    }
+
+    public static String getAreasUrl(){
+        return "http://" + currentIp + "/api//forecasts";
+    }
+
+    public static void setCurrentIp(Context context){
+        if(StorageManager.getCountry(context).equals("norway")){
+            currentIp = NORWAY_IP;
+        }
+        else {
+            currentIp = SWEDEN_IP;
+        }
     }
 
     public static void parseAreasData(JSONObject data, boolean updateUI) {
@@ -193,6 +216,7 @@ public class FetchingManager {
     public static void fetchAndControlData(Context context) {
         Log.d(TAG, "fetchAndControlData: running");
         if (StorageManager.getNotificationsEnabled(context)) {
+            setCurrentIp(context);
             Log.d(TAG, "fetchAndControlData: notifications are enabled");
             fetchAreas(JSONFetcher.FETCH_AREAS_IN_BACKGROUND);
         }
