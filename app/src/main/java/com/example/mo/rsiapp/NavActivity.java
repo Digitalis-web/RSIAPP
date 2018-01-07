@@ -44,6 +44,7 @@ public class NavActivity extends AppCompatActivity
     private DrawerLayout navDrawer;
 
     public static boolean favoriteForecastOpened = false;
+    public static boolean openedFromNotification = false;
     ArrayList<NavAreaItem> navAreaItems = new ArrayList<>();
 
     @Override
@@ -94,7 +95,8 @@ public class NavActivity extends AppCompatActivity
             FetchingManager.latestForecastTime = forecastTime;
             FetchingManager.fetchForecast(areaID, forecastTime, JSONFetcher.FETCH_FORECAST);
             openLoadingScreen();
-            favoriteForecastOpened = true; // stops favorite forecast from being opened
+            openedFromNotification = true;
+            //favoriteForecastOpened = true; // stops favorite forecast from being opened
         } else {
             Alarm.setAlarm(this); // starts the background task
         }
@@ -126,8 +128,10 @@ public class NavActivity extends AppCompatActivity
             openStartPage();
         } else {
             if (FetchingManager.latestForecastTime != 0) { // if this is 0, it means the latestforecast time still hasn't been fetched from the server
-                favoriteForecastOpened = false;
-                viewFavoriteForecast();
+                if(!openedFromNotification) {
+                    favoriteForecastOpened = false;
+                    viewFavoriteForecast();
+                }
             }
         }
     }

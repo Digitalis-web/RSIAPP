@@ -10,7 +10,7 @@
     Om man stöter på problem eller vill ge feedback maila oliver.gustavssons@gmail.com
 -[ ] Tillbaka knapp för alla sidor
 -[ ] Lägga till Norges områden (Norges områden ska bara komma upp om man andvänder en norsk Rsi-nyckel)
--[ ] lägga till texten nu om 4h och om 8h istället för tid.
+-[x] lägga till texten nu om 4h och om 8h istället för tid.
 -[ ] Lägga till tiden i högsta vänstra hörnet.
 -[ ] Uppdatera tiden för senaste prognos om man haft appen uppe länge
 -[ ] Sätt in en tillbaka pil i intsällningarna `Dropbox\_Digital peguin solutions\_Kunder\_Current\RSI\_App\_exports\5.0\settings`
