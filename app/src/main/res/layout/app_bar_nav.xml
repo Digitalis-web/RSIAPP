@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context="com.example.mo.rsiapp.NavActivity"
+    tools:context="com.roadstatusinfo.mo.rsiapp.NavActivity"
     android:background="@color/colorLightBlue"
     >
 
@@ -25,7 +25,7 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <com.example.mo.rsiapp.customviews.InstantAutoComplete
+            <com.roadstatusinfo.mo.rsiapp.customviews.InstantAutoComplete
                 android:id="@+id/search_area"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

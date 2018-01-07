@@ -5,7 +5,7 @@
     android:background="@color/colorLightBlue"
     android:orientation="vertical"
     android:weightSum="4"
-    tools:context="com.example.mo.rsiapp.StartPageFragment">
+    tools:context="com.roadstatusinfo.mo.rsiapp.StartPageFragment">
 
     <LinearLayout
         android:layout_width="wrap_content"

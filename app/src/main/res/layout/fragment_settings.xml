@@ -5,7 +5,7 @@
     android:background="@color/colorWhite"
     android:orientation="vertical"
     android:paddingTop="@dimen/container_spacing"
-    tools:context="com.example.mo.rsiapp.ForecastFragment">
+    tools:context="com.roadstatusinfo.mo.rsiapp.ForecastFragment">
 
     <ScrollView
         android:layout_width="match_parent"

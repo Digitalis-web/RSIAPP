@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            tools:context="com.example.mo.rsiapp.ForecastFragment">
+            tools:context="com.roadstatusinfo.mo.rsiapp.ForecastFragment">
 
             <LinearLayout
                 android:id="@+id/forecast_layout"
@@ -48,7 +48,7 @@
                     android:textSize="18sp" />
             </LinearLayout>
 
-            <com.example.mo.rsiapp.customviews.WatchAreaButton
+            <com.roadstatusinfo.mo.rsiapp.customviews.WatchAreaButton
                 android:id="@+id/watch_area_button"
                 style="@style/ForecastButton"
                 android:layout_width="match_parent"

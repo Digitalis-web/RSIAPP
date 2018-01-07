@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.example.mo.rsiapp.ForecastFragment">
+    tools:context="com.roadstatusinfo.mo.rsiapp.ForecastFragment">
 
     <TextView
         android:id="@+id/textHeader"

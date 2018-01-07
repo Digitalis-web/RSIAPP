@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorLightBlue"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.mo.rsiapp.NavActivity"
+    tools:context="com.roadstatusinfo.mo.rsiapp.NavActivity"
     tools:showIn="@layout/app_bar_nav">
 
 

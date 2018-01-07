@@ -9,7 +9,7 @@
     android:background="@color/colorWhite"
     android:orientation="vertical"
     android:windowSoftInputMode="adjustResize"
-    tools:context="com.example.mo.rsiapp.LoginFragment">
+    tools:context="com.roadstatusinfo.mo.rsiapp.LoginFragment">
 
 
     <TextView

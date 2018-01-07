@@ -4,10 +4,10 @@ android {
     compileSdkVersion 26
     buildToolsVersion '26.0.0'
     defaultConfig {
-        applicationId "com.example.mo.rsiapp"
+        applicationId "com.roadstatusinfo.mo.rsiapp"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 1
+        versionCode 3
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
