@@ -4,6 +4,10 @@
 
 [**Info Areas**](http://163.172.101.14:8000/api//area/1427@1497772800)
 
+## Buggs
+-[ ] Appen krachar när man väljer ett norge område
+-[ ] När appen krachar från norska områden så kan man se svenska områden och drata därifrån utan att ha loggat in.
+
 ## To do
 -[ ] Lägga till ett litet frågetecken vid "Notifikationer" på inställningar som förklarar hur notiserna funkar
 -[ ] Lägga till en popup när man startar appen att detta är en beta version och alting kanske inte fungerar felfritt
@@ -11,8 +15,8 @@
 -[ ] Tillbaka knapp för alla sidor
 -[ ] Lägga till tiden i högsta vänstra hörnet.
 -[ ] Sätt in en tillbaka pil i intsällningarna `Dropbox\_Digital peguin solutions\_Kunder\_Current\RSI\_App\_exports\5.0\settings`
--[ ] kunna dra från höger till mitten pp väglag sidan för att kunna navigera till 
-    temperatur sidan och tvärtom för att komma till väglag från temperatur.
+-[ ] kunna dra från höger till mitten på väglag sidan för att kunna navigera till 
+    temperatur sidan och tvärtom för att komma till väglag från temperatur.    
 
 ### Done
 -[x] Uppdatera tiden för senaste prognos om man haft appen uppe länge
