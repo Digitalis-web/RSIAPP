@@ -46,6 +46,17 @@
                     android:textAlignment="center"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/forecast_update"
+                    android:text="@string/fetch_latest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/container_spacing"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlue"
+                    android:textSize="18sp" />
+
             </LinearLayout>
 
             <com.roadstatusinfo.mo.rsiapp.customviews.WatchAreaButton

@@ -28,6 +28,7 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.roadstatusinfo.mo.rsiapp.datamanaging.JSONFetcher;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,7 +57,6 @@ public class ForecastFragment extends Fragment {
 
     public static Forecast viewedForecast;
     private View inflatedView;
-
 
     public static final String chartOneLabel = "Nu";
     public static final String chartTwoLabel = "Om 4h";
@@ -97,11 +97,10 @@ public class ForecastFragment extends Fragment {
      * @return A new instance of fragment ForecastFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ForecastFragment newInstance(String areaID, int routeLength) {
+    public static ForecastFragment newInstance(String areaID) {
         ForecastFragment fragment = new ForecastFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, areaID);
-        args.putInt(ARG_PARAM2, routeLength);
         //args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
@@ -112,7 +111,6 @@ public class ForecastFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             areaID = getArguments().getString(ARG_PARAM1);
-            routeLength = getArguments().getInt(ARG_PARAM2);
             //mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -141,6 +139,7 @@ public class ForecastFragment extends Fragment {
         View inflatedView = inflater.inflate(R.layout.fragment_forecast, container, false);
 
         this.inflatedView = inflatedView;
+        this.routeLength = viewedForecast.getTotalLengthForRoute(0);
         initComponents();
         findAvailableCategories();
 
@@ -269,7 +268,6 @@ public class ForecastFragment extends Fragment {
     public void initComponents() {
         forecastLayout = inflatedView.findViewById(R.id.forecast_layout);
 
-
         if (viewedForecast == null || viewedForecast.categories == null) {
             NavActivity.navActivity.displayConnectError();
             NavActivity.openLoadingScreen();
@@ -277,6 +275,15 @@ public class ForecastFragment extends Fragment {
         }
 
         setForecastTimeLabel();
+
+        TextView updateText = inflatedView.findViewById(R.id.forecast_update);
+        updateText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavActivity.openLoadingScreen();
+                FetchingManager.fetchAreas(JSONFetcher.FETCH_AREAS_AND_REOPEN_FORECAST);
+            }
+        });
 /*        chartOne = inflatedView.findViewById(R.id.piChartOne);
         chartTwo = inflatedView.findViewById(R.id.piChartTwo);
         chartThree = inflatedView.findViewById(R.id.piChartThree);*/
@@ -436,7 +443,7 @@ public class ForecastFragment extends Fragment {
 
         removeAllInfoListItems(infoLayout);
 
-        int totalLength = this.routeLength;
+        int totalLength = routeLength;
 
         long temperatureMin = -1;
         long temperatureMax = -1;
@@ -449,14 +456,23 @@ public class ForecastFragment extends Fragment {
             Log.d(TAG, "addDataSet: key : " + key);*/
             if (category.equals("roadcondition")) {
                 if (value > 0) {
-                    int percent = (int) Math.round((value * 1.0 / routeLength * 100));
+                    double percent = (int)(((value * 1.0) / routeLength)*100*10);
+                    Log.d(TAG, "addDataSet: percent + " + percent);
+                    percent /= 10;
 
                     Log.d(TAG, "addDataSet: percent" + percent);
                     yEntries.add(new PieEntry(value, i));
                     //xEntries.add(key);
                     int color = Integer.parseInt(DisplayInfoManager.getRoadConditionInfoByName(key, "color"));
                     String label = DisplayInfoManager.getRoadConditionInfoByName(key, "label");
-                    label = percent + "% " + label;
+
+                    String percentStr = String.valueOf(percent);
+
+                    if(percent >= 1) {
+                        percentStr = String.valueOf(Math.round(percent));
+                    }
+
+                    label = percentStr + "% " + label;
                     //int color = Color.parseColor(hexColor);
                     colors.add(color);
                     addInfoListItem(label, color, infoLayout);

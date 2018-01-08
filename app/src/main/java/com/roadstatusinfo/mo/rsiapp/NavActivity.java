@@ -154,11 +154,11 @@ public class NavActivity extends AppCompatActivity
         //Notifications.sendNotification(this);
     }
 
-/*    @Override
+    @Override
     public void onSaveInstanceState(Bundle outState){
         //outState.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
         //super.onSaveInstanceState(outState);
-    }*/
+    }
 
     public void closeNav() {
         navDrawer.closeDrawers();
@@ -280,11 +280,11 @@ public class NavActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public static void openForecast(String areaID, int routeLength, Forecast forecast) {
+    public static void openForecast(String areaID, Forecast forecast) {
         // in case app has closed by user while fetching data in other thread
         try {
             ForecastFragment.viewedForecast = forecast; // passed statically is ok here cause there will only ever be one instance of ForecastFragment at the time
-            ForecastFragment fragment = new ForecastFragment().newInstance(areaID, routeLength);
+            ForecastFragment fragment = new ForecastFragment().newInstance(areaID);
             FragmentManager manager = navActivity.getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.fragment_layout, fragment, fragment.getTag()).commit();
         } catch (IllegalStateException e) {

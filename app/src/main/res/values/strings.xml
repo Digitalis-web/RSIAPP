@@ -47,4 +47,5 @@
     <string name="submit_rsi_Key">Ange din RSI-nyckel</string>
     <string name="change_rsi_key">Ändra nyckel</string>
     <string name="rsi_Key">RSI-Nyckel</string>
+    <string name="fetch_latest">Hämta senaste prognos</string>
 </resources>

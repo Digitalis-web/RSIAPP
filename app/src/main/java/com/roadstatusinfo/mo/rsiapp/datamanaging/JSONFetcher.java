@@ -3,6 +3,8 @@ package com.roadstatusinfo.mo.rsiapp.datamanaging;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.roadstatusinfo.mo.rsiapp.ForecastFragment;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,6 +29,7 @@ public class JSONFetcher extends AsyncTask<String, Void, JSONObject> {
     public static final short FETCH_AREAS = 1;
     public static final short FETCH_AREAS_IN_BACKGROUND = 2;
     public static final short FETCH_FORECAST_IN_BACKGROUND = 3;
+    public static final short FETCH_AREAS_AND_REOPEN_FORECAST = 4;
 
 
     public JSONFetcher(int fetchMode){
@@ -94,11 +97,14 @@ public class JSONFetcher extends AsyncTask<String, Void, JSONObject> {
             Forecast forecast = new Forecast();
             forecast.parseData(result, true);
         }
+        else if (fetchMode == FETCH_AREAS_AND_REOPEN_FORECAST) {
+            FetchingManager.parseAreasData(result, true, ForecastFragment.viewedForecast.areaID);
+        }
         else if (fetchMode == FETCH_AREAS) {
-            FetchingManager.parseAreasData(result, true);
+            FetchingManager.parseAreasData(result, true, "");
         }
         else if (fetchMode == FETCH_AREAS_IN_BACKGROUND) {
-            FetchingManager.parseAreasData(result, false);
+            FetchingManager.parseAreasData(result, false, "");
         }
         else if (fetchMode == FETCH_FORECAST_IN_BACKGROUND) {
             //FetchingManager.parseForecastData(result, false);

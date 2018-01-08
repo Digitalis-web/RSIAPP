@@ -314,7 +314,7 @@ public class Forecast {
                 Log.d(TAG, "parseForecastData: data finns");
                 //String d = data.get("data").toString();
 
-                routeLength = getTotalLengthForRoute(0);
+                //routeLength = getTotalLengthForRoute(0);
 
                 ArrayList<JSONObject> routeData = getAllDataByRouteID(data, 0); // picks out the relevant data
                 categories = findAllCategories(routeData);
@@ -343,7 +343,7 @@ public class Forecast {
         FetchingManager.closestHourTime = FetchingManager.getClosestHourTime();
 
         if(updateUI) {
-            NavActivity.openForecast(areaID, routeLength, this);
+            NavActivity.openForecast(areaID, this);
         } else {
             controlData();
             Log.d(TAG, "parseData: controlling data");

@@ -82,7 +82,7 @@ public class FetchingManager {
         }
     }
 
-    public static void parseAreasData(JSONObject data, boolean updateUI) {
+    public static void parseAreasData(JSONObject data, boolean updateUI, String openForecastArea) {
         //Log.d(TAG, "parseAreasData: " + data.toString());
         if (data != null) { // if no data was fetched
             areasID.clear();
@@ -113,8 +113,13 @@ public class FetchingManager {
                 NavActivity.navActivity.updateNavItems();
                 NavActivity.searchBar.updateList(areasName);
 
-                if (!NavActivity.favoriteForecastOpened) {
-                    NavActivity.navActivity.viewFavoriteForecast();
+                if(openForecastArea.equals("")) {
+                    if (!NavActivity.favoriteForecastOpened) {
+                        NavActivity.navActivity.viewFavoriteForecast();
+                    }
+                }
+                else {
+                    fetchForecast(openForecastArea, latestForecastTime, JSONFetcher.FETCH_FORECAST);
                 }
             } else {
                 checkForNewForecast();
@@ -190,21 +195,15 @@ public class FetchingManager {
 
     // checks if there is new forecast available and fetches the new forecast if there is a new one available
     public static void checkForNewForecast() {
-        Log.d(TAG, "-----------------");
-        Log.d(TAG, "checkifnew1: " + latestForecastTime);
 
         long lastControlledTime = StorageManager.getLastControlledForecastTime(Alarm.currentAlarmContext);
-        Log.d(TAG, "checkifnew2: " + lastControlledTime);
 
         // if there is a new forecast to be controlled
         if (lastControlledTime != latestForecastTime) {
             //if (true) { // tmp
             Set<String> watchedAreas = StorageManager.getWatchedAreas(Alarm.currentAlarmContext);
-            Log.d(TAG, "checkForNewForecast: control:  " + watchedAreas.toString());
             for (String area : watchedAreas) {
-                Log.d(TAG, "fetchAndControlData: area: " + area);
                 fetchForecast(area, latestForecastTime, JSONFetcher.FETCH_FORECAST_IN_BACKGROUND);
-
             }
             StorageManager.setLastControlledForecastTime(latestForecastTime, Alarm.currentAlarmContext);
         } else {
