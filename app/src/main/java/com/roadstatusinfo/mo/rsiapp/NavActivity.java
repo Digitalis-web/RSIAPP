@@ -335,7 +335,12 @@ public class NavActivity extends AppCompatActivity
     }
 
     public void launchRSI(View view) {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.roadstatus.info/app"));
+        String URL = "http://www.roadstatus.info/app";
+
+        if(StorageManager.getCountry(this).equals("norway")){
+            URL = "http://www.roadstatus.info/norway";
+        }
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL));
         startActivity(browserIntent);
     }
 

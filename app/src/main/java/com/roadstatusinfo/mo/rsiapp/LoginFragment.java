@@ -121,8 +121,8 @@ public class LoginFragment extends Fragment {
     }
 
     public void loginClicked() {
-        //String key = String.valueOf(inputField.getText());
-        String key = ("ogJu1VCu09HpHD6VbHX34jChdoKz2fR5");
+        String key = String.valueOf(inputField.getText());
+        //String key = ("ogJu1VCu09HpHD6VbHX34jChdoKz2fR5");
         //Log.d(TAG, "loginClicked: " + key);
 
         if(!key.isEmpty()) {

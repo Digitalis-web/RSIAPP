@@ -84,10 +84,26 @@ public class KeyVerifier extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result){
-        boolean keyVerified = result.contains("true");
+        boolean swedenVersion = result.contains("sweden");
+        boolean norwayVersion = result.contains("norway");
+
+        boolean keyVerified = swedenVersion || norwayVersion;
 
         if(keyVerified){
             StorageManager.saveNotificationsEnabled(true);
+            String oldCountry = StorageManager.getCountry(NavActivity.navActivity);
+            if(norwayVersion) {
+                StorageManager.setCountry("norway");
+            }
+            else {
+                StorageManager.setCountry("sweden");
+            }
+
+            if(!oldCountry.equals(StorageManager.getCountry(NavActivity.navActivity))){ // if country changed
+                StorageManager.clearWatchedAreas();
+                StorageManager.setAnyFavoriteArea();
+                FetchingManager.setCurrentIp(NavActivity.navActivity);
+            }
         }
         else {
             StorageManager.saveNotificationsEnabled(false);

@@ -25,7 +25,7 @@ public class FetchingManager {
     ///public static final String SERVER_IP = "64.147.114.20";
     public static final String SWEDEN_IP = "163.172.101.14";
     public static final String VERIFY_KEY_IP = "146.185.150.217";
-    public static final String NORWAY_IP = "http://51.15.73.105:8000/";
+    public static final String NORWAY_IP = "51.15.73.105:8000";
 
     public static String currentIp = SWEDEN_IP;
 
