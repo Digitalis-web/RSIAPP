@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://C:\Users\prins\Qsync\Oliver\_DPS\Appar\rsi_app_android\RSIAPP.iml" filepath="C:\Users\prins\Qsync\Oliver\_DPS\Appar\rsi_app_android\RSIAPP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RSIAPP.iml" filepath="$PROJECT_DIR$/RSIAPP.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/rsi_app_android.iml" filepath="$PROJECT_DIR$/rsi_app_android.iml" />
     </modules>
