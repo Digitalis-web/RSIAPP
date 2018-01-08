@@ -56,7 +56,6 @@
                     android:textAlignment="center"
                     android:textColor="@color/colorBlack"
                     android:textSize="18sp" />
-
             </LinearLayout>
 
             <com.roadstatusinfo.mo.rsiapp.customviews.WatchAreaButton
