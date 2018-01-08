@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/container_spacing"
                     android:textAlignment="center"
-                    android:textColor="@color/colorBlue"
+                    android:textColor="@color/colorBlack"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -66,14 +66,26 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/driven_by"
+                android:textSize="22sp"
+                android:textStyle="italic"
+                android:textAlignment="center"
+                android:textColor="@color/colorBlack"
+                />
+
             <ImageView
                 android:layout_marginBottom="100dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:scaleType="center"
                 android:src="@drawable/ic_rsi_snowflake" />
+
 
         </LinearLayout>
 

@@ -48,4 +48,5 @@
     <string name="change_rsi_key">Ändra nyckel</string>
     <string name="rsi_Key">RSI-Nyckel</string>
     <string name="fetch_latest">Hämta senaste prognos</string>
+    <string name="notify_if">Notifiera mig om:</string>
 </resources>

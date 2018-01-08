@@ -99,6 +99,16 @@
                 android:text="@string/enable_notifications"
                 android:textSize="22sp" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/container_spacing"
+                android:layout_marginRight="@dimen/container_spacing"
+                android:layout_marginTop="5dp"
+                android:text="@string/notify_if"
+                android:textColor="@color/colorBlack"
+                android:textSize="22sp" />
+
             <LinearLayout
                 android:id="@+id/categories_settings_view"
                 android:layout_width="match_parent"

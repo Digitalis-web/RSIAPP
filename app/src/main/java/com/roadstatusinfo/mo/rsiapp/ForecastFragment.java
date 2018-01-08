@@ -457,25 +457,27 @@ public class ForecastFragment extends Fragment {
             if (category.equals("roadcondition")) {
                 if (value > 0) {
                     double percent = (int)(((value * 1.0) / routeLength)*100*10);
-                    Log.d(TAG, "addDataSet: percent + " + percent);
-                    percent /= 10;
+                    if(percent > 0) {
+                        Log.d(TAG, "addDataSet: percent + " + percent);
+                        percent /= 10;
 
-                    Log.d(TAG, "addDataSet: percent" + percent);
-                    yEntries.add(new PieEntry(value, i));
-                    //xEntries.add(key);
-                    int color = Integer.parseInt(DisplayInfoManager.getRoadConditionInfoByName(key, "color"));
-                    String label = DisplayInfoManager.getRoadConditionInfoByName(key, "label");
+                        Log.d(TAG, "addDataSet: percent" + percent);
+                        yEntries.add(new PieEntry(value, i));
+                        //xEntries.add(key);
+                        int color = Integer.parseInt(DisplayInfoManager.getRoadConditionInfoByName(key, "color"));
+                        String label = DisplayInfoManager.getRoadConditionInfoByName(key, "label");
 
-                    String percentStr = String.valueOf(percent);
+                        String percentStr = String.valueOf(percent);
 
-                    if(percent >= 1) {
-                        percentStr = String.valueOf(Math.round(percent));
+                        if (percent >= 1) {
+                            percentStr = String.valueOf(Math.round(percent));
+                        }
+
+                        label = percentStr + "% " + label;
+                        //int color = Color.parseColor(hexColor);
+                        colors.add(color);
+                        addInfoListItem(label, color, infoLayout);
                     }
-
-                    label = percentStr + "% " + label;
-                    //int color = Color.parseColor(hexColor);
-                    colors.add(color);
-                    addInfoListItem(label, color, infoLayout);
                 }
             } else if (category.equals("roadtreatment")) {
                 // Juding from current application, the "Plough" layer is always 0 and is hidden
