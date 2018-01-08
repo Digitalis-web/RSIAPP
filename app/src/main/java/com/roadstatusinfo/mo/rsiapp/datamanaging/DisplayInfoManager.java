@@ -65,7 +65,9 @@ public class DisplayInfoManager {
             }
         }
 
-        return "";
+
+        String backup = String.valueOf(ResourcesCompat.getColor(NavActivity.navActivity.getResources(), R.color.colorDry, null));
+        return backup;
     }
 
     public static String getLayerLabel(String name){

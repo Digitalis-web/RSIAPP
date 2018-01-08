@@ -457,8 +457,8 @@ public class ForecastFragment extends Fragment {
             if (category.equals("roadcondition")) {
                 if (value > 0) {
                     if(!key.equals("Error")){
-                        double percent = (int)(((value * 1.0) / routeLength)*100*10);
-                        if(percent > 0) {
+                        double percent = (int) (((value * 1.0) / routeLength) * 100 * 10);
+                        if (percent > 0) {
                             Log.d(TAG, "addDataSet: percent + " + percent);
                             percent /= 10;
 
